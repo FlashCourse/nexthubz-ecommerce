@@ -25,7 +25,7 @@
                                     <input type="number" min="1" wire:model="cartItems.{{ $item['id'] }}.quantity" class="w-12 px-2 py-1 border rounded-md text-center">
                                     <span class="ml-2 text-gray-500">Qty</span>
                                 </div>
-                                <p class="text-indigo-500 font-bold">${{ $item['price'] }}</p>
+                                <p class="text-indigo-500 font-bold"><span class="text-lg font-extrabold">&#2547;</span>{{ $item['price'] }}</p>
                             </div>
                         </div>
                     </div>

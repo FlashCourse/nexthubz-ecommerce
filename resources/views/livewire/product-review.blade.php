@@ -8,11 +8,11 @@
         </div>
         <div class="mb-2">
             <label for="comment" class="block font-semibold">Comment:</label>
-            <textarea wire:model="comment" id="comment" rows="3" class="w-full focus:ring-green-500 focus:border-green-500 px-3 py-2 border border-gray-300 rounded"></textarea>
+            <textarea wire:model="comment" id="comment" rows="3" class="w-full focus:ring-orange-500 focus:border-orange-500 px-3 py-2 border border-gray-300 rounded"></textarea>
         </div>
         <div>
             @auth
-            <button type="submit" class="px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600">
+            <button type="submit" class="px-4 py-2 font-semibold text-white bg-orange-500 rounded hover:bg-orange-600">
                 @if ($userReview)
                     Update Review
                 @else
@@ -20,7 +20,7 @@
                 @endif
             </button>
             @else
-            <a class="px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600" href="{{route('login')}}">Login to add review</a>
+            <a class="px-4 py-2 font-semibold text-white bg-orange-500 rounded hover:bg-orange-600" href="{{route('login')}}">Login to add review</a>
             @endauth
         </div>
     </form>

@@ -8,7 +8,7 @@
 
     <div wire:loading class="fixed">
         <div class="fixed top-0 left-0 w-full h-full flex items-center  justify-center z-50">
-            <i class="fas fa-spinner fa-3x text-green-500 animate-spin"></i>
+            <i class="fas fa-spinner fa-3x text-orange-500 animate-spin"></i>
         </div>
     </div>
 
@@ -31,13 +31,13 @@
                                 </div>
                                 <div>
                                     <p class="text-lg font-semibold">{{ $item['name'] }}</p>
-                                    <p class="text-sm">${{ $item['price'] }} x {{ $item['quantity'] }} =
-                                        ${{ $item['price'] * $item['quantity'] }}</p>
+                                    <p class="text-sm"><span class="text-md font-extrabold">&#2547; </span>{{ $item['price'] }} x {{ $item['quantity'] }} =
+                                        <span class="text-md font-extrabold">&#2547; </span>{{ $item['price'] * $item['quantity'] }}</p>
                                 </div>
                             </div>
                             <div class="flex space-x-2">
                                 <button wire:click="increaseQuantity({{ $productId }})"
-                                    class="px-3 py-1 text-white bg-green-500 rounded hover:bg-green-600">+</button>
+                                    class="px-3 py-1 text-white bg-orange-500 rounded hover:bg-orange-600">+</button>
                                 <button wire:click="decreaseQuantity({{ $productId }})"
                                     class="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600">-</button>
                                 <button wire:click="removeFromCart({{ $productId }})"
@@ -52,8 +52,10 @@
 
             <div class="flex justify-center text-center p-4">
                 <a href="{{ $totalPrice > 0 ? route('checkout') : '#' }}"
-                    class="bg-green-800 left-2 right-2 text-white absolute bottom-2 hover:bg-green-900 font-bold py-2 px-4 rounded">
-                    Checkout{{ $totalPrice > 0 ? ' (Total $' . $totalPrice . ')' : '' }}
+                    class="bg-orange-800 left-2 right-2 text-white absolute bottom-2 hover:bg-orange-900 font-bold py-2 px-4 rounded">
+                    <span class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
+
+
                 </a>
             </div>
         </div>

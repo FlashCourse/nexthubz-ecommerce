@@ -1,9 +1,9 @@
-<section class="py-28 bg-green-800 text-white">
+<section class="py-20 bg-secondary text-white">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-semibold mb-6">Why Choose Us</h2>
+        <h2 class="text-3xl font-semibold text-center mb-6">Why Choose Us</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="flex items-center p-6 ">
-                <div class="mr-4 bg-green-500 text-white rounded-full p-3">
+                <div class="mr-4 bg-orange-500 text-white rounded-full p-3">
                     <i class="fas fa-truck text-3xl"></i>
                 </div>
                 <div>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="flex items-center p-6 ">
-                <div class="mr-4 bg-green-500 text-white rounded-full p-3">
+                <div class="mr-4 bg-orange-500 text-white rounded-full p-3">
                     <i class="fas fa-hand-holding-heart text-3xl"></i>
                 </div>
                 <div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="flex items-center p-6 ">
-                <div class="mr-4 bg-green-500 text-white rounded-full p-3">
+                <div class="mr-4 bg-orange-500 text-white rounded-full p-3">
                     <i class="fas fa-shield-alt text-3xl"></i>
                 </div>
                 <div>

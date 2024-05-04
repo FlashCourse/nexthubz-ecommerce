@@ -2,27 +2,27 @@
 <x-app-layout>
     <div class="flex max-w-7xl mx-auto px-4  py-12 flex-col md:flex-row">
         <!-- Sidebar -->
-        <div class="bg-green-100 text-gray-800 w-full md:w-64 flex-shrink-0">
+        <div class="bg-orange-100 text-gray-800 w-full md:w-64 flex-shrink-0">
             <div class="p-4">
                 <ul class="space-y-2">
                     <li>
                         <a href="{{ route('user.dashboard') }}"
                            class="block py-2 px-4 rounded
-                                  {{ request()->routeIs('user.dashboard') ? 'bg-green-700 text-white' : 'hover:bg-green-200 ' }}">
+                                  {{ request()->routeIs('user.dashboard') ? 'bg-orange-700 text-white' : 'hover:bg-orange-200 ' }}">
                             Dashboard
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user.orders') }}"
                            class="block py-2 px-4 rounded
-                                  {{ request()->routeIs('user.orders') ? 'bg-green-700 text-white' : 'hover:bg-green-200 ' }}">
+                                  {{ request()->routeIs('user.orders') ? 'bg-orange-700 text-white' : 'hover:bg-orange-200 ' }}">
                             Orders
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('profile.show') }}"
                            class="block py-2 px-4 rounded
-                                  {{ request()->routeIs('profile.show') ? 'bg-green-700 text-white' : 'hover:bg-green-200 ' }}">
+                                  {{ request()->routeIs('profile.show') ? 'bg-orange-700 text-white' : 'hover:bg-orange-200 ' }}">
                             Profile
                         </a>
                     </li>

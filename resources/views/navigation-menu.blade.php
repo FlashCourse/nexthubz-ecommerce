@@ -1,12 +1,12 @@
-<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => {isSticky = window.scrollY > 0})" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"  class="sticky top-0 z-30 bg-green-100">
+<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => {isSticky = window.scrollY > 0})" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"  class="sticky top-0 z-30 bg-orange-100">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('home') }}" class="flex items-center text-green-500">
-                        <span class="block w-auto text-green-500 text-2xl"><i class="fa-solid fa-seedling"></i></span>
+                    <a href="{{ route('home') }}" class="flex items-center text-orange-500">
+                        <span class="block w-auto text-orange-500 text-2xl"><i class="fa-solid fa-seedling"></i></span>
                         <span class="font-bold text-2xl">Grocify</span>
                     </a>
                 </div>
@@ -296,7 +296,7 @@
     </div>
 
     <!-- Mobile Bottom Navbar -->
-    <div class="fixed bottom-0 w-full bg-green-800 text-white p-4 md:hidden shadow-2xl">
+    <div class="fixed bottom-0 w-full bg-orange-800 text-white p-4 md:hidden shadow-2xl">
         <ul class="flex justify-between">
             <li>
                 <a href="{{ route('home') }}" class="flex flex-col items-center">

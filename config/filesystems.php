@@ -56,6 +56,13 @@ return [
             'throw' => false,
         ],
 
+        'admin' => [
+            'driver' => 'local',
+            'root' => storage_path('app/admin'), // Adjust the path according to your needs
+            'url' => env('APP_URL').'/storage/admin', // Adjust the URL accordingly
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

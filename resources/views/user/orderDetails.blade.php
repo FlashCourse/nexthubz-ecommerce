@@ -16,43 +16,43 @@
                 <!-- Order Date -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Order Date:</p>
-                    <p class="text-green-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
+                    <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                 </div>
 
                 <!-- Order ID -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Order ID:</p>
-                    <p class="text-green-500 font-bold">{{ $order->id }}</p>
+                    <p class="text-orange-500 font-bold">{{ $order->id }}</p>
                 </div>
 
                 <!-- Order Status -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Order Status:</p>
-                    <p class="text-green-500 font-bold">{{ $order->status }}</p>
+                    <p class="text-orange-500 font-bold">{{ $order->status }}</p>
                 </div>
 
                 <!-- Order Subtotal -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Subtotal:</p>
-                    <p class="text-green-500 font-bold">${{ number_format($order->subtotal, 2) }}</p>
+                    <p class="text-orange-500 font-bold">${{ number_format($order->subtotal, 2) }}</p>
                 </div>
 
                 <!-- Tax -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Tax:</p>
-                    <p class="text-green-500 font-bold">${{ number_format($order->tax, 2) }}</p>
+                    <p class="text-orange-500 font-bold">${{ number_format($order->tax, 2) }}</p>
                 </div>
 
                 <!-- Shipping -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Shipping:</p>
-                    <p class="text-green-500 font-bold">${{ number_format($order->shipping, 2) }}</p>
+                    <p class="text-orange-500 font-bold">${{ number_format($order->shipping, 2) }}</p>
                 </div>
 
                 <!-- Total Price -->
                 <div class="p-6 border-b">
                     <p class="text-gray-600">Total Price:</p>
-                    <p class="text-green-500 font-bold">${{ number_format($order->total, 2) }}</p>
+                    <p class="text-orange-500 font-bold">${{ number_format($order->total, 2) }}</p>
                 </div>
 
             </div>
@@ -80,9 +80,9 @@
                     <li class="flex justify-between py-4">
                         <div>{{ $item->product->name }}</div>
                         <div class="flex items-center">
-                            <div class="text-green-500">${{ number_format($item->price, 2) }}</div>
+                            <div class="text-orange-500">${{ number_format($item->price, 2) }}</div>
                             <div class="text-gray-400 mx-2">x{{ $item->quantity }}</div>
-                            <div class="text-green-500">${{ number_format($item->price * $item->quantity, 2) }}</div>
+                            <div class="text-orange-500">${{ number_format($item->price * $item->quantity, 2) }}</div>
                         </div>
                     </li>
                     @endforeach

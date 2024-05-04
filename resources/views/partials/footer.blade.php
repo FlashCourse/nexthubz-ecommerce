@@ -1,4 +1,4 @@
-<footer class="bg-green-800 px-4 text-white py-12">
+<footer class="bg-secondary px-4 text-white py-12">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-8">
 
@@ -55,9 +55,9 @@
             <h2 class="mb-4 text-2xl font-semibold">Subscribe to Our Newsletter</h2>
             <p class="mb-6 ">Stay updated on the latest arrivals and exclusive offers!</p>
             <form action="#" method="post" class="flex justify-center">
-                <input type="email" name="email" placeholder="Your Email"
-                    class="px-4 py-2 border rounded-l focus:outline-none">
-                <button type="submit" class="px-4 py-2 text-white bg-green-500 rounded-r">Subscribe</button>
+                <x-input type="email" name="email" placeholder="Your Email"
+                    class="px-4 py-2 border rounded-none focus:outline-none" />
+                <button type="submit" class="px-4 py-2 text-white bg-orange-500 rounded-r">Subscribe</button>
             </form>
         </div>
     </div>

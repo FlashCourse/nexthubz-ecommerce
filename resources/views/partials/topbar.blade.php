@@ -1,16 +1,16 @@
-<nav class="bg-green-800 px-4 text-white  z-10">
-    <div class="max-w-7xl mx-auto py-4">
+<nav class="bg-primary px-4 text-white  z-10">
+    <div class="max-w-7xl mx-auto py-2">
         <ul class="flex justify-between">
             <li>
                 <a href="#" class="flex items-center">
                     <i class="fas fa-phone-alt mr-2"></i>
-                    <span class="hidden md:inline">Contact Us</span>
+                    <span class="hidden md:inline">Contact: (+880) 9638000380</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="flex items-center">
                     <i class="fas fa-envelope mr-2"></i>
-                    <span class="hidden md:inline">Email Us</span>
+                    <span class="hidden md:inline">Email: contact@nexthubz.com</span>
                 </a>
             </li>
             <li>

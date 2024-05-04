@@ -5,25 +5,25 @@
             {{-- Pending Orders Card --}}
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="font-semibold text-gray-800 text-lg">Pending Orders</h3>
-                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts['pending'] ?? 0 }}</p>
+                <p class="text-orange-500 text-2xl font-bold mt-2">{{ $orderCounts['pending'] ?? 0 }}</p>
             </div>
 
             {{-- Canceled Orders Card --}}
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="font-semibold text-gray-800 text-lg">Canceled Orders</h3>
-                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts['canceled'] ?? 0 }}</p>
+                <p class="text-orange-500 text-2xl font-bold mt-2">{{ $orderCounts['canceled'] ?? 0 }}</p>
             </div>
 
             {{-- Completed Orders Card --}}
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="font-semibold text-gray-800 text-lg">Completed Orders</h3>
-                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts['completed'] ?? 0 }}</p>
+                <p class="text-orange-500 text-2xl font-bold mt-2">{{ $orderCounts['completed'] ?? 0 }}</p>
             </div>
 
             {{-- Total Orders Card --}}
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="font-semibold text-gray-800 text-lg">Total Orders</h3>
-                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts ? $orderCounts->sum() : 0 }}</p>
+                <p class="text-orange-500 text-2xl font-bold mt-2">{{ $orderCounts ? $orderCounts->sum() : 0 }}</p>
             </div>
 
         </div>
@@ -40,22 +40,22 @@
                 <div class="flex flex-wrap md:flex-no-wrap justify-between items-center">
                     <div class="mb-2 md:mr-6">
                         <p class="text-gray-600">Order Date:</p>
-                        <p class="text-green-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
+                        <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                     </div>
                     <div class="mb-2 md:mr-6">
                         <p class="text-gray-600">Order ID:</p>
-                        <p class="text-green-500 font-bold">{{ $order->id }}</p>
+                        <p class="text-orange-500 font-bold">{{ $order->id }}</p>
                     </div>
                     <div class="mb-2 md:mr-6">
                         <p class="text-gray-600">Status:</p>
-                        <p class="text-green-500 font-bold">{{ $order->status }}</p>
+                        <p class="text-orange-500 font-bold">{{ $order->status }}</p>
                     </div>
                     <div class="mb-2 md:mr-6">
                         <p class="text-gray-600">Total Price:</p>
-                        <p class="text-green-500 font-bold">${{ number_format($order->total, 2) }}</p>
+                        <p class="text-orange-500 font-bold">${{ number_format($order->total, 2) }}</p>
                     </div>
                     <div>
-                        <a href="{{ route('user.order.details', ['order' => $order->id]) }}" class="text-green-500 hover:text-green-700">
+                        <a href="{{ route('user.order.details', ['order' => $order->id]) }}" class="text-orange-500 hover:text-orange-700">
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
