@@ -1,4 +1,4 @@
-<div>
+<div class="{{$sidebarOpen ? 'block'  : 'hidden'}} lg:block w-full lg:w-1/4 pr-8">
     <div wire:loading  class="fixed">
         <div class="fixed top-0 left-0 w-full h-full flex items-center  justify-center z-50">
                 <i class="fas fa-spinner fa-3x text-orange-500 animate-spin"></i>

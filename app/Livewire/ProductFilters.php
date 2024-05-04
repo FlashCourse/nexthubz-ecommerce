@@ -13,6 +13,8 @@ class ProductFilters extends Component
     public $selectedCategories = [];
     public $queryParams;
 
+    public $sidebarOpen = false;
+
     public function mount()
     {
         $this->queryParams = request()->query();
@@ -61,6 +63,10 @@ class ProductFilters extends Component
             $this->queryParams['categories'] = implode(',', $this->selectedCategories);
         }
 
+
+    }
+
+    public function closeSidebar() {
 
     }
 

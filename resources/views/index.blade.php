@@ -75,8 +75,8 @@
 
 
     @include('partials.why-us');
-
-    @include('partials.recent-post')
+    {{-- @include('partials.recent-post') --}}
+    @include('partials.faq')
 
 
 
