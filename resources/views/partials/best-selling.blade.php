@@ -7,11 +7,15 @@
             <?php foreach ($products as $product): ?>
                 <?php if ($count < 4): ?>
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="w-full h-64 object-cover">
+                        <a href="{{ route('product.details', $product->id) }}">
+                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover">
+                        </a>
                         <div class="p-4">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2"><?php echo $product['name']; ?></h3>
-                            <p class="text-gray-600 line-clamp-2 mb-4"><?php echo $product['description']; ?></p>
-                            <p class="text-gray-800 font-semibold">$<?php echo $product['price']; ?></p>
+                            <a href="{{ route('product.details', $product->id) }}">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $product->name }}</h3>
+                            </a>
+                            <p class="text-gray-600 line-clamp-2 mb-4">{{ $product->description }}</p>
+                            <p class="text-gray-800 font-semibold">${{ $product->price }}</p>
                         </div>
                     </div>
                     <?php $count++; ?>
