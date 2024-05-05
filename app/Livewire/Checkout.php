@@ -4,8 +4,6 @@ namespace App\Livewire;
 
 use App\Jobs\CheckOrderStatus;
 use App\Models\Address;
-use App\Models\Cart;
-use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -127,7 +125,7 @@ class Checkout extends Component
             OrderItem::insert($orderItemsData);
 
             // Dispatch the job to rollback stock if checkout failed
-            CheckOrderStatus::dispatch($order->id)->delay(now()->addMinutes(1));
+            CheckOrderStatus::dispatch($order->id)->delay(now()->addMinutes(5));
 
             session()->forget('cart');
 
@@ -191,7 +189,7 @@ class Checkout extends Component
     {
         $userId = Auth::id();
         // If payment method is not cash, display message
-        if ($this->paymentMethod !== 'cash') {
+        if ($this->paymentMethod == 'cash') {
             session()->flash('message', 'We only accept cash right now.');
         } else {
             $address = Address::firstOrCreate(
@@ -221,6 +219,7 @@ class Checkout extends Component
                 'tax' => $this->tax,
                 'shipping' => $this->shipping,
                 'total' => $this->total,
+                'status'=> 'pending',
             ];
 
             // Update the existing order with the new attributes
