@@ -52,7 +52,7 @@
             <p class="text-gray-600">Explore our curated selection</p>
         </div>
         <!-- Add your category cards or content here -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
             @foreach ($categories as $category)
             <div class="relative group">
                 <div class="overflow-hidden text-center bg-white rounded-xl">

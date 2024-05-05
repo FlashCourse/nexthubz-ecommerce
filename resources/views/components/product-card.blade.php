@@ -1,6 +1,6 @@
 <div class="p-4 bg-white border rounded-lg hover:shadow-xl">
     <a href="{{ route('product.details', ['product' => $product->id]) }}">
-        <img src="{{ asset('images/product.webp') }}" alt="" class="object-cover w-full h-40 mb-4 rounded-lg">
+        <img src="{{ asset('images/products/' . $product->image) }}" alt="" class="object-cover w-full h-40 mb-4 rounded-lg">
     </a>
     <h3 class="text-lg font-semibold">{{ $product->name }}</h3>
     <div class="flex justify-between">
@@ -9,7 +9,7 @@
         <livewire:add-to-cart-button 
             :productId="$product->id" 
             :productName="$product->name" 
-            :productImage="''" 
+            :productImage="$product->image" 
             :productPrice="$product->price"
             :productStock="$product->stock" 
         />
