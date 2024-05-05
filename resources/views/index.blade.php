@@ -19,7 +19,32 @@
         </div>
     </section>
 
-{{-- Featured Categories --}}
+    @include('partials.best-selling')
+    @include('partials.we-offer')
+
+
+    {{-- Featured Products --}}
+    <section class="py-8 px-4">
+        <div class="mx-auto max-w-7xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-semibold mb-2">Featured Products</h2>
+                <p class="text-gray-600">Check out our top picks</p>
+            </div>
+            <div class="grid grid-cols-1 gap-8 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {{-- Displaying Livewire Product Cards --}}
+                @foreach ($products as $product)
+                    <x-product-card :product=$product />
+                @endforeach
+            </div>
+            <div class="text-center mt-8">
+                <a href="#"
+                    class="inline-block px-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-300">See
+                    More</a>
+            </div>
+        </div>
+    </section>
+
+    {{-- Featured Categories --}}
 <section class="py-12 px-4">
     <div class="mx-auto max-w-7xl">
         <div class="text-center mb-8">
@@ -49,29 +74,6 @@
         </div>
     </div>
 </section>
-
-
-
-    {{-- Featured Products --}}
-    <section class="py-8 px-4">
-        <div class="mx-auto max-w-7xl">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-semibold mb-2">Featured Products</h2>
-                <p class="text-gray-600">Check out our top picks</p>
-            </div>
-            <div class="grid grid-cols-1 gap-8 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {{-- Displaying Livewire Product Cards --}}
-                @foreach ($products as $product)
-                    <x-product-card :product=$product />
-                @endforeach
-            </div>
-            <div class="text-center mt-8">
-                <a href="#"
-                    class="inline-block px-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-300">See
-                    More</a>
-            </div>
-        </div>
-    </section>
 
 
     @include('partials.why-us');
