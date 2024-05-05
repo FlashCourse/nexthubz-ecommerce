@@ -33,10 +33,6 @@ class ProductSort extends Component
         $this->redirect(route('product.search', $this->queryParams));
     }
 
-    public function openFilter() {
-        $this->emit('filterOpened');
-    }
-
     public function render()
     {
         return view('livewire.product-sort');

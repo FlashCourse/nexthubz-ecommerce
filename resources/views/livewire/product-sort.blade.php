@@ -1,10 +1,10 @@
 <div class="flex items-center justify-between mb-6">
     <div class="flex items-center space-x-2">
         <!-- Filter Icon -->
-        <i class="fas fa-filter text-gray-600" wire:click="openFilter"></i>
+        <i class="fas fa-filter text-gray-600"  @click="$dispatch('open-filter')"></i>
         
         <!-- Total Items Found -->
-        <div class="text-gray-600">{{ $total }} items found for</div>
+        <div class="text-gray-600">{{ $total }} items found</div>
 
         <!-- Loading Spinner -->
         <div wire:loading>
