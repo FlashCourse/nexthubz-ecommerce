@@ -37,12 +37,12 @@
                             </div>
                             <div class="flex space-x-2">
                                 <button wire:click="increaseQuantity({{ $productId }})"
-                                    class="px-3 py-1 text-white bg-orange-500 rounded hover:bg-orange-600">+</button>
+                                    class="px-3 py-1 text-white bg-green-500 rounded hover:bg-green-600">+</button>
                                 <button wire:click="decreaseQuantity({{ $productId }})"
                                     class="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600">-</button>
                                 <button wire:click="removeFromCart({{ $productId }})"
                                     class="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600">x</button>
-                            </div>
+                            </div>                            
                         </li>
                     @endforeach
                 </ul>

@@ -147,73 +147,76 @@
                 <h2 class="mb-4 text-xl font-semibold">Payment Summary</h2>
 
                 @if (count($cart) > 0)
-                    <!-- Itemized List -->
-                    <div class="mb-4">
-                        <h3 class="mb-2 text-lg font-semibold">Items</h3>
-                        <!-- Example: Display a list of items with quantities and prices -->
-                        <ul class="pl-4 list-disc">
-                            @foreach ($cart as $item)
-                                <li class="flex justify-between">
-                                    <div>
-                                        <span>{{ $item['name'] }}</span>
-                                        <span class="text-orange-500 text-start">${{ $item['price'] }} x
-                                            {{ $item['quantity'] }}</span>
-                                        @if (isset($availability['errors'][$item['product_id']]))
-                                            <span
-                                                class="text-red-500">({{ $availability['errors'][$item['product_id']] }})</span>
-                                            @endif @if (isset($errors[$item['product_id']]))
-                                                <span class="text-red-500">{{ $errors[$item['product_id']] }}</span>
-                                            @endif
-                                    </div>
-                                    <span class="text-orange-500">${{ $item['price'] * $item['quantity'] }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <!-- Subtotal, Shipping, and Total -->
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-gray-600">Subtotal:</p>
-                    <!-- Replace with dynamic data -->
-                    <p class="font-semibold text-orange-500">${{ $subtotal }}</p>
-                </div>
-
-                <!-- Additional Charges -->
+                <!-- Itemized List -->
                 <div class="mb-4">
-                    <h3 class="mb-2 text-lg font-semibold">Additional Charges</h3>
-                    <!-- Example: Display additional charges like taxes or shipping -->
-                    <ul class="pl-4 list-disc">
-                        <li class="flex justify-between">
-                            <span>Tax</span>
-                            <span class="text-orange-500">${{ number_format($tax, 2) }}</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>Shipping</span>
-                            <span class="text-orange-500">${{ number_format($shipping, 2) }}</span>
-                        </li>
-                        <!-- Add more charges as needed -->
-                    </ul>
+                    <h3 class="mb-2 text-lg font-semibold">{{count($cart)}} Items</h3>
+                    <!-- Example: Display a list of items with quantities and prices -->
+                    <div class="grid gap-4">
+                        @foreach ($cart as $item)
+                        <div class="p-4 bg-white rounded-lg flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="{{ asset('/images/products/' .$item['image']) }}" alt="{{ $item['name'] }}" class="w-16 h-16 object-cover rounded">
+                                <div class="ml-4">
+                                    <h4 class="font-semibold">{{ $item['name'] }}</h4>
+                                    <p class="text-sm text-gray-500">&#2547;{{ $item['price'] }} x {{ $item['quantity'] }}</p>
+                                    @if (isset($availability['errors'][$item['product_id']]))
+                                    <p class="text-sm text-red-500">{{ $availability['errors'][$item['product_id']] }}</p>
+                                    @endif
+                                    @if (isset($errors[$item['product_id']]))
+                                    <p class="text-sm text-red-500">{{ $errors[$item['product_id']] }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <span class="font-semibold text-orange-500">&#2547;{{ $item['price'] * $item['quantity'] }}</span>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
+                @endif
+                
 
+              <!-- Subtotal, Shipping, and Total -->
+<div class="mb-6">
+    <div class="flex items-center justify-between mb-2">
+        <p class="text-gray-600">Subtotal:</p>
+        <!-- Replace with dynamic data -->
+        <p class="font-semibold text-orange-500">&#2547;{{ $subtotal }}</p>
+    </div>
 
+    <!-- Additional Charges -->
+    <div class="mb-4">
+        <h3 class="mb-2 text-lg font-semibold">Additional Charges</h3>
+        <!-- Example: Display additional charges like taxes or shipping -->
+        <ul class="pl-4 list-disc">
+            <li class="flex justify-between">
+                <span>Tax</span>
+                <span class="text-orange-500">&#2547;{{ number_format($tax, 2) }}</span>
+            </li>
+            <li class="flex justify-between">
+                <span>Shipping</span>
+                <span class="text-orange-500">&#2547;{{ number_format($shipping, 2) }}</span>
+            </li>
+            <!-- Add more charges as needed -->
+        </ul>
+    </div>
 
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-gray-600">Total:</p>
-                    <!-- Replace with dynamic data -->
-                    <p class="font-bold text-orange-500">${{ number_format($total, 2) }}</p>
-                </div>
+    <div class="flex items-center justify-between mb-2">
+        <p class="text-gray-600">Total:</p>
+        <!-- Replace with dynamic data -->
+        <p class="text-lg font-bold text-orange-500">&#2547;{{ number_format($total, 2) }}</p>
+    </div>
+</div>
 
-                <!-- Place Order Button -->
-                <div class="mt-4">
-                    <button type="submit"
-                        class="px-4 py-2 text-white transition duration-300 rounded-full
-                           {{ $stockAvailable ? 'bg-orange-500 hover:bg-orange-600' : 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed' }}"
-                        {{ $stockAvailable ? '' : 'disabled' }}>
-                        Place Order
-                    </button>
+<!-- Place Order Button -->
+<div class="mt-4">
+    <button type="submit"
+        class="w-full px-4 py-2 text-white transition duration-300 rounded-full
+        {{ $stockAvailable ? 'bg-orange-500 hover:bg-orange-600' : 'bg-gray-400 cursor-not-allowed' }}"
+        {{ $stockAvailable ? '' : 'disabled' }}>
+        Place Order
+    </button>
+</div>
 
-                </div>
             </div>
 
         </form>
