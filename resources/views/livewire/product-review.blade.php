@@ -27,28 +27,33 @@
 
     <!-- Display Current User's Review -->
     @if ($userReview)
-        <div class="p-4 mb-4 bg-white rounded-md">
-            <div class="flex items-center justify-between mb-2">
-                <!-- User avatar icon and name -->
+    <div class="p-4 mb-4 bg-white rounded-md shadow-md">
+        <div class="flex items-center justify-between">
+            <!-- User name and rating -->
+            <div>
+                <h3 class="text-lg font-semibold">{{ $userReview->user->name }}</h3>
                 <div class="flex items-center">
-                    <i class="mr-2 text-2xl text-gray-500 fas fa-user-circle"></i>
-                    <span class="text-lg font-semibold">{{ $userReview->user->name }}</span>
-                    <!-- User rating -->
-                    <div class="flex items-center ml-4">
-                        <span class="text-lg font-semibold">{{ $userReview->rating }}</span>
-                        <span class="ml-1 text-yellow-500"><i class="fas fa-star"></i></span>
+                    <span class="text-lg font-semibold mr-1">{{ $userReview->rating }}</span>
+                    <div class="flex items-center text-yellow-500">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $userReview->rating)
+                                <i class="fas fa-star"></i>
+                            @else
+                                <i class="far fa-star"></i>
+                            @endif
+                        @endfor
                     </div>
                 </div>
-                <!-- Delete button -->
-                <button wire:click="deleteReview({{ $userReview->id }})" class="text-red-500 hover:text-red-700">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
             </div>
-            <!-- User comment -->
-            <div>
-                <p class="text-gray-700">{{ $userReview->comment }}</p>
-            </div>
+            <!-- Delete button -->
+            <button wire:click="deleteReview({{ $userReview->id }})" class="text-red-500 hover:text-red-700 focus:outline-none">
+                <i class="fas fa-trash-alt"></i>
+            </button>
         </div>
+        <!-- User comment -->
+        <p class="mt-2 text-gray-700">{{ $userReview->comment }}</p>
+    </div>
+    
     @endif
 
 
@@ -57,25 +62,26 @@
     <ul>
         @foreach ($reviews as $review)
             @if (!$userReview || $review->id !== $userReview->id)
-                <div class="p-4 mb-4 bg-white rounded-md">
-                    <div class="flex items-center justify-between mb-2">
-                        <!-- User avatar icon and name -->
-                        <div class="flex items-center">
-                            <i class="mr-2 text-2xl text-gray-500 fas fa-user-circle"></i>
-                            <span class="text-lg font-semibold">{{ $review->user->name }}</span>
-                            <!-- User rating -->
-                            <div class="flex items-center ml-4">
-                                <span class="text-lg font-semibold">{{ $review->rating }}</span>
-                                <span class="ml-1 text-yellow-500"><i class="fas fa-star"></i></span>
-                            </div>
+            <div class="p-4 mb-4 bg-white rounded-md shadow-md">
+                <div class="flex items-center justify-between">
+                    <!-- User rating -->
+                    <div class="flex items-center">
+                        <span class="text-lg font-semibold">{{ $review->rating }}</span>
+                        <div class="flex items-center text-yellow-500">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $review->rating)
+                                    <i class="fas fa-star"></i>
+                                @else
+                                    <i class="far fa-star"></i>
+                                @endif
+                            @endfor
                         </div>
-
-                    </div>
-                    <!-- User comment -->
-                    <div>
-                        <p class="text-gray-700">{{ $review->comment }}</p>
                     </div>
                 </div>
+                <!-- User comment -->
+                <p class="mt-2 text-gray-700">{{ $review->comment }}</p>
+            </div>
+            
             @endif
         @endforeach
     </ul>
