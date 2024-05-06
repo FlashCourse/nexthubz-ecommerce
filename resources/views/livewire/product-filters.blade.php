@@ -34,10 +34,10 @@
                     <li>
                         <label class="flex items-center space-x-2">
                             <!-- Use the provided Blade component -->
-                            <x-checkbox wire:click="updateSelectedCategories('{{ $category->name }}')"
-                                :checked="in_array($category->name, $selectedCategories)" />
+                            <x-checkbox wire:click="updateSelectedCategories('{{ $category->slug }}')"
+                                :checked="in_array($category->slug, $selectedCategories)" />
                             <span
-                                class="{{ in_array($category->name, $selectedCategories) ? 'font-bold text-orange-500' : '' }}">
+                                class="{{ in_array($category->slug, $selectedCategories) ? 'font-bold text-orange-500' : '' }}">
                                 {{ $category->name }}
                             </span>
                         </label>

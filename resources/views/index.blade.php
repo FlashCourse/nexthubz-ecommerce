@@ -38,7 +38,7 @@
             @foreach ($categories as $category)
             <div class="relative group">
                 <div class="overflow-hidden text-center bg-white rounded-xl">
-                    <a href="{{ route('product.search', ['categories' => $category->name]) }}" class="block relative overflow-hidden">
+                    <a href="{{ route('product.search', ['categories' => $category->slug]) }}" class="block relative overflow-hidden">
                         <div class="h-40 bg-cover bg-center rounded-md" style="background-image: url('{{ asset('/images/categories/' . $category->image) }}');" aria-label="{{ $category->name }}">
                             <div class="absolute inset-0 bg-orange-500 opacity-10 group-hover:opacity-80"></div>
                             <div class="absolute inset-0 flex items-center justify-center">

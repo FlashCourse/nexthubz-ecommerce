@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-4 bg-orange-100 rounded-md">
     <!-- Display Form for Creating a Review -->
     <form wire:submit.prevent="updateOrCreateReview" class="mb-4">
         <div class="mb-2">
@@ -27,7 +27,7 @@
 
     <!-- Display Current User's Review -->
     @if ($userReview)
-        <div class="p-4 mb-4 bg-white rounded-md shadow-md">
+        <div class="p-4 mb-4 bg-white rounded-md">
             <div class="flex items-center justify-between mb-2">
                 <!-- User avatar icon and name -->
                 <div class="flex items-center">
@@ -57,7 +57,7 @@
     <ul>
         @foreach ($reviews as $review)
             @if (!$userReview || $review->id !== $userReview->id)
-                <div class="p-4 mb-4 bg-white rounded-md shadow-md">
+                <div class="p-4 mb-4 bg-white rounded-md">
                     <div class="flex items-center justify-between mb-2">
                         <!-- User avatar icon and name -->
                         <div class="flex items-center">
