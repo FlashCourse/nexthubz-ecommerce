@@ -26,30 +26,33 @@
             @if (count($cart) > 0)
                 <ul>
                     @foreach ($cart as $productId => $item)
-                        <li class="flex items-center justify-between py-2 border-b">
-                            <div class="flex items-center space-x-2">
-                                <div class="flex-shrink-0 w-16 h-16 overflow-hidden bg-gray-200 rounded-md">
-                                    <img src="{{ asset('images/products/' . $item['image']) }}" alt="{{ $item['name'] }}"
-                                        class="object-cover w-full h-full">
-                                </div>
-                                <div>
-                                    <p class="text-lg font-semibold">{{ $item['name'] }}</p>
-                                    <p class="text-sm"><span class="text-md font-extrabold">&#2547;
-                                        </span>{{ $item['price'] }} x {{ $item['quantity'] }} =
-                                        <span class="text-md font-extrabold">&#2547;
-                                        </span>{{ $item['price'] * $item['quantity'] }}
-                                    </p>
-                                </div>
+                    <li class="border-b border-gray-200 py-2 px-4 flex items-center justify-between">
+                        <!-- Product Image -->
+                        <div class="flex-shrink-0 w-12 h-12 overflow-hidden bg-gray-200 rounded-md">
+                            <img src="{{ asset('images/products/' . $item['image']) }}" alt="{{ $item['name'] }}"
+                                class="object-cover w-full h-full">
+                        </div>
+                        <!-- Product Details -->
+                        <div class="flex flex-col flex-1 ml-2">
+                            <div>
+                                <p class="text-sm font-semibold">{{ $item['name'] }}</p>
+                                <p class="text-xs text-gray-600">&#2547;{{ $item['price'] }}</p>
                             </div>
-                            <div class="flex space-x-2">
-                                <button wire:click="increaseQuantity({{ $productId }})"
-                                    class="px-3 py-1 text-white bg-green-500 rounded hover:bg-green-600">+</button>
+                            <div class="flex items-center mt-1">
                                 <button wire:click="decreaseQuantity({{ $productId }})"
-                                    class="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600">-</button>
-                                <button wire:click="removeFromCart({{ $productId }})"
-                                    class="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600">x</button>
+                                    class="px-2 py-1 text-sm text-white bg-orange-500 rounded-md hover:bg-orange-600">-</button>
+                                <p class="w-4 mx-2 text-sm">{{ $item['quantity'] }}</p>
+                                <button wire:click="increaseQuantity({{ $productId }})"
+                                    class="px-2 py-1 text-sm text-white bg-green-500 rounded-md hover:bg-green-600">+</button>
                             </div>
-                        </li>
+                            <p class="mt-1 text-sm text-gray-500">&#2547;{{ $item['price'] * $item['quantity'] }}</p>
+                        </div>
+                        <!-- Remove Button -->
+                        <button wire:click="removeFromCart({{ $productId }})"
+                            class="px-2 py-1 text-xs hover:text-white rounded-full hover:bg-red-600">X</button>
+                    </li>
+                    
+                    
                     @endforeach
                 </ul>
             @else
