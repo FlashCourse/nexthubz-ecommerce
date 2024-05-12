@@ -30,12 +30,14 @@ class OrderController extends AdminController
         $grid->column('user_id', __('User id'));
         $grid->column('address_id', __('Address id'));
         $grid->column('payment_method', __('Payment method'));
-        $grid->column('payment_status', __('Payment status'));
         $grid->column('subtotal', __('Subtotal'));
         $grid->column('tax', __('Tax'));
         $grid->column('shipping', __('Shipping'));
         $grid->column('total', __('Total'));
+        $grid->column('due', __('Due'));
+        $grid->column('paid', __('Paid'));
         $grid->column('status', __('Status'))->select([
+            'initiated' => 'Initiated',
             'pending' => 'Pending',
             'processing' => 'Processing',
             'shipped' => 'Shipped',
@@ -62,39 +64,15 @@ class OrderController extends AdminController
         $show->field('user_id', __('User id'));
         $show->field('address_id', __('Address id'));
         $show->field('payment_method', __('Payment method'));
-        $show->field('payment_status', __('Payment status'));
         $show->field('subtotal', __('Subtotal'));
         $show->field('tax', __('Tax'));
         $show->field('shipping', __('Shipping'));
         $show->field('total', __('Total'));
+        $show->field('due', __('Due'));
+        $show->field('paid', __('Paid'));
         $show->field('status', __('Status'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-
-         // Include address details
-         $show->address('Address', function ($relation) {
-            $relation->first_name();
-            $relation->last_name();
-            $relation->address1();
-            $relation->address2();
-            $relation->city();
-            $relation->state();
-            $relation->zip_code();
-            $relation->country();
-            $relation->phone();
-        });
-
-        
-        // Display related order items directly within the order detail view
-       // Define a nested resource for Order Items
-       $show->orderItems('Order Items', function ($relation) {
-        $relation->resource('/admin/order-items');
-        // Configure fields to display for Order Items
-        $relation->id();
-        $relation->name();
-        $relation->quantity();
-        // Add more fields as needed
-    });
 
         return $show;
     }
@@ -110,12 +88,13 @@ class OrderController extends AdminController
 
         $form->number('user_id', __('User id'));
         $form->number('address_id', __('Address id'));
-        $form->text('payment_method', __('Payment method'))->default('cash');
-        $form->text('payment_status', __('Payment status'))->default('pending');
+        $form->text('payment_method', __('Payment method'))->default('undefined');
         $form->decimal('subtotal', __('Subtotal'));
         $form->decimal('tax', __('Tax'));
         $form->decimal('shipping', __('Shipping'));
         $form->decimal('total', __('Total'));
+        $form->decimal('due', __('Due'));
+        $form->decimal('paid', __('Paid'));
         $form->text('status', __('Status'))->default('initiated');
 
         return $form;

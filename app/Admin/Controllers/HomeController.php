@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\HtmlString;
 use OpenAdmin\Admin\Admin;
 use OpenAdmin\Admin\Controllers\Dashboard;
 use OpenAdmin\Admin\Layout\Column;
@@ -21,7 +22,9 @@ class HomeController extends Controller
             ->row(function (Row $row) {
 
                 $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::environment());
+                    // $column->append(Dashboard::environment());
+                    $dummyText = new HtmlString('<h1>Total Orders: 10</h1>');
+                    $column->append($dummyText);
                 });
 
                 $row->column(4, function (Column $column) {

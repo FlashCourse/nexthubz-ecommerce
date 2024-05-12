@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Category;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
@@ -27,11 +28,11 @@ class ProductController extends AdminController
         $grid = new Grid(new Product());
 
         $grid->column('id', __('Id'));
+        $grid->column('image', __('Image'))->image();
         $grid->column('name', __('Name'));
         $grid->column('slug', __('Slug'));
         $grid->column('description', __('Description'));
         $grid->column('category_id', __('Category id'));
-        $grid->column('image', __('Image'));
         $grid->column('price', __('Price'));
         $grid->column('discount', __('Discount'));
         $grid->column('stock', __('Stock'));
@@ -57,7 +58,7 @@ class ProductController extends AdminController
         $show->field('slug', __('Slug'));
         $show->field('description', __('Description'));
         $show->field('category_id', __('Category id'));
-        $show->field('image', __('Image'));
+        $show->field('image', __('Image'))->image();
         $show->field('price', __('Price'));
         $show->field('discount', __('Discount'));
         $show->field('stock', __('Stock'));
@@ -88,9 +89,14 @@ class ProductController extends AdminController
         $form = new Form(new Product());
 
         $form->text('name', __('Name'));
-        $form->text('slug', __('Slug'));
         $form->textarea('description', __('Description'));
-        $form->number('category_id', __('Category id'));
+        // Define a select dropdown for the category_id field
+        $form->select('category_id', __('Category'))->options(function () {
+            // Retrieve all categories from your Category model
+            $categories = Category::all();
+            // Map categories to an array suitable for the options method
+            return $categories->pluck('name', 'id');
+        });
         $form->image('image', __('Image'));
         $form->decimal('price', __('Price'));
         $form->decimal('discount', __('Discount'));
