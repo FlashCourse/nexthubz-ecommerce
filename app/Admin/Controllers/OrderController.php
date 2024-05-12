@@ -35,7 +35,13 @@ class OrderController extends AdminController
         $grid->column('tax', __('Tax'));
         $grid->column('shipping', __('Shipping'));
         $grid->column('total', __('Total'));
-        $grid->column('status', __('Status'));
+        $grid->column('status', __('Status'))->select([
+            'pending' => 'Pending',
+            'processing' => 'Processing',
+            'shipped' => 'Shipped',
+            'delivered' => 'Delivered',
+            'canceled' => 'Canceled',
+        ]);
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

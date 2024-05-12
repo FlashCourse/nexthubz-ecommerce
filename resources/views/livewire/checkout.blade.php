@@ -6,11 +6,11 @@
 
 
 
-<section class="py-8">
+<section class="py-8 px-4">
     <div class="mx-auto max-w-7xl">
         @if (session()->has('message'))
             <x-modal id="myModal" maxWidth="lg">
-              <div class="p-4 bg-red-500 text-white text-center">  {{ session('message') }}</div>
+                <div class="p-4 bg-red-500 text-white text-center"> {{ session('message') }}</div>
             </x-modal>
         @endif
 
@@ -103,32 +103,22 @@
             {{-- Payment Methods --}}
             <div class="p-6 mb-8 bg-white rounded-lg shadow-md">
                 <h2 class="mb-4 text-xl font-semibold">Payment Method</h2>
-                <div
-                    class="flex flex-wrap items-center justify-center md:justify-start mb-4 space-y-2 md:space-y-0 md:space-x-4">
-                    <div class="flex items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center p-4 bg-gray-100 rounded-md">
                         <input type="radio" wire:model="paymentMethod" id="cash" name="paymentMethod"
                             value="cash" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="cash" class="ml-2 text-gray-600">Cash on Delivery</label>
+                        <label for="cash" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
+                            <i class="fas fa-money-bill-wave text-2xl text-orange-500 mr-2"></i>
+                            <span>Cash on Delivery</span>
+                        </label>
                     </div>
-                    <div class="flex items-center">
-                        <input type="radio" wire:model="paymentMethod" id="bkash" name="paymentMethod"
-                            value="bkash" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="bkash" class="ml-2 text-gray-600">bKash</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" wire:model="paymentMethod" id="rocket" name="paymentMethod"
-                            value="rocket" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="rocket" class="ml-2 text-gray-600">Rocket</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" wire:model="paymentMethod" id="nagad" name="paymentMethod"
-                            value="nagad" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="nagad" class="ml-2 text-gray-600">Nagad</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" wire:model="paymentMethod" id="upay" name="paymentMethod"
-                            value="upay" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="upay" class="ml-2 text-gray-600">Upay</label>
+                    <div class="flex items-center p-4 bg-gray-100 rounded-md">
+                        <input type="radio" wire:model="paymentMethod" id="online" name="paymentMethod"
+                            value="online" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
+                        <label for="online" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
+                            <i class="fas fa-credit-card text-2xl text-orange-500 mr-2"></i>
+                            <span>Pay Now (Online Payment)</span>
+                        </label>
                     </div>
                 </div>
             </div>

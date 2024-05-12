@@ -4,6 +4,7 @@ use App\Admin\Controllers\AddressController;
 use App\Admin\Controllers\CategoryController;
 use App\Admin\Controllers\OrderController;
 use App\Admin\Controllers\OrderItemController;
+use App\Admin\Controllers\PaymentController;
 use App\Admin\Controllers\ProductController;
 use App\Admin\Controllers\ReviewController;
 use App\Admin\Controllers\UserController;
@@ -26,5 +27,6 @@ Route::group([
     $router->resource('reviews', ReviewController::class);
     $router->resource('orders', OrderController::class);
     $router->resource('order-items', OrderItemController::class);
+    $router->resource('payments', PaymentController::class);
 
 });

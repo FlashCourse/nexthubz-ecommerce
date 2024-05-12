@@ -22,37 +22,37 @@
                     <!-- Pending -->
                     <div class="flex flex-col items-center">
                         <div
-                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['pending', 'Processing', 'Shipped', 'Delivered']) }} flex items-center justify-center z-10 relative">
+                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['pending', 'processing', 'shipped', 'delivered']) }} flex items-center justify-center z-10 relative">
                             <i class="fas fa-clock text-white text-2xl" title="Pending"></i>
                         </div>
                     </div>
                     <div
-                        class="grow {{ getStatusColor($order->status, ['pending', 'Processing', 'Shipped', 'Delivered']) }} h-4">
+                        class="grow {{ getStatusColor($order->status, ['pending', 'processing', 'shipped', 'delivered']) }} h-4">
                     </div>
 
                     <!-- Processing -->
                     <div class="flex flex-col items-center">
                         <div
-                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['Processing', 'Shipped', 'Delivered']) }} flex items-center justify-center z-10 relative">
+                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['processing', 'shipped', 'delivered']) }} flex items-center justify-center z-10 relative">
                             <i class="fas fa-sync-alt text-white text-2xl" title="Processing"></i>
                         </div>
                     </div>
-                    <div class="grow {{ getStatusColor($order->status, ['Processing', 'Shipped', 'Delivered']) }} h-4">
+                    <div class="grow {{ getStatusColor($order->status, ['processing', 'shipped', 'delivered']) }} h-4">
                     </div>
 
                     <!-- Shipped -->
                     <div class="flex flex-col items-center">
                         <div
-                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['Shipped', 'Delivered']) }} flex items-center justify-center relative">
+                            class="w-12 h-12 -mx-2 rounded-full {{ getStatusColor($order->status, ['shipped', 'delivered']) }} flex items-center justify-center relative">
                             <i class="fas fa-truck text-white text-2xl" title="Shipped"></i>
                         </div>
                     </div>
-                    <div class="grow {{ getStatusColor($order->status, ['Shipped', 'Delivered']) }} h-4"></div>
+                    <div class="grow {{ getStatusColor($order->status, ['shipped', 'delivered']) }} h-4"></div>
 
                     <!-- Delivered -->
                     <div class="flex flex-col items-center">
                         <div
-                            class="w-12 h-12 -mx-2 rounded-full {{ $order->status == 'Delivered' ? 'bg-orange-500' : 'bg-gray-500' }} flex items-center justify-center relative">
+                            class="w-12 h-12 -mx-2 rounded-full {{ $order->status == 'delivered' ? 'bg-orange-500' : 'bg-gray-500' }} flex items-center justify-center relative">
                             <i class="fas fa-check-circle text-white text-2xl" title="Delivered"></i>
                         </div>
                     </div>
