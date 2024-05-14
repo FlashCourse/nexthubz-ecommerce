@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\CheckOrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Product;
+use App\Services\StockService;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Address;
@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class SslCommerzPaymentController extends Controller
 {
+    protected $stockService;
+
+    public function __construct(StockService $stockService)
+    {
+        $this->stockService = $stockService;
+    }
     public function index()
     {
         $cartData = session('cartData', []);
@@ -50,44 +56,13 @@ class SslCommerzPaymentController extends Controller
         DB::beginTransaction();
 
         try {
-
-            // Retrieve all product IDs from the cart items
-            $productIds = array_column($cartItems, 'product_id');
-
             // Retrieve the quantities for all products
             $productQuantities = [];
             foreach ($cartItems as $item) {
                 $productQuantities[$item['product_id']] = $item['quantity'];
             }
 
-            // Retrieve all products to update
-            $productsToUpdate = Product::whereIn('id', $productIds)->get();
-
-            // Prepare the bulk update array
-            $bulkUpdateArray = [];
-            foreach ($productsToUpdate as $product) {
-                $productId = $product->id;
-                $quantity = $productQuantities[$productId] ?? 0; // Get quantity from cart items
-
-                // Calculate the new stock value
-                $newStock = max(0, $product->stock - $quantity); // Ensure stock doesn't go below 0
-
-                // Check if the stock is not available
-                if ($newStock < 0) {
-                    return redirect()->route('checkout')->with('error', 'Sorry, the stock is not available for some products.');
-                }
-
-                // Add product ID and new stock value to bulk update array
-                $bulkUpdateArray[$productId] = $newStock;
-            }
-
-
-            // Perform bulk update for all products
-            Product::whereIn('id', array_keys($bulkUpdateArray))->update([
-                'stock' => DB::raw('CASE id ' . implode(' ', array_map(function ($productId, $newStock) {
-                    return "WHEN $productId THEN $newStock ";
-                }, array_keys($bulkUpdateArray), $bulkUpdateArray)) . ' END')
-            ]);
+            $this->stockService->deductStock($productQuantities);
 
             // Use firstOrCreate directly on the Address model
             $address = Address::firstOrCreate(['user_id' => $user->id], $addressData);
@@ -272,6 +247,10 @@ class SslCommerzPaymentController extends Controller
 
             Order::where('id', $payment->order_id)
                 ->update(['status' => 'canceled']);
+
+            $this->stockService->restoreStock($payment->order_id);
+
+
             return redirect()->route('order-failure')->with('order_failure', true);
         } else if ($payment->status == 'completed') {
             echo "Transaction is already Successful";
@@ -304,10 +283,10 @@ class SslCommerzPaymentController extends Controller
                     $payment->status = 'completed';
                     $payment->payment_method = $request->card_type;
                     $payment->save();
-    
+
                     Order::where('id', $payment->order_id)
                         ->update(['status' => 'processing']);
-    
+
                     session()->put('order_success', true);
                     return redirect()->route('order-success');
                 }
