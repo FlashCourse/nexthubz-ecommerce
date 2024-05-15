@@ -28,7 +28,7 @@ class SslCommerzPaymentController extends Controller
 
         // Check if both cartData and orderData are empty
         if (empty($cartData) && empty($orderData)) {
-            return redirect()->route('home');
+            abort(404);
         }
 
         return view('online-payment', compact('cartData', 'orderData'));

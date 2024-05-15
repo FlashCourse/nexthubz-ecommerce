@@ -128,10 +128,12 @@ class Checkout extends Component
         ];
         session(['orderData' => $orderData]);
         session()->forget('cart');
-        
+
 
         if ($this->paymentMethod === 'cash') {
             return redirect()->route('cash-payment');
+        } else if ($this->paymentMethod === 'bkash') {
+            return redirect()->route('bkash-payment');
         } else {
             return redirect()->route('online-payment');
         }

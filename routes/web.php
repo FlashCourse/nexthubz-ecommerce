@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BkashController;
+use App\Http\Controllers\BkashRefundController;
 use App\Http\Controllers\CashPaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/{product}', [ProductController::class, 'details'])->name('product.details');
 Route::get('/order-success', [UserController::class, 'orderSuccess'])->name('order-success');
@@ -66,3 +68,16 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+// BKASH START
+Route::get('/bkash-payment', [BkashController::class, 'index'])->name('bkash-payment');
+Route::post('bkash/get-token', [BkashController::class, 'getToken'])->name('bkash-get-token');
+Route::post('bkash/create-payment', [BkashController::class, 'createPayment'])->name('bkash-create-payment');
+Route::post('bkash/execute-payment', [BkashController::class, 'executePayment'])->name('bkash-execute-payment');
+Route::post('bkash/success', [BkashController::class, 'successPayment'])->name('bkash-success');
+
+// Refund Routes for bKash
+Route::get('bkash/refund', [BkashRefundController::class, 'index'])->name('bkash-refund');
+Route::post('bkash/refund', [BkashRefundController::class, 'refund'])->name('bkash-refund');
+// BKASH END

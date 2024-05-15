@@ -103,7 +103,7 @@
             {{-- Payment Methods --}}
             <div class="p-6 mb-8 bg-white rounded-lg shadow-md">
                 <h2 class="mb-4 text-xl font-semibold">Payment Method</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="flex items-center p-4 bg-gray-100 rounded-md">
                         <input type="radio" wire:model="paymentMethod" id="cash" name="paymentMethod"
                             value="cash" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
@@ -113,15 +113,24 @@
                         </label>
                     </div>
                     <div class="flex items-center p-4 bg-gray-100 rounded-md">
-                        <input type="radio" wire:model="paymentMethod" id="online" name="paymentMethod"
-                            value="online" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
-                        <label for="online" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
+                        <input type="radio" wire:model="paymentMethod" id="bkash" name="paymentMethod"
+                            value="bkash" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
+                        <label for="bkash" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
+                            <i class="fas fa-mobile-alt text-2xl text-orange-500 mr-2"></i>
+                            <span>bKash</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center p-4 bg-gray-100 rounded-md">
+                        <input type="radio" wire:model="paymentMethod" id="card" name="paymentMethod"
+                            value="card" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
+                        <label for="card" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
                             <i class="fas fa-credit-card text-2xl text-orange-500 mr-2"></i>
-                            <span>Pay Now (Online Payment)</span>
+                            <span>Card Payment</span>
                         </label>
                     </div>
                 </div>
             </div>
+
 
 
 
