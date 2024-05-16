@@ -22,12 +22,19 @@ class Product extends Model
         'active',
     ];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function reviews() {
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(Variant::class);
     }
 
     protected static function boot()

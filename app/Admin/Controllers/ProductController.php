@@ -66,6 +66,17 @@ class ProductController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
+        // Define a nested resource for Variants
+        $show->variants('Variants', function ($variants) {
+            $variants->setResource('/admin/variants');
+            // Configure fields to display for Variants
+            $variants->variant_id();
+            $variants->sku();
+            $variants->price();
+            $variants->stock();
+            // Add more fields as needed
+        });
+
         // Define a nested resource for Reviews
         $show->reviews('Reviews', function ($relation) {
             $relation->resource('/admin/reviews');
