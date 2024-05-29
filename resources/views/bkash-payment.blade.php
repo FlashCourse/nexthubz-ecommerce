@@ -30,7 +30,16 @@
                             <tbody>
                                 @foreach ($cartData as $cartItem)
                                     <tr class="border-b border-gray-200">
-                                        <td class="py-4 px-6">{{ $cartItem['name'] }}</td>
+                                        <td class="py-4 px-6">{{ $cartItem['name'] }} @if (isset($cartItem['variant_attributes']) && is_array($cartItem['variant_attributes']))
+                                                <div class="flex flex-wrap gap-1 mt-1 text-xs">
+                                                    @foreach ($cartItem['variant_attributes'] as $attribute => $value)
+                                                        <span
+                                                            class="inline-block bg-gray-200 text-gray-800 py-1 px-2 rounded">{{ $attribute }}:
+                                                            {{ $value }}</span>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </td>
                                         <td class="py-4 px-6">${{ number_format($cartItem['price'], 2) }}</td>
                                         <td class="py-4 px-6">{{ $cartItem['quantity'] }}</td>
                                         <td class="py-4 px-6">

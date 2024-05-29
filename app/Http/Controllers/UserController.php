@@ -35,10 +35,14 @@ class UserController extends Controller
 
     public function orderDetails($order)
     {
-        // logic to fetch order details along with related order items
-        $orderWithItems = Order::with('orderItems')->findOrFail($order);
+        // Fetch order details along with related order items, variants, and attributes
+        $orderWithItems = Order::with(['orderItems.variant.variantAttributes.attribute', 'orderItems.variant.variantAttributes.attributeValue'])
+            ->findOrFail($order);
 
-        return view('user.orderDetails', ['order' => $orderWithItems]);
+        // Prepare status colors
+        $statusColors = $this->prepareStatusColors($orderWithItems->status);
+
+        return view('user.orderDetails', ['order' => $orderWithItems, 'statusColors' => $statusColors]);
     }
 
     public function orderSuccess()
@@ -62,4 +66,22 @@ class UserController extends Controller
             abort(404);
         }
     }
+
+
+    // HELPER FUNCTIONS
+    private function prepareStatusColors($currentStatus)
+    {
+        return [
+            'pending' => $this->getStatusColor($currentStatus, ['pending', 'processing', 'shipped', 'delivered']),
+            'processing' => $this->getStatusColor($currentStatus, ['processing', 'shipped', 'delivered']),
+            'shipped' => $this->getStatusColor($currentStatus, ['shipped', 'delivered']),
+            'delivered' => $this->getStatusColor($currentStatus, ['delivered']),
+        ];
+    }
+
+    private function getStatusColor($currentStatus, $checkStatus)
+    {
+        return in_array($currentStatus, $checkStatus) ? 'bg-orange-500' : 'bg-gray-500';
+    }
+    // END HELPER FUNCTIONS
 }

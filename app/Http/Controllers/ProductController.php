@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         // Initialize query builder
         $query = Product::query();
 
@@ -51,8 +52,15 @@ class ProductController extends Controller
         return view('product.search', compact('products'));
     }
 
-    public function details(Product $product) {
+    public function details(Product $product)
+    {
+        // Load the product with its variants, attributes, and attribute values
+        $product->load([
+            'variants',
+            'variants.variantAttributes.attribute',
+            'variants.variantAttributes.attributeValue'
+        ]);
+
         return view('product.details', compact('product'));
     }
-
 }

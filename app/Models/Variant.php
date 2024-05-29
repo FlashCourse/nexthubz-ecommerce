@@ -25,4 +25,9 @@ class Variant extends Model
     {
         return $this->hasMany(VariantAttribute::class);
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

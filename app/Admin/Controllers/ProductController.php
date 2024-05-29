@@ -8,6 +8,7 @@ use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use \App\Models\Product;
+use OpenAdmin\Admin\Grid\Tools\QuickCreate;
 
 class ProductController extends AdminController
 {
@@ -67,14 +68,25 @@ class ProductController extends AdminController
         $show->field('updated_at', __('Updated at'));
 
         // Define a nested resource for Variants
-        $show->variants('Variants', function ($variants) {
+        $show->variants('Variants', function ($variants) use ($id) {
             $variants->setResource('/admin/variants');
+
+            $variants->quickCreate(function (QuickCreate $create) use ($id) {
+                $create->text('product_id', 'Product ID')->default($id);
+                $create->text('sku', 'SKU')->default(uniqid());
+                $create->text('price', 'Price');
+                $create->text('stock', 'Stock');
+            });
+
+
             // Configure fields to display for Variants
-            $variants->variant_id();
+            $variants->product()->name();
             $variants->sku();
             $variants->price();
             $variants->stock();
             // Add more fields as needed
+
+
         });
 
         // Define a nested resource for Reviews
@@ -86,7 +98,6 @@ class ProductController extends AdminController
             $relation->comment();
             // Add more fields as needed
         });
-
         return $show;
     }
 

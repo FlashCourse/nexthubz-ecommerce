@@ -154,6 +154,15 @@
                                             <h4 class="font-semibold">{{ $item['name'] }}</h4>
                                             <p class="text-sm text-gray-500">&#2547;{{ $item['price'] }} x
                                                 {{ $item['quantity'] }}</p>
+                                            @if (isset($item['variant_attributes']) && is_array($item['variant_attributes']))
+                                                <div class="flex flex-wrap gap-1 mt-1 text-xs">
+                                                    @foreach ($item['variant_attributes'] as $attribute => $value)
+                                                        <span
+                                                            class="inline-block bg-gray-200 text-gray-800 py-1 px-2 rounded">{{ $attribute }}:
+                                                            {{ $value }}</span>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             @if (isset($availability['errors'][$item['product_id']]))
                                                 <p class="text-sm text-red-500">
                                                     {{ $availability['errors'][$item['product_id']] }}</p>
@@ -170,6 +179,7 @@
                         </div>
                     </div>
                 @endif
+
 
 
                 <!-- Subtotal, Shipping, and Total -->

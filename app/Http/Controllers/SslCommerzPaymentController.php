@@ -85,6 +85,7 @@ class SslCommerzPaymentController extends Controller
                 $orderItemsData[] = [
                     'order_id' => $order->id,
                     'product_id' => $item['product_id'],
+                    'variant_id' => $item['variant_id'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ];

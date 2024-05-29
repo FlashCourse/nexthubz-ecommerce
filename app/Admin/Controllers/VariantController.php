@@ -2,9 +2,12 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
+use OpenAdmin\Admin\Grid\Tools\QuickCreate;
 use OpenAdmin\Admin\Show;
 use \App\Models\Variant;
 
@@ -55,17 +58,46 @@ class VariantController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
-        $show->variantAttributes('Variant Attributes', function ($variantAttributes) {
+        $show->variantAttributes('Variant Attributes', function ($variantAttributes) use ($id) {
             $variantAttributes->setResource('/admin/variant-attributes');
-            // Configure fields to display for Variants
-            $variantAttributes->variant_id();
-            $variantAttributes->attribute_id();
-            $variantAttributes->attribute_value_id();
-            // Add more fields as needed
+
+
+            // Logging the attributes and attribute values to debug
+            $attributes = Attribute::pluck('name', 'id');
+            $attributeValues = AttributeValue::pluck('value', 'id');
+
+
+            $variantAttributes->quickCreate(function (QuickCreate $create) use ($id, $attributes, $attributeValues) {
+                $create->text('variant_id', 'Variant ID')->default($id);
+                $create->select('attribute_id', __('Attribute'))->options($attributes);
+                $create->select('attribute_value_id', __('Attribute Value'))->options($attributeValues);
+            });
+
+            // Inject custom CSS for QuickCreate row height
+            $variantAttributes->tools(function ($tools) {
+                $tools->append("
+                    <style>
+                        .quick-create td {
+                            height: 400px!important;
+                        }
+
+                        body .choices.form-control-sm .choices__inner {
+                            line-height: unset !important;
+                        }
+
+                    </style>
+                ");
+            });
+
+            // Configure fields to display for Variant Attributes
+            $variantAttributes->variant()->id();
+            $variantAttributes->attribute()->name();
+            $variantAttributes->AttributeValue()->value();
         });
 
         return $show;
     }
+
 
     /**
      * Make a form builder.
