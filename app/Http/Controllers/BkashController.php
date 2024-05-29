@@ -96,10 +96,14 @@ class BkashController extends Controller
 
         try {
 
-            // Retrieve the quantities for all products
+            // Retrieve the quantities for all products and variants
             $productQuantities = [];
             foreach ($cartItems as $item) {
-                $productQuantities[$item['product_id']] = $item['quantity'];
+                $productQuantities[] = [
+                    'product_id' => $item['product_id'],
+                    'variant_id' => $item['variant_id'] ?? null,
+                    'quantity' => $item['quantity']
+                ];
             }
 
             $this->stockService->deductStock($productQuantities);
