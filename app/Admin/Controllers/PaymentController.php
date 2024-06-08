@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Order;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
@@ -82,7 +83,25 @@ class PaymentController extends AdminController
         $form->text('currency', __('Currency'))->default('BDT');
         $form->text('payment_method', __('Payment method'))->default('cash');
         $form->datetime('payment_date', __('Payment date'))->default(date('Y-m-d H:i:s'));
-        $form->text('status', __('Status'))->default('completed');
+        $form->text('status', __('Status'))->default('delivered');
+
+        // Add a saving callback to update the order status and amounts
+        $form->saving(function (Form $form) {
+            $order = Order::find($form->order_id);
+            if ($order) {
+                // Update the paid amount and due amount
+                $order->paid += $form->amount;
+                $order->due = $order->total - $order->paid;
+
+                // Check if the order is fully paid
+                if ($order->due <= 0) {
+                    $order->status = 'delivered'; // Change to the desired status
+                    // $order->due = 0; // Ensure due amount is not negative
+                }
+
+                $order->save();
+            }
+        });
 
         return $form;
     }
