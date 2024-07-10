@@ -14,7 +14,7 @@
                     <div wire:click="selectVariant({{ $variant->id }})"
                         class="m-2 cursor-pointer p-2 border rounded-lg select-none {{ $selectedVariant == $variant->id ? 'border-yellow-500 bg-yellow-50' : 'border-gray-300' }} flex flex-col items-start">
                         <div class="mt-1 text-sm text-gray-600">
-                            @foreach ($variant->variantAttributes as $attribute)
+                            @foreach ($variant->variantAttributes->sortBy('attribute.name') as $attribute)
                                 <span class="block">{{ $attribute->attribute->name }}:
                                     {{ $attribute->attributeValue->value }}</span>
                             @endforeach
@@ -29,8 +29,10 @@
         <h2 class="text-xl font-semibold">Price: ${{ $selectedVariantPrice }}</h2>
     </div>
 
-    <div x-data="{ show: @entangle('message').defer }" x-init="@this.on('productAddedToCart', () => { show = true;
-        setTimeout(() => show = false, 3000) })" class="fixed left-5 top-20 z-50">
+    <div x-data="{ show: @entangle('message').defer }" x-init="@this.on('productAddedToCart', () => {
+        show = true;
+        setTimeout(() => show = false, 3000)
+    })" class="fixed left-5 top-20 z-50">
         <template x-if="show">
             <div class="bg-orange-500 text-white px-2 py-2 w-40 flex items-center shadow-lg">
                 <i class="fas fa-check-circle mr-2"></i>
