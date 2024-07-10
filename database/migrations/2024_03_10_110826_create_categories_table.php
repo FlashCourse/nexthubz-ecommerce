@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->string('icon')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
         });

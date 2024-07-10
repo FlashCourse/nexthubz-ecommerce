@@ -4,7 +4,7 @@
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
                 {{-- Product Image --}}
                 <div>
-                    <img src="{{ asset('/images/products/' . $product->image) }}" alt="Product Image"
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image"
                         class="w-full h-[550px] border rounded-lg object-cover">
                 </div>
 

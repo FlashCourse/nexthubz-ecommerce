@@ -148,7 +148,7 @@
                             @foreach ($cart as $item)
                                 <div class="p-4 bg-white rounded-lg flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <img src="{{ asset('/images/products/' . $item['image']) }}"
+                                        <img src="{{ asset('storage/' . $item['image']) }}"
                                             alt="{{ $item['name'] }}" class="w-16 h-16 object-cover rounded">
                                         <div class="ml-4">
                                             <h4 class="font-semibold">{{ $item['name'] }}</h4>

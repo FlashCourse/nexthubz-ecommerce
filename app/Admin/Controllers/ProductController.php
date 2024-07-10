@@ -119,7 +119,7 @@ class ProductController extends AdminController
             // Map categories to an array suitable for the options method
             return $categories->pluck('name', 'id');
         });
-        $form->image('image', __('Image'));
+        $form->image('image', __('Image'))->move('images/products')->uniqueName();;
         $form->decimal('price', __('Price'));
         $form->decimal('discount', __('Discount'));
         $form->number('stock', __('Stock'));

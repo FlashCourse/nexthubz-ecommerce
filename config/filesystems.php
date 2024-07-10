@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -58,8 +58,8 @@ return [
 
         'admin' => [
             'driver' => 'local',
-            'root' => public_path('storage/admin'), // Adjust the path according to your needs
-            'url' => env('APP_URL') .'/storage/admin', // Adjust the URL accordingly
+            'root' => public_path('storage'), // Adjust the path according to your needs
+            'url' => env('APP_URL') . '/storage', // Adjust the URL accordingly
             'visibility' => 'public',
         ],
 

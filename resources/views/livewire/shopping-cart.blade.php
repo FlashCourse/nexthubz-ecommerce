@@ -27,7 +27,7 @@
                     @foreach ($cart as $key => $item)
                         <li class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg shadow-md">
                             <div class="w-16 h-16 bg-gray-200 rounded-md overflow-hidden flex-shrink-0">
-                                <img src="{{ asset('images/products/' . $item['image']) }}" alt="{{ $item['name'] }}"
+                                <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}"
                                     class="object-cover w-full h-full">
                             </div>
                             <div class="flex-1">

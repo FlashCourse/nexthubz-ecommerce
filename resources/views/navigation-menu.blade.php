@@ -1,4 +1,5 @@
-<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => {isSticky = window.scrollY > 0})" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"  class="sticky top-0 z-30 bg-orange-0">
+<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"
+    class="sticky top-0 z-30 bg-orange-0">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl">
         <div class="flex justify-between h-16">
@@ -6,7 +7,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('home') }}" class="flex items-center text-orange-500">
-                    
+
                         <img src="{{ asset('images/logo.png') }}" height="50px" width="180px" alt="logo">
                     </a>
                 </div>
@@ -39,7 +40,11 @@
                             <!-- Dropdown content goes here -->
                             <ul class="p-4">
                                 @foreach ($composerCategories as $category)
-                                    <x-dropdown-link href="{{ route('product.search', ['categories' => $category->slug]) }}">{{ $category->name }}</x-dropdown-link>
+                                    <x-dropdown-link
+                                        href="{{ route('product.search', ['categories' => $category->slug]) }}">
+                                        <img src="{{ asset('storage/' . $category->icon) }}" alt="category-icon"
+                                            class="w-5 h-5 mr-2 inline-block align-middle" />
+                                        {{ $category->name }}</x-dropdown-link>
                                 @endforeach
                             </ul>
                         </x-slot>
@@ -212,11 +217,11 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden overflow-auto">
         <div class="pt-2 pb-3 space-y-1">
-            @foreach($composerCategories as $category)
-            <x-responsive-nav-link href="{{ route('product.search', ['categories' => $category->slug]) }}">
-                {{ $category->name }}
-            </x-responsive-nav-link>
-        @endforeach
+            @foreach ($composerCategories as $category)
+                <x-responsive-nav-link href="{{ route('product.search', ['categories' => $category->slug]) }}">
+                    {{ $category->name }}
+                </x-responsive-nav-link>
+            @endforeach
         </div>
 
         @auth

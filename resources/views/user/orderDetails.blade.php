@@ -104,7 +104,7 @@
                         <!-- Loop through order items -->
                         @foreach ($order->orderItems as $item)
                             <li class="flex justify-between items-center py-4 border-b border-gray-200">
-                                <img src="{{ asset('/images/products/' . $item->product->image) }}"
+                                <img src="{{ asset('storage/' . $item->product->image) }}"
                                     alt="{{ $item->product->name }}" class="w-16 h-16 object-cover rounded-md">
                                 <div class="ml-4">
                                     <div class="text-lg font-medium">{{ $item->product->name }}</div>
