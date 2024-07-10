@@ -136,9 +136,10 @@ class SslCommerzPaymentController extends Controller
             'transaction_id' => $post_data['tran_id'],
             'order_id' => $order->id,
             'amount' => $orderData['total'],
+            'total' => $orderData['total'],
             'payment_method' => 'online',
             'currency' => $post_data['currency'],
-            'payment_date' => now(),
+            'nvoice_date' => now(),
         ]);
 
         # CUSTOMER INFORMATION

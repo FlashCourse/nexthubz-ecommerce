@@ -9,16 +9,18 @@ class Payment extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'order_id',
         'invoice_id',
         'transaction_id',
-        'order_id',
         'amount',
+        'total',
         'currency',
         'payment_method',
         'payment_date',
+        'invoice_date',
         'status',
     ];
-    
+
 
     /**
      * Get the order that owns the payment.

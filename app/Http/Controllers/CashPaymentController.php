@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CheckOrderStatus;
+use App\Mail\OrderPlaced;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Payment;
 use App\Services\StockService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CashPaymentController extends Controller
 {
@@ -104,6 +109,22 @@ class CashPaymentController extends Controller
             // Insert all the order items to the CartItem
             OrderItem::insert($orderItemsData);
 
+            // Retrieve order items related to the order
+            $orderItems = OrderItem::where('order_id', $order->id)->get();
+
+            // Create a new payment
+            $payment = Payment::create([
+                'order_id' => $order->id,
+                'invoice_id' => 'NHL-INV#' . Str::random(6),
+                'transaction_id' => Str::uuid(),
+                'amount' => $order->total,
+                'total' => $order->total,
+                'currency' => 'BDT', // or any other currency
+                'payment_method' => 'cash', // initial payment method
+                'status' => 'pending',
+                'invoice_date' => Carbon::now(),
+            ]);
+
             // Dispatch the job to rollback stock if checkout failed
             CheckOrderStatus::dispatch($order->id)->delay(now()->addMinutes(30));
 
@@ -120,6 +141,7 @@ class CashPaymentController extends Controller
         }
 
         session()->put('order_success', true);
+        Mail::to($request->user())->send(new OrderPlaced($order, $payment, $orderItems));
         return redirect()->route('order-success');
     }
 }
