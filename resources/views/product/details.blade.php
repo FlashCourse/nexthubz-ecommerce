@@ -28,7 +28,7 @@
 
             <div class="bg-white border rounded-lg p-8 mb-12">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Product Description</h3>
-                <p class="text-gray-700 leading-relaxed">{{ $product->description }}</p>
+                <div class="text-gray-700 leading-relaxed">{!! $product->description !!}</div>
             </div>
             <div class="bg-white border rounded-lg p-8">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Reviews</h3>
