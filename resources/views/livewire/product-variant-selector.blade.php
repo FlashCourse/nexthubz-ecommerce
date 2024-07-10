@@ -4,7 +4,6 @@
         <span
             class="inline-block bg-gray-200 text-gray-800 py-1 px-3 text-xs rounded-full">{{ $product->category->name }}</span>
     </p>
-    <p class="mb-4 text-gray-600">{{ $product->description }}</p>
 
     @if ($variants->isNotEmpty())
         <div class="mb-4">
@@ -28,6 +27,18 @@
     <div class="mb-4">
         <h2 class="text-xl font-semibold">Price: ${{ $selectedVariantPrice }}</h2>
     </div>
+
+    <div class="mb-4">
+        <div class="flex items-center">
+            <!-- Full stars -->
+            <i class="fas fa-star text-yellow-500"></i>
+            <i class="fas fa-star text-yellow-500"></i>
+            <i class="fas fa-star text-yellow-500"></i>
+            <i class="fas fa-star text-yellow-500"></i>
+            <i class="fas fa-star text-yellow-500"></i>
+        </div>
+    </div>
+
 
     <div x-data="{ show: @entangle('message').defer }" x-init="@this.on('productAddedToCart', () => {
         show = true;

@@ -1,5 +1,5 @@
 <section class="py-20 bg-secondary text-white">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl font-semibold text-center mb-6">Why Choose Us</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="flex items-center border hover:border-orange-500 border-transparent p-6 rounded-lg">

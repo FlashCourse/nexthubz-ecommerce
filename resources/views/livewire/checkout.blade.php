@@ -28,7 +28,7 @@
 
         <form wire:submit="save">
             {{-- Shipping Address --}}
-            <div class="p-6 mb-8 bg-white rounded-lg shadow-md">
+            <div class="p-6 mb-8 bg-white rounded-lg border">
                 <h2 class="mb-4 text-xl font-semibold">Shipping Address</h2>
                 <!-- Add your form fields for shipping address here -->
 
@@ -101,7 +101,7 @@
 
 
             {{-- Payment Methods --}}
-            <div class="p-6 mb-8 bg-white rounded-lg shadow-md">
+            <div class="p-6 mb-8 bg-white rounded-lg border">
                 <h2 class="mb-4 text-xl font-semibold">Payment Method</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="flex items-center p-4 bg-gray-100 rounded-md">
@@ -136,7 +136,7 @@
 
 
             {{-- Payment Summary --}}
-            <div class="p-6 bg-orange-100 rounded-lg shadow-md">
+            <div class="p-6  rounded-lg border">
                 <h2 class="mb-4 text-xl font-semibold">Payment Summary</h2>
 
                 @if (count($cart) > 0)

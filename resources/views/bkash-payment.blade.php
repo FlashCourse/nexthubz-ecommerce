@@ -15,7 +15,7 @@
 
             <div class="grid grid-cols-1 xl:grid-cols-6 gap-5">
                 <!-- Cart Items -->
-                <div class="bg-white shadow-md xl:col-span-4 rounded-lg">
+                <div class="bg-white border xl:col-span-4 rounded-lg">
                     <h2 class="text-lg font-semibold border-b border-gray-200 py-4 px-6">Cart Items</h2>
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="xl:col-span-2 p-4 bg-orange-100">
+                <div class="xl:col-span-2 p-4 border">
                     <!-- Order Summary -->
                     <div class="rounded-lg mb-8">
                         <h2 class="text-lg font-semibold border-b border-gray-200 py-4 px-6">Order Summary</h2>

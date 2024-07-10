@@ -42,9 +42,12 @@
                                 @foreach ($composerCategories as $category)
                                     <x-dropdown-link
                                         href="{{ route('product.search', ['categories' => $category->slug]) }}">
-                                        <img src="{{ asset('storage/' . $category->icon) }}" alt="category-icon"
-                                            class="w-5 h-5 mr-2 inline-block align-middle" />
-                                        {{ $category->name }}</x-dropdown-link>
+                                        @if ($category->icon)
+                                            <img src="{{ asset('storage/' . $category->icon) }}" alt="category-icon"
+                                                class="w-5 h-5 mr-2 inline-block align-middle" />
+                                        @endif
+                                        {{ $category->name }}
+                                    </x-dropdown-link>
                                 @endforeach
                             </ul>
                         </x-slot>

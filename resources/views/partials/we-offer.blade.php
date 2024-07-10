@@ -1,5 +1,5 @@
 <section class="bg-secondary text-white py-20">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl font-semibold text-center mb-10">We Offer</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -27,7 +27,8 @@
                     <i class="fas fa-home text-4xl text-white"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Household Essentials</h3>
-                <p class="text-center">From cleaning supplies to home appliances, we have everything you need to keep your home running smoothly.</p>
+                <p class="text-center">From cleaning supplies to home appliances, we have everything you need to keep
+                    your home running smoothly.</p>
             </div>
 
             <!-- Offer Card 4: Personal Care -->
@@ -36,7 +37,8 @@
                     <i class="fas fa-user-circle text-4xl text-white"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Personal Care</h3>
-                <p class="text-center">Take care of yourself with our wide range of skincare, haircare, and personal grooming products.</p>
+                <p class="text-center">Take care of yourself with our wide range of skincare, haircare, and personal
+                    grooming products.</p>
             </div>
         </div>
     </div>
