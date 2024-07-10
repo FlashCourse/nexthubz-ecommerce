@@ -1,5 +1,4 @@
 <div>
-    <h1 class="mb-4 text-3xl font-bold">{{ $product->name }}</h1>
     <p class="mb-2">
         <span
             class="inline-block bg-gray-200 text-gray-800 py-1 px-3 text-xs rounded-full">{{ $product->category->name }}</span>

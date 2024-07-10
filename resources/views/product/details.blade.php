@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-12 md:grid-cols-2 items-center">
                 <!-- Product Image -->
@@ -12,13 +12,10 @@
                 </div>
 
                 <!-- Product Details -->
-                <div class="flex flex-col justify-center bg-white border rounded-lg p-8">
+                <div class="flex flex-col justify-center bg-white  p-8">
                     <h2 class="text-3xl font-bold text-gray-800 mb-6">{{ $product->name }}</h2>
-                    <div class="text-lg text-gray-600 mb-4">
+                    <div class="text-lg text-gray-600 ">
                         {{ $product->short_description }}
-                    </div>
-                    <div class="mb-6">
-                        <span class="text-2xl font-bold text-gray-800">${{ $product->price }}</span>
                     </div>
                     <livewire:product-variant-selector :product="$product" />
                 </div>
