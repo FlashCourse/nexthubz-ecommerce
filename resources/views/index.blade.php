@@ -52,7 +52,7 @@
                 @endforeach
             </div>
             <div class="text-center mt-8">
-                <a href="#"
+                <a href="/product/search"
                     class="inline-block px-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-300">See
                     More</a>
             </div>

@@ -72,7 +72,8 @@ class CategoryController extends AdminController
         $form->text('name', __('Name'));
         $form->number('parent_id', __('Parent id'));
         $form->image('image', __('Image'))->move('images/categories')->uniqueName();;
-        $form->textarea('description', __('Description'));
+        $form->ckeditor('description')->options(['lang' => 'fr', 'height' => 500, 'contentsCss' => '/css/frontend-body-content.css']);
+
 
         return $form;
     }

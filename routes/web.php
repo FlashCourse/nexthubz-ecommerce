@@ -20,6 +20,7 @@ Route::get('/order-success', [UserController::class, 'orderSuccess'])->name('ord
 Route::get('/order-failure', [UserController::class, 'orderFailure'])->name('order-failure');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

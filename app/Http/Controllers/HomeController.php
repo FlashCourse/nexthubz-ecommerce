@@ -23,4 +23,10 @@ class HomeController extends Controller
     {
         return view('privacy-policy');
     }
+    public function categories()
+    {
+        $categories = Category::paginate(10);
+
+        return view('categories', compact('categories'));
+    }
 }

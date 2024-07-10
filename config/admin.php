@@ -228,7 +228,7 @@ return [
          * or specific method to path like: get:admin/auth/logs.
          */
         'except' => [
-            env('ADMIN_ROUTE_PREFIX', 'admin').'/auth/logs*',
+            env('ADMIN_ROUTE_PREFIX', 'admin') . '/auth/logs*',
         ],
 
         /*
@@ -356,9 +356,7 @@ return [
     'minify_assets' => [
 
         // Assets will not be minified.
-        'excepts' => [
-
-        ],
+        'excepts' => [],
 
     ],
 
@@ -410,6 +408,17 @@ return [
     |
     */
     'extensions' => [
+        'ckeditor' => [
 
+            //Set to false if you want to disable this extension
+            'enable' => true,
+
+            // Editor configuration
+            'config' => [
+                'language'      => 'de',
+                'height'        => 500,
+                'contentsCss'   => '/css/frontend-body-content.css',
+            ]
+        ]
     ],
 ];
