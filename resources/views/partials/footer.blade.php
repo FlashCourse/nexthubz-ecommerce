@@ -9,23 +9,22 @@
                     unique self.</p>
             </div>
 
+            <!-- Quick Links -->
+            <div class="mb-8 md:mb-0">
+                <h2 class="text-3xl font-bold mb-4">Quick Links</h2>
+                <ul>
+                    <li><a href={{ route('home') }}>Home</a></li>
+                    <li><a href="{{ route('product.search') }}">Shop</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
+                </ul>
+            </div>
+
             <!-- Contact -->
             <div class="mb-8 md:mb-0">
                 <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
                 <p>Email: info@example.com</p>
                 <p>Phone: +123 456 7890</p>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="mb-8 md:mb-0">
-                <h2 class="text-3xl font-bold mb-4">Quick Links</h2>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
             </div>
 
             <!-- Follow Us -->

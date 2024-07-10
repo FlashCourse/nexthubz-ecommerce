@@ -18,6 +18,8 @@ Route::get('/product/search', [ProductController::class, 'search'])->name('produ
 Route::get('/product/{product}', [ProductController::class, 'details'])->name('product.details');
 Route::get('/order-success', [UserController::class, 'orderSuccess'])->name('order-success');
 Route::get('/order-failure', [UserController::class, 'orderFailure'])->name('order-failure');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
