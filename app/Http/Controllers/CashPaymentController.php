@@ -86,14 +86,20 @@ class CashPaymentController extends Controller
             // Prepare data for order items insertion
             $orderItemsData = [];
             foreach ($cartItems as $item) {
-                $orderItemsData[] = [
+                $orderItem = [
                     'order_id' => $order->id,
                     'product_id' => $item['product_id'],
-                    'variant_id' => $item['variant_id'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ];
+
+                if (!empty($item['variant_id'])) {
+                    $orderItem['variant_id'] = $item['variant_id'];
+                }
+
+                $orderItemsData[] = $orderItem;
             }
+
 
             // Insert all the order items to the CartItem
             OrderItem::insert($orderItemsData);

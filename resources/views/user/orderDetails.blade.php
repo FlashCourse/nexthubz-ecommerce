@@ -109,13 +109,17 @@
                                 <div class="ml-4">
                                     <div class="text-lg font-medium">{{ $item->product->name }}</div>
                                     <div class="text-sm text-gray-500">{{ $item->product->description }}</div>
-                                    <div class="text-sm text-gray-500">SKU: {{ $item->variant->sku }}</div>
-                                    <div class="text-sm text-gray-500">
-                                        @foreach ($item->variant->variantAttributes as $attribute)
-                                            <span>{{ $attribute->attribute->name }}:
-                                                {{ $attribute->attributeValue->value }}</span><br>
-                                        @endforeach
-                                    </div>
+                                    @if ($item->variant)
+                                        <div class="text-sm text-gray-500">SKU: {{ $item->variant->sku }}</div>
+                                        <div class="text-sm text-gray-500">
+                                            @foreach ($item->variant->variantAttributes as $attribute)
+                                                <span>{{ $attribute->attribute->name }}:
+                                                    {{ $attribute->attributeValue->value }}</span><br>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        {{-- <h3>SKU: {{ $item->product->sku }}</h3> --}}
+                                    @endif
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <div class="text-orange-500 font-medium">${{ number_format($item->price, 2) }}
