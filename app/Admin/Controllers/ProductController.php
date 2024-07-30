@@ -41,6 +41,9 @@ class ProductController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
+        // Sort the grid by 'created_at' in descending order
+        $grid->model()->orderBy('created_at', 'desc');
+
         return $grid;
     }
 
@@ -124,6 +127,20 @@ class ProductController extends AdminController
         $form->decimal('discount', __('Discount'));
         $form->number('stock', __('Stock'));
         $form->switch('active', __('Active'))->default(1);
+
+        // Customize the footer
+        $form->footer(function ($footer) {
+            $footer->disableViewCheck();
+            $footer->disableEditingCheck();
+            $footer->disableCreatingCheck();
+        });
+
+        // Callback
+        $form->saved(function (Form $form) {
+            $product = $form->model();
+            $url = admin_url('products') . '/' . $product->id;
+            return redirect($url);
+        });
 
         return $form;
     }

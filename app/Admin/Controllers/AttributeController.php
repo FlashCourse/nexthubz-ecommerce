@@ -49,6 +49,17 @@ class AttributeController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
+        // Define a nested resource for Variants
+        $show->attributeValues('AttributeValues', function ($attributeValues) use ($id) {
+            $attributeValues->setResource('/admin/attribute-values');
+            // Configure fields to display for Variants
+            $attributeValues->attribute_id();
+            $attributeValues->value();
+            // Add more fields as needed
+
+
+        });
+
         return $show;
     }
 
@@ -62,6 +73,13 @@ class AttributeController extends AdminController
         $form = new Form(new Attribute());
 
         $form->text('name', __('Name'));
+
+        // Callback
+        $form->saved(function (Form $form) {
+            $attribute = $form->model();
+            $url = admin_url('attributes') . '/' . $attribute->id;
+            return redirect($url);
+        });
 
         return $form;
     }

@@ -80,6 +80,12 @@ class VariantAttributeController extends AdminController
             return $attributeValues->pluck('value', 'id');
         });
 
+        $form->saved(function (Form $form) {
+            $variant = $form->model()->variant_id;
+            $url = admin_url('variants') . '/' .  $variant;
+            return redirect($url);
+        });
+
         return $form;
     }
 }
