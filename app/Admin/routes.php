@@ -9,6 +9,7 @@ use App\Admin\Controllers\OrderItemController;
 use App\Admin\Controllers\PaymentController;
 use App\Admin\Controllers\ProductController;
 use App\Admin\Controllers\ReviewController;
+use App\Admin\Controllers\SettingController;
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\VariantAttributeController;
 use App\Admin\Controllers\VariantController;
@@ -36,4 +37,7 @@ Route::group([
     $router->resource('attribute-values', AttributeValueController::class);
     $router->resource('variants', VariantController::class);
     $router->resource('variant-attributes', VariantAttributeController::class);
+
+    // Individual routes for settings
+    $router->get('settings/general', [SettingController::class, 'index'])->name('settings.index');
 });
