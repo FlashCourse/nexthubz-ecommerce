@@ -44,6 +44,6 @@ Route::group([
     $router->get('settings/shipping', [SettingController::class, 'shipping'])->name('settings.shipping');
     $router->get('settings/payment', [SettingController::class, 'payment'])->name('settings.payment');
     $router->get('settings/tax', [SettingController::class, 'tax'])->name('settings.tax');
-    $router->get('settings/notifications', [SettingController::class, 'notifications'])->name('settings.notifications');
+    $router->get('settings/notifications', [SettingController::class, 'notification'])->name('settings.notifications');
     $router->get('settings/api', [SettingController::class, 'api'])->name('settings.api');
 });
