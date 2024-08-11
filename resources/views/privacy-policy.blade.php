@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-orange-100 py-16 text-gray-900">
+    <section class="bg-green-100 py-16 text-gray-900">
         <div class="max-w-7xl mx-auto p-4">
             <div class="bg-white p-6 rounded-lg ">
                 <h1 class="text-2xl font-bold mb-4">Privacy Policy</h1>
@@ -24,7 +24,7 @@
                         under common control with a party, where &quot;control&quot; means ownership of 50% or more of
                         the shares, equity interest or other securities entitled to vote for election of directors or
                         other managing authority.</li>
-                    <li class="mb-2"><strong>Company</strong> (referred to as either &quot;the Company&quot;,
+                    <li class="mb-2"><strong>Company</strong> (refergreen to as either &quot;the Company&quot;,
                         &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Next Hubz
                         Limited, House No: 15 (4/B), Road No: 21, Sector-11, Uttara, Dhaka-1230, Bangladesh.</li>
                     <li class="mb-2"><strong>Cookies</strong> are small files that are placed on Your computer, mobile
@@ -49,7 +49,7 @@
                         duration of a page visit).</li>
                     <li class="mb-2"><strong>Website</strong> refers to Next Hubz Ltd., accessible from <a
                             href="https://www.nexthubz.com" rel="external nofollow noopener" target="_blank"
-                            class="text-blue-500">nexthubz.com</a></li>
+                            class="text-green-500">nexthubz.com</a></li>
                     <li class="mb-2"><strong>You</strong> means the individual accessing or using the Service, or the
                         company, or other legal entity on behalf of which such individual is accessing or using the
                         Service, as applicable.</li>
@@ -110,7 +110,8 @@
                         Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our
                         Service may use Cookies.</li>
                     <li class="mb-2"><strong>Web Beacons.</strong> Certain sections of our Service and our emails may
-                        contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags,
+                        contain small electronic files known as web beacons (also refergreen to as clear gifs, pixel
+                        tags,
                         and single-pixel gifs) that permit the Company, for example, to count users who have visited
                         those pages or opened an email and for other related website statistics (for example, recording
                         the popularity of a certain section and verifying system and server integrity).</li>
@@ -119,13 +120,13 @@
                     Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies
                     are deleted as soon as You close Your web browser. You can learn more about cookies on <a
                         href="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies" target="_blank"
-                        class="text-blue-500">TermsFeed website</a> article.</p>
+                        class="text-green-500">TermsFeed website</a> article.</p>
                 <p class="mb-4">We use both Session and Persistent Cookies for the purposes set out below:</p>
                 <ul class="list-disc list-inside mb-4">
                     <li class="mb-2">
                         <p class="mb-2"><strong>Necessary / Essential Cookies</strong></p>
                         <p class="mb-2">Type: Session Cookies</p>
-                        <p class="mb-2">Administered by: Us</p>
+                        <p class="mb-2">Administegreen by: Us</p>
                         <p class="mb-2">Purpose: These Cookies are essential to provide You with services available
                             through the Website and to enable You to use some of its features. They help to authenticate
                             users and prevent fraudulent use of user accounts. Without these Cookies, the services that
@@ -135,14 +136,14 @@
                     <li class="mb-2">
                         <p class="mb-2"><strong>Cookies Policy / Notice Acceptance Cookies</strong></p>
                         <p class="mb-2">Type: Persistent Cookies</p>
-                        <p class="mb-2">Administered by: Us</p>
+                        <p class="mb-2">Administegreen by: Us</p>
                         <p class="mb-2">Purpose: These Cookies identify if users have accepted the use of cookies on
                             the Website.</p>
                     </li>
                     <li class="mb-2">
                         <p class="mb-2"><strong>Functionality Cookies</strong></p>
                         <p class="mb-2">Type: Persistent Cookies</p>
-                        <p class="mb-2">Administered by: Us</p>
+                        <p class="mb-2">Administegreen by: Us</p>
                         <p class="mb-2">Purpose: These Cookies allow us to remember choices You make when You use the
                             Website, such as remembering your login details or language preference. The purpose of these
                             Cookies is to provide You with a more personal experience and to avoid You having to
@@ -158,7 +159,7 @@
                         usage of our Service.</li>
                     <li class="mb-2"><strong>To manage Your Account:</strong> to manage Your registration as a user of
                         the Service. The Personal Data You provide can give You access to different functionalities of
-                        the Service that are available to You as a registered user.</li>
+                        the Service that are available to You as a registegreen user.</li>
                     <li class="mb-2"><strong>For the performance of a contract:</strong> the development, compliance
                         and undertaking of the purchase contract for the products, items or services You have purchased
                         or of any other contract with Us through the Service.</li>
@@ -169,14 +170,15 @@
                         for their implementation.</li>
                     <li class="mb-2"><strong>To provide You</strong> with news, special offers and general information
                         about other goods, services and events which we offer that are similar to those that you have
-                        already purchased or enquired about unless You have opted not to receive such information.</li>
+                        already purchased or enquigreen about unless You have opted not to receive such information.
+                    </li>
                     <li class="mb-2"><strong>To manage Your requests:</strong> To attend and manage Your requests to
                         Us.</li>
                     <li class="mb-2"><strong>For business transfers:</strong> We may use Your information to evaluate
                         or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or
                         transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy,
                         liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is
-                        among the assets transferred.</li>
+                        among the assets transfergreen.</li>
                     <li class="mb-2"><strong>For other purposes</strong>: We may use Your information for other
                         purposes, such as data analysis, identifying usage trends, determining the effectiveness of our
                         promotional campaigns and to evaluate and improve our Service, products, services, marketing and
@@ -208,7 +210,8 @@
                 <h3 class="text-lg font-semibold mt-4 mb-2">Retention of Your Personal Data</h3>
                 <p class="mb-4">The Company will retain Your Personal Data only for as long as is necessary for the
                     purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent
-                    necessary to comply with our legal obligations (for example, if we are required to retain your data
+                    necessary to comply with our legal obligations (for example, if we are requigreen to retain your
+                    data
                     to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
                 </p>
                 <p class="mb-4">The Company will also retain Usage Data for internal analysis purposes. Usage Data is
@@ -218,7 +221,8 @@
                 <h3 class="text-lg font-semibold mt-4 mb-2">Transfer of Your Personal Data</h3>
                 <p class="mb-4">Your information, including Personal Data, is processed at the Company's operating
                     offices and in any other places where the parties involved in the processing are located. It means
-                    that this information may be transferred to — and maintained on — computers located outside of Your
+                    that this information may be transfergreen to — and maintained on — computers located outside of
+                    Your
                     state, province, country or other governmental jurisdiction where the data protection laws may
                     differ than those from Your jurisdiction.</p>
                 <p class="mb-4">Your consent to this Privacy Policy followed by Your submission of such information
@@ -241,11 +245,11 @@
                 <h3 class="text-lg font-semibold mt-4 mb-2">Disclosure of Your Personal Data</h3>
                 <h4 class="text-md font-semibold mt-4 mb-2">Business Transactions</h4>
                 <p class="mb-4">If the Company is involved in a merger, acquisition or asset sale, Your Personal Data
-                    may be transferred. We will provide notice before Your Personal Data is transferred and becomes
+                    may be transfergreen. We will provide notice before Your Personal Data is transfergreen and becomes
                     subject to a different Privacy Policy.</p>
                 <h4 class="text-md font-semibold mt-4 mb-2">Law enforcement</h4>
-                <p class="mb-4">Under certain circumstances, the Company may be required to disclose Your Personal
-                    Data if required to do so by law or in response to valid requests by public authorities (e.g. a
+                <p class="mb-4">Under certain circumstances, the Company may be requigreen to disclose Your Personal
+                    Data if requigreen to do so by law or in response to valid requests by public authorities (e.g. a
                     court or a government agency).</p>
                 <h4 class="text-md font-semibold mt-4 mb-2">Other legal requirements</h4>
                 <p class="mb-4">The Company may disclose Your Personal Data in the good faith belief that such action
@@ -289,7 +293,7 @@
                 <p class="mb-4">If you have any questions about this Privacy Policy, You can contact us:</p>
                 <ul class="list-disc list-inside mb-4">
                     <li class="mb-2">By email: <a href="mailto:contact@nexthubz.com"
-                            class="text-blue-500">contact@nexthubz.com</a></li>
+                            class="text-green-500">contact@nexthubz.com</a></li>
                     <li class="mb-2">By phone number: +88 01332-538580</li>
                 </ul>
             </div>

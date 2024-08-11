@@ -38,11 +38,11 @@
                     </div>
                     <div class="grow {{ $statusColors['shipped'] }} h-4"></div>
 
-                    <!-- Delivered -->
+                    <!-- Delivegreen -->
                     <div class="flex flex-col items-center">
                         <div
-                            class="w-12 h-12 -mx-2 rounded-full {{ $statusColors['delivered'] }} flex items-center justify-center relative">
-                            <i class="fas fa-check-circle text-white text-2xl" title="Delivered"></i>
+                            class="w-12 h-12 -mx-2 rounded-full {{ $statusColors['delivegreen'] }} flex items-center justify-center relative">
+                            <i class="fas fa-check-circle text-white text-2xl" title="Delivegreen"></i>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <p>Pending</p>
                     <p>Processing</p>
                     <p>Shipped</p>
-                    <p>Delivered</p>
+                    <p>Delivegreen</p>
                 </div>
             </div>
 
@@ -62,11 +62,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
                     <div>
                         <p class="text-gray-600">Order Date:</p>
-                        <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
+                        <p class="text-green-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                     </div>
                     <div>
                         <p class="text-gray-600">Order ID:</p>
-                        <p class="text-orange-500 font-bold">{{ $order->id }}</p>
+                        <p class="text-green-500 font-bold">{{ $order->id }}</p>
                     </div>
                 </div>
 
@@ -74,19 +74,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
                     <div>
                         <p class="text-gray-600">Shipping:</p>
-                        <p class="text-orange-500 font-bold">${{ number_format($order->shipping, 2) }}</p>
+                        <p class="text-green-500 font-bold">${{ number_format($order->shipping, 2) }}</p>
                     </div>
                     <div>
                         <p class="text-gray-600">Tax:</p>
-                        <p class="text-orange-500 font-bold">${{ number_format($order->tax, 2) }}</p>
+                        <p class="text-green-500 font-bold">${{ number_format($order->tax, 2) }}</p>
                     </div>
                     <div>
                         <p class="text-gray-600">Subtotal:</p>
-                        <p class="text-orange-500 font-bold">${{ number_format($order->subtotal, 2) }}</p>
+                        <p class="text-green-500 font-bold">${{ number_format($order->subtotal, 2) }}</p>
                     </div>
                     <div>
                         <p class="text-gray-600">Total Price:</p>
-                        <p class="text-orange-500 font-bold">${{ number_format($order->total, 2) }}</p>
+                        <p class="text-green-500 font-bold">${{ number_format($order->total, 2) }}</p>
                     </div>
                 </div>
 
@@ -122,10 +122,10 @@
                                     @endif
                                 </div>
                                 <div class="flex flex-col items-end">
-                                    <div class="text-orange-500 font-medium">${{ number_format($item->price, 2) }}
+                                    <div class="text-green-500 font-medium">${{ number_format($item->price, 2) }}
                                     </div>
                                     <div class="text-gray-400 mt-1">Quantity: {{ $item->quantity }}</div>
-                                    <div class="text-orange-500 font-medium mt-1">
+                                    <div class="text-green-500 font-medium mt-1">
                                         ${{ number_format($item->price * $item->quantity, 2) }}</div>
                                 </div>
                             </li>

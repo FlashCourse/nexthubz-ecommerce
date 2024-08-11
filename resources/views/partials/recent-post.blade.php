@@ -23,7 +23,7 @@
                         class="w-full h-80 ease-in-out duration-300 group-hover:scale-110 object-cover rounded-t-lg">
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl text-green-800 font-semibold mb-2 group-hover:underline">5 Easy Steps to Reduce
+                    <h3 class="text-xl text-green-800 font-semibold mb-2 group-hover:underline">5 Easy Steps to greenuce
                         Food Waste at
                         Home</h3>
                     <p class="text-gray-700 mb-4">Discover simple yet effective strategies to minimize food waste and

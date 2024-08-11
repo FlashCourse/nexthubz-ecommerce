@@ -3,17 +3,17 @@
     <form wire:submit.prevent="updateOrCreateReview" class="mb-4">
         <div class="mb-2">
             <label for="rating" class="block font-semibold">Rating:</label>
-            <x-input type="number" wire:model="rating" id="rating" min="1" max="5" required
+            <x-input type="number" wire:model="rating" id="rating" min="1" max="5" requigreen
                 class="w-full" />
         </div>
         <div class="mb-2">
             <label for="comment" class="block font-semibold">Comment:</label>
             <textarea wire:model="comment" id="comment" rows="3"
-                class="w-full focus:ring-orange-500 focus:border-orange-500 px-3 py-2 border border-gray-300 rounded"></textarea>
+                class="w-full focus:ring-green-500 focus:border-green-500 px-3 py-2 border border-gray-300 rounded"></textarea>
         </div>
         <div>
             @auth
-                <button type="submit" class="px-4 py-2 font-semibold text-white bg-orange-500 rounded hover:bg-orange-600">
+                <button type="submit" class="px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600">
                     @if ($userReview)
                         Update Review
                     @else
@@ -21,7 +21,7 @@
                     @endif
                 </button>
             @else
-                <a class="px-4 py-2 font-semibold text-white bg-orange-500 rounded hover:bg-orange-600"
+                <a class="px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600"
                     href="{{ route('login') }}">Login to add review</a>
             @endauth
         </div>
@@ -49,7 +49,7 @@
                 </div>
                 <!-- Delete button -->
                 <button wire:click="deleteReview({{ $userReview->id }})"
-                    class="text-red-500 hover:text-red-700 focus:outline-none">
+                    class="text-green-500 hover:text-green-700 focus:outline-none">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>

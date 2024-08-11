@@ -2,7 +2,7 @@
     @open-filter.window="sidebarOpen = true" class="relative lg:block lg:w-1/4 pr-8">
     <div wire:loading class="fixed">
         <div class="fixed top-0 left-0 w-full h-full flex items-center  justify-center z-50">
-            <i class="fas fa-spinner fa-3x text-orange-500 animate-spin"></i>
+            <i class="fas fa-spinner fa-3x text-green-500 animate-spin"></i>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
                     <span class="mx-2">-</span>
                     <x-input type="number" wire:model="maxPrice" id="max_price" min="0" placeholder="Max"
                         class="w-16 p-1 text-sm text-center border rounded-md " />
-                    <button type="submit" class="p-1 ml-2 text-white bg-orange-500 rounded-md">Apply</button>
+                    <button type="submit" class="p-1 ml-2 text-white bg-green-500 rounded-md">Apply</button>
                 </div>
             </form>
         </div>
@@ -37,7 +37,7 @@
                             <x-checkbox wire:click="updateSelectedCategories('{{ $category->slug }}')"
                                 :checked="in_array($category->slug, $selectedCategories)" />
                             <span
-                                class="{{ in_array($category->slug, $selectedCategories) ? 'font-bold text-orange-500' : '' }}">
+                                class="{{ in_array($category->slug, $selectedCategories) ? 'font-bold text-green-500' : '' }}">
                                 {{ $category->name }}
                             </span>
                         </label>
@@ -48,4 +48,3 @@
         </div>
     </div>
 </div>
-

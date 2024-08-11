@@ -3,10 +3,15 @@
         <div class="max-w-lg bg-white p-8 rounded-lg shadow-md text-center">
             <i class="fas fa-check-circle text-4xl text-green-600 mb-4"></i>
             <h2 class="text-3xl font-bold text-green-600 mb-4">Order Successful</h2>
-            <p class="text-lg text-gray-700 mb-8">Thank you for your purchase! Your order has been successfully placed.</p>
+            <p class="text-lg text-gray-700 mb-8">Thank you for your purchase! Your order has been successfully placed.
+            </p>
             <div class="flex justify-between">
-                <a href="{{ route('user.orders') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded">View All Orders</a>
-                <a href="{{ route('home') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded">Continue Shopping</a>
+                <a href="{{ route('user.orders') }}"
+                    class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">View
+                    All Orders</a>
+                <a href="{{ route('home') }}"
+                    class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">Continue
+                    Shopping</a>
             </div>
         </div>
     </section>

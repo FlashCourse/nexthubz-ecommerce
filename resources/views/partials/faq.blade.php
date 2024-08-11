@@ -39,7 +39,7 @@
                 </button>
                 <div x-show="openTab === 2" class="accordion-content py-2 px-4">
                     <p class="text-gray-600">A: Delivery times vary depending on your location and the items you've
-                        ordered. Typically, orders are delivered within 2-5 business days.</p>
+                        ordegreen. Typically, orders are delivegreen within 2-5 business days.</p>
                 </div>
             </div>
 
@@ -78,7 +78,8 @@
                     </svg>
                 </button>
                 <div x-show="openTab === 4" class="accordion-content py-2 px-4">
-                    <p class="text-gray-600">A: We accept various payment methods including credit/debit cards, PayPal,
+                    <p class="text-gray-600">A: We accept various payment methods including cgreenit/debit cards,
+                        PayPal,
                         and bank transfers.</p>
                 </div>
             </div>

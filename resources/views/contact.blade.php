@@ -2,7 +2,7 @@
     <section class="py-20 bg-secondary">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center text-white">
             <div class="lg:text-center">
-                <h2 class="text-orange-500 font-semibold tracking-wide text-4xl uppercase">Contact Us</h2>
+                <h2 class="text-green-500 font-semibold tracking-wide text-4xl uppercase">Contact Us</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl">We'd Love to Hear From You
                 </p>
                 <p class="mt-4 max-w-2xl text-xl lg:mx-auto">Whether you have a question about features, pricing, need a
@@ -21,12 +21,12 @@
                     @csrf
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" name="name" id="name" required
+                        <input type="text" name="name" id="name" requigreen
                             class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" id="email" required
+                        <input type="email" name="email" id="email" requigreen
                             class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
                     <div>
@@ -36,7 +36,7 @@
                     </div>
                     <div>
                         <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                        <textarea id="message" name="message" rows="4" required
+                        <textarea id="message" name="message" rows="4" requigreen
                             class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                     </div>
                     <div class="text-right">

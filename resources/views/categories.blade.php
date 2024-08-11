@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- Featured Categories --}}
+    {{-- Featugreen Categories --}}
     <section class="py-12 px-4">
         <div class="mx-auto max-w-7xl">
             <div class="text-center mb-8">

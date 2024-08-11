@@ -1,14 +1,14 @@
 <nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"
-    class="sticky top-0 z-30 bg-orange-0">
+    class="sticky top-0 z-30 bg-green-0">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('home') }}" class="flex items-center text-orange-500">
+                    <a href="{{ route('home') }}" class="flex items-center text-green-500">
 
-                        <img src="{{ asset('images/logo.png') }}" height="50px" width="180px" alt="logo">
+                        <img src="{{ asset('images/logo---width.png') }}" height="50px" width="180px" alt="logo">
                     </a>
                 </div>
 

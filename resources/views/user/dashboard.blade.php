@@ -4,34 +4,35 @@
 
             {{-- Pending Orders Card --}}
             <div class="bg-yellow-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
-                <i class="fas fa-hourglass-half text-yellow-500 text-4xl mb-4"></i> <!-- Relevant icon: Hourglass Half -->
+                <i class="fas fa-hourglass-half text-yellow-500 text-4xl mb-4"></i>
+                <!-- Relevant icon: Hourglass Half -->
                 <h3 class="font-semibold text-gray-800 text-lg">Pending Orders</h3>
                 <p class="text-yellow-500 text-2xl font-bold mt-2">{{ $orderCounts['pending'] ?? 0 }}</p>
             </div>
-        
+
             {{-- Completed Orders Card --}}
             <div class="bg-green-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
                 <i class="fas fa-check-circle text-green-500 text-4xl mb-4"></i> <!-- Relevant icon: Check Circle -->
                 <h3 class="font-semibold text-gray-800 text-lg">Completed Orders</h3>
                 <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts['completed'] ?? 0 }}</p>
             </div>
-        
+
             {{-- Total Orders Card --}}
-            <div class="bg-blue-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
-                <i class="fas fa-shopping-cart text-blue-500 text-4xl mb-4"></i> <!-- Relevant icon: Shopping Cart -->
+            <div class="bg-green-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
+                <i class="fas fa-shopping-cart text-green-500 text-4xl mb-4"></i> <!-- Relevant icon: Shopping Cart -->
                 <h3 class="font-semibold text-gray-800 text-lg">Total Orders</h3>
-                <p class="text-blue-500 text-2xl font-bold mt-2">{{ $orderCounts ? $orderCounts->sum() : 0 }}</p>
+                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts ? $orderCounts->sum() : 0 }}</p>
             </div>
-        
+
             {{-- Canceled Orders Card --}}
-            <div class="bg-red-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
-                <i class="fas fa-times-circle text-red-500 text-4xl mb-4"></i> <!-- Relevant icon: Times Circle -->
+            <div class="bg-green-100 rounded-lg hover:shadow-md p-6 flex flex-col items-center">
+                <i class="fas fa-times-circle text-green-500 text-4xl mb-4"></i> <!-- Relevant icon: Times Circle -->
                 <h3 class="font-semibold text-gray-800 text-lg">Canceled Orders</h3>
-                <p class="text-red-500 text-2xl font-bold mt-2">{{ $orderCounts['canceled'] ?? 0 }}</p>
+                <p class="text-green-500 text-2xl font-bold mt-2">{{ $orderCounts['canceled'] ?? 0 }}</p>
             </div>
-        
+
         </div>
-        
+
 
 
         {{-- Recent Order List --}}
@@ -46,24 +47,24 @@
                                 <div class="flex flex-wrap md:flex-no-wrap justify-between items-center">
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Order Date:</p>
-                                        <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}
+                                        <p class="text-green-500 font-bold">{{ $order->created_at->format('F d, Y') }}
                                         </p>
                                     </div>
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Order ID:</p>
-                                        <p class="text-orange-500 font-bold">{{ $order->id }}</p>
+                                        <p class="text-green-500 font-bold">{{ $order->id }}</p>
                                     </div>
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Status:</p>
-                                        <p class="text-orange-500 font-bold">{{ $order->status }}</p>
+                                        <p class="text-green-500 font-bold">{{ $order->status }}</p>
                                     </div>
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Total Price:</p>
-                                        <p class="text-orange-500 font-bold">${{ number_format($order->total, 2) }}</p>
+                                        <p class="text-green-500 font-bold">${{ number_format($order->total, 2) }}</p>
                                     </div>
                                     <div>
                                         <a href="{{ route('user.order.details', ['order' => $order->id]) }}"
-                                            class="text-orange-500 hover:text-orange-700">
+                                            class="text-green-500 hover:text-green-700">
                                             <i class="fa-solid fa-arrow-right"></i>
                                         </a>
                                     </div>

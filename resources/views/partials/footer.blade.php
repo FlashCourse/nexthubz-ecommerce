@@ -23,8 +23,8 @@
             <!-- Contact -->
             <div class="mb-8 md:mb-0">
                 <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-                <p>Email: info@example.com</p>
-                <p>Phone: +123 456 7890</p>
+                <p>Email: support@nextaven.com</p>
+                <p>Phone: +88 09638 855555</p>
             </div>
 
             <!-- Follow Us -->
@@ -56,7 +56,7 @@
             <form action="#" method="post" class="flex justify-center">
                 <x-input type="email" name="email" placeholder="Your Email"
                     class="px-4 py-2 border rounded-none focus:outline-none" />
-                <button type="submit" class="px-4 py-2 text-white bg-orange-500 rounded-r">Subscribe</button>
+                <button type="submit" class="px-4 py-2 text-white bg-green-500 rounded-r">Subscribe</button>
             </form>
         </div>
     </div>

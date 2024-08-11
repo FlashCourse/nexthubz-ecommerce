@@ -1,7 +1,7 @@
 <div x-data="{ open: @entangle('open') }">
     <button x-on:click="open = true" class="relative flex flex-col items-center">
         <span
-            class="absolute inline-flex items-center justify-center w-6 h-6 -mt-2 -mr-2 text-white bg-red-500 rounded-full -top-1 -right-1">{{ count($cart) }}</span>
+            class="absolute inline-flex items-center justify-center w-6 h-6 -mt-2 -mr-2 text-white bg-green-500 rounded-full -top-1 -right-1">{{ count($cart) }}</span>
         <i class="fas fa-shopping-cart"></i>
         @if ($title)
             <p class="text-xs"> {{ $title }}</p>
@@ -10,7 +10,7 @@
 
     <div wire:loading class="fixed">
         <div class="fixed top-0 left-0 w-full h-full flex items-center  justify-center z-50">
-            <i class="fas fa-spinner fa-3x text-orange-500 animate-spin"></i>
+            <i class="fas fa-spinner fa-3x text-green-500 animate-spin"></i>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
 
                                     </div>
                                     <button wire:click="removeFromCart('{{ $key }}')"
-                                        class="text-red-500 hover:text-red-700">
+                                        class="text-green-500 hover:text-green-700">
                                         X
                                     </button>
                                 </div>
@@ -82,7 +82,7 @@
 
             <div class="flex justify-center text-center p-4">
                 <a href="{{ $totalPrice > 0 ? route('checkout') : '#' }}"
-                    class="bg-orange-800 left-2 right-2 text-white absolute bottom-2 hover:bg-orange-900 font-bold py-2 px-4 rounded">
+                    class="bg-green-800 left-2 right-2 text-white absolute bottom-2 hover:bg-green-900 font-bold py-2 px-4 rounded">
                     <span
                         class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
 

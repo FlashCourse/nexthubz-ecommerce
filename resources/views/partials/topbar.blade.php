@@ -4,13 +4,13 @@
             <li>
                 <a href="#" class="flex items-center">
                     <i class="fas fa-phone-alt mr-2"></i>
-                    <span class="hidden md:inline">Contact: (+880) 9638000380</span>
+                    <span class="hidden md:inline">Contact: +88 09638 855555</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="flex items-center">
                     <i class="fas fa-envelope mr-2"></i>
-                    <span class="hidden md:inline">Email: contact@nexthubz.com</span>
+                    <span class="hidden md:inline">Email: support@nextaven.com</span>
                 </a>
             </li>
             <li>

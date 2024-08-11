@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <!-- Payment Reminder -->
-                    <div class="text-center text-sm text-red-600 mb-4">
+                    <div class="text-center text-sm text-green-600 mb-4">
                         <p>Please complete your payment within 5 minutes after confirming the order to ensure successful
                             processing.</p>
                     </div>

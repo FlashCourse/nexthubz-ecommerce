@@ -44,7 +44,7 @@
         setTimeout(() => show = false, 3000)
     })" class="fixed left-5 top-20 z-50">
         <template x-if="show">
-            <div class="bg-orange-500 text-white px-2 py-2 w-40 flex items-center shadow-lg">
+            <div class="bg-green-500 text-white px-2 py-2 w-40 flex items-center shadow-lg">
                 <i class="fas fa-check-circle mr-2"></i>
                 {{ $message }}
             </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="flex items-center mb-4">
-        <button wire:click="addToCart" class="py-2 px-4 bg-orange-800 text-white rounded-md hover:bg-orange-900">
+        <button wire:click="addToCart" class="py-2 px-4 bg-green-800 text-white rounded-md hover:bg-green-900">
             Add to Cart
         </button>
     </div>
