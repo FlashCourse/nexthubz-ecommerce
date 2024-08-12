@@ -74,7 +74,7 @@ class CashPaymentController extends Controller
             $this->stockService->deductStock($productQuantities);
 
             // Use firstOrCreate directly on the Address model
-            $address = Address::firstOrCreate(['user_id' => $user->id], $addressData);
+            $address = Address::updateOrCreate(['user_id' => $user->id], $addressData);
 
             // create order
             $order = Order::create([

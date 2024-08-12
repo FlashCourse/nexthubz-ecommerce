@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Address;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Facades\Redirect;
@@ -44,8 +46,15 @@ class Checkout extends Component
         }
         // Store cart data in the cartData session
         session(['cartData' => $this->cart]);
-        // Retrieve address data from session or set to empty string if not available
-        $addressData = session('address', []);
+
+        // Retrieve the authenticated user
+        $user = Auth::user();
+
+        // Retrieve the address data for the authenticated user
+        $address = Address::where('user_id', $user->id)->first();
+
+        // Check if the address is available, otherwise set to an empty array
+        $addressData = $address ? $address->toArray() : [];
 
         $this->firstName = $addressData['first_name'] ?? '';
         $this->lastName = $addressData['last_name'] ?? '';
