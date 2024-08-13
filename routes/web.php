@@ -16,16 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/{product}', [ProductController::class, 'details'])->name('product.details');
+Route::get('/checkout', Checkout::class)->name('checkout');
 Route::get('/order-success', [UserController::class, 'orderSuccess'])->name('order-success');
 Route::get('/order-failure', [UserController::class, 'orderFailure'])->name('order-failure');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
+Route::get('/select-checkout', [HomeController::class, 'selectCheckout'])->name('select-checkout');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cart', Cart::class)->name('cart');
-    Route::get('/checkout', Checkout::class)->name('checkout');
     Route::get('/user/orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/user/orders/{order}', [UserController::class, 'orderDetails'])->name('user.order.details');
     Route::get('/cash-payment', [CashPaymentController::class, 'index'])->name('cash-payment');

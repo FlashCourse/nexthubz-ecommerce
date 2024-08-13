@@ -15,7 +15,7 @@
     </div>
 
     <div x-show="open" x-cloak @click.outside="open = false"
-        class="fixed top-0 right-0 z-50 h-full overflow-y-auto bg-white shadow-xl w-80">
+        class="fixed top-0 right-0 z-50 h-full overflow-y-auto bg-white shadow-xl w-96">
         <div class="p-5 relative h-full">
             <div class="flex justify-between items-center pb-4 mb-4 text-lg font-semibold border-b border-gray-200">
                 <h2>Shopping Cart ({{ count($cart) }} items)</h2>
@@ -80,7 +80,7 @@
                 <p class="text-md text-center text-gray-600 mt-8">Your cart is empty.</p>
             @endif
 
-            <div class="flex justify-center text-center p-4">
+            {{-- <div class="flex justify-center text-center p-4">
                 <a href="{{ $totalPrice > 0 ? route('checkout') : '#' }}"
                     class="bg-orange-800 left-2 right-2 text-white absolute bottom-2 hover:bg-orange-900 font-bold py-2 px-4 rounded">
                     <span
@@ -88,6 +88,23 @@
 
 
                 </a>
+            </div> --}}
+            <div class="flex justify-center text-center p-4">
+                @if (Auth::check())
+                    <!-- If authenticated, link to the checkout page -->
+                    <a href="{{ $totalPrice > 0 ? route('checkout') : '#' }}"
+                        class=" bg-orange-800 absolute bottom-2 left-2 right-2 text-white hover:bg-orange-900 font-bold py-2 px-4 rounded transition duration-300 ease-in-out {{ $totalPrice > 0 ? '' : 'cursor-not-allowed' }}">
+                        <span
+                            class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
+                    </a>
+                @else
+                    <!-- If not authenticated, link to the select-checkout page -->
+                    <a href="{{ $totalPrice > 0 ? route('select-checkout') : '#' }}"
+                        class="bg-orange-800 absolute bottom-2 left-2 right-2 text-white hover:bg-orange-900 font-bold py-2 px-4 rounded transition duration-300 ease-in-out {{ $totalPrice > 0 ? '' : 'cursor-not-allowed' }}">
+                        <span
+                            class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
+                    </a>
+                @endif
             </div>
         </div>
     </div>

@@ -47,11 +47,17 @@ class Checkout extends Component
         // Store cart data in the cartData session
         session(['cartData' => $this->cart]);
 
-        // Retrieve the authenticated user
-        $user = Auth::user();
+        // Check if the user is authenticated
+        if (Auth::check()) {
+            // Retrieve the authenticated user
+            $user = Auth::user();
 
-        // Retrieve the address data for the authenticated user
-        $address = Address::where('user_id', $user->id)->first();
+            // Retrieve the address data for the authenticated user
+            $address = Address::where('user_id', $user->id)->first();
+        } else {
+            // Handle guest checkout: address data might be stored in session or other storage
+            $address = null; // Or fetch guest address from session or other storage if applicable
+        }
 
         // Check if the address is available, otherwise set to an empty array
         $addressData = $address ? $address->toArray() : [];
