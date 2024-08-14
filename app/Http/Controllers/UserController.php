@@ -45,28 +45,6 @@ class UserController extends Controller
         return view('user.orderDetails', ['order' => $orderWithItems, 'statusColors' => $statusColors]);
     }
 
-    public function orderSuccess()
-    {
-        return view('order-success');
-        if (session()->has('order_success')) {
-            session()->forget('order_success');
-            return view('order-success');
-        } else {
-            abort(404);
-        }
-    }
-
-    public function orderFailure()
-    {
-        return view('order-failure');
-        if (session()->has('order_failure')) {
-            session()->forget('order_failure');
-            return view('order-failure');
-        } else {
-            abort(404);
-        }
-    }
-
 
     // HELPER FUNCTIONS
     private function prepareStatusColors($currentStatus)

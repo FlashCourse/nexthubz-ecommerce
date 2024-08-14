@@ -118,7 +118,6 @@ class PaymentController extends Controller
     protected function clearSessionData()
     {
         session()->forget(['addressData', 'orderData', 'cartData']);
-        session()->put('order_success', true);
     }
 
     protected function sendOrderEmail($user, $result)

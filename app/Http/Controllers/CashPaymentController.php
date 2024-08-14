@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CheckOrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class CashPaymentController extends PaymentController
 {
@@ -35,6 +37,19 @@ class CashPaymentController extends PaymentController
 
         CheckOrderStatus::dispatch($result['order']->id)->delay(now()->addMinutes(30));
 
-        return redirect()->route('order-success');
+        // Generate a unique token and store it in the session
+        $token = Str::random(60);
+        session()->put('download_token', $token);
+        session()->put('order_id', $result['order']->id);
+        session()->put('order_success', true);
+
+        // Generate a signed URL that includes the token (set for one-time use)
+        $signedUrl = URL::temporarySignedRoute(
+            'generate-invoice-pdf',
+            now()->addMinutes(10),
+            ['order' => $result['order']->id, 'token' => $token]
+        );
+
+        return redirect()->route('order-success', ['signedUrl' => $signedUrl]);
     }
 }

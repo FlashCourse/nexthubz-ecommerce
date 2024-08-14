@@ -4,6 +4,7 @@ use App\Http\Controllers\BkashController;
 use App\Http\Controllers\BkashRefundController;
 use App\Http\Controllers\CashPaymentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\UserController;
@@ -17,20 +18,21 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/{product}', [ProductController::class, 'details'])->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
-Route::get('/order-success', [UserController::class, 'orderSuccess'])->name('order-success');
-Route::get('/order-failure', [UserController::class, 'orderFailure'])->name('order-failure');
+Route::get('/order-success', [OrderController::class, 'orderSuccess'])->name('order-success');
+Route::get('/order-failure', [OrderController::class, 'orderFailure'])->name('order-failure');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
 Route::get('/select-checkout', [HomeController::class, 'selectCheckout'])->name('select-checkout');
+Route::get('/cash-payment', [CashPaymentController::class, 'index'])->name('cash-payment');
+Route::post('/pay-cash', [CashPaymentController::class, 'pay'])->name('pay-cash');
+Route::get('/generate-invoice-pdf/{order}', [OrderController::class, 'generateInvoicePdf'])->name('generate-invoice-pdf');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cart', Cart::class)->name('cart');
     Route::get('/user/orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/user/orders/{order}', [UserController::class, 'orderDetails'])->name('user.order.details');
-    Route::get('/cash-payment', [CashPaymentController::class, 'index'])->name('cash-payment');
-    Route::post('/pay-cash', [CashPaymentController::class, 'pay'])->name('pay-cash');
 });
 
 // Email verification
