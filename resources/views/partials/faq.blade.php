@@ -2,11 +2,11 @@
     <div class="max-w-3xl mx-auto">
         <h2 class="text-3xl font-semibold text-center mb-8">Frequently Asked Questions</h2>
 
-        <div x-data="{ openTab: 1 }" class="accordion text-white">
+        <div x-data="{ openTab: 1 }" class="accordion text-gray-800">
             <!-- How do I create an account? -->
             <div class="border-b">
                 <button @click="openTab !== 1 ? openTab = 1 : openTab = null"
-                    class="accordion-title flex justify-between items-center bg-gray-400 hover:bg-gray-500 px-4 py-3 rounded-t-lg font-semibold w-full">
+                    class="accordion-title flex justify-between items-center bg-white-400 hover:bg-white-500 px-4 py-3 rounded-t-lg font-semibold w-full">
                     <span>Q: How do I create an account?</span>
                     <svg x-show="openTab !== 1" class="w-4 h-4 fill-current text-gray-600"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -26,7 +26,7 @@
             <!-- How long does delivery take? -->
             <div class="border-b">
                 <button @click="openTab !== 2 ? openTab = 2 : openTab = null"
-                    class="accordion-title flex justify-between items-center bg-gray-400 hover:bg-gray-500 px-4 py-3 font-semibold w-full">
+                    class="accordion-title flex justify-between items-center bg-white-400 hover:bg-white-500 px-4 py-3 font-semibold w-full">
                     <span>Q: How long does delivery take?</span>
                     <svg x-show="openTab !== 2" class="w-4 h-4 fill-current text-gray-600"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -46,7 +46,7 @@
             <!-- How do I track my order? -->
             <div class="border-b">
                 <button @click="openTab !== 3 ? openTab = 3 : openTab = null"
-                    class="accordion-title flex justify-between items-center bg-gray-400 hover:bg-gray-500 px-4 py-3 font-semibold w-full">
+                    class="accordion-title flex justify-between items-center bg-white-400 hover:bg-white-500 px-4 py-3 font-semibold w-full">
                     <span>Q: How do I track my order?</span>
                     <svg x-show="openTab !== 3" class="w-4 h-4 fill-current text-gray-600"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -66,7 +66,7 @@
             <!-- What payment methods do you accept? -->
             <div class="border-b">
                 <button @click="openTab !== 4 ? openTab = 4 : openTab = null"
-                    class="accordion-title flex justify-between items-center bg-gray-400 hover:bg-gray-500 px-4 py-3 font-semibold w-full">
+                    class="accordion-title flex justify-between items-center bg-white-400 hover:bg-white-500 px-4 py-3 font-semibold w-full">
                     <span>Q: What payment methods do you accept?</span>
                     <svg x-show="openTab !== 4" class="w-4 h-4 fill-current text-gray-600"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -86,7 +86,7 @@
             <!-- How can I return an item? -->
             <div class="border-b">
                 <button @click="openTab !== 5 ? openTab = 5 : openTab = null"
-                    class="accordion-title flex justify-between items-center bg-gray-400 hover:bg-gray-500 px-4 py-3 font-semibold w-full">
+                    class="accordion-title flex justify-between items-center bg-white-400 hover:bg-white-500 px-4 py-3 font-semibold w-full">
                     <span>Q: How can I return an item?</span>
                     <svg x-show="openTab !== 5" class="w-4 h-4 fill-current text-gray-600"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -45,7 +45,7 @@
                 <h2 class="text-3xl font-semibold mb-2">Featugreen Products</h2>
                 <p class="text-gray-600">Check out our top picks</p>
             </div>
-            <div class="grid grid-cols-1 gap-8 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div class="grid grid-cols-2 gap-3 md:gap-8 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {{-- Displaying Livewire Product Cards --}}
                 @foreach ($products as $product)
                     <x-product-card :product=$product />

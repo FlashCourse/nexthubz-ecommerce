@@ -24,6 +24,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var bestSellingSwiper = new Swiper('.best-selling-swiper', {
             loop: true,
+            slidesPerView: 2,
+            spaceBetween: 10,
             autoplay: {
                 delay: 2500,
                 disableOnInteraction: false
@@ -39,7 +41,7 @@
             // Responsive breakpoints
             breakpoints: {
                 640: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                     spaceBetween: 20,
                 },
                 768: {
