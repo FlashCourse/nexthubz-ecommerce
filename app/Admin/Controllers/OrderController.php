@@ -60,22 +60,56 @@ class OrderController extends AdminController
     {
         $show = new Show(Order::findOrFail($id));
 
+        // Basic order fields
         $show->field('id', __('Id'));
         $show->field('user_id', __('User id'));
         $show->field('address_id', __('Address id'));
         $show->field('payment_method', __('Payment method'));
         $show->field('subtotal', __('Subtotal'));
         $show->field('tax', __('Tax'));
-        $show->field('shipping', __('Shipping'));
+        $show->field('shipping_cost', __('Shipping'));
         $show->field('total', __('Total'));
-        $show->field('due', __('Due'));
-        $show->field('paid', __('Paid'));
+        $show->field('due_amount', __('Due'));
+        $show->field('paid_amount', __('Paid'));
         $show->field('status', __('Status'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
+        // Divider for separation
+        $show->divider();
+
+        // Shipping Details (Using built-in fields)
+        $show->field('shipping_first_name', __('Shipping First Name'));
+        $show->field('shipping_last_name', __('Shipping Last Name'));
+        $show->field('shipping_company', __('Shipping Company'));
+        $show->field('shipping_address_line_1', __('Shipping Address Line 1'));
+        $show->field('shipping_address_line_2', __('Shipping Address Line 2'));
+        $show->field('shipping_city', __('Shipping City'));
+        $show->field('shipping_state', __('Shipping State'));
+        $show->field('shipping_postcode', __('Shipping Postcode'));
+        $show->field('shipping_country', __('Shipping Country'));
+        $show->field('shipping_phone', __('Shipping Phone'));
+        $show->field('shipping_email', __('Shipping Email'));
+
+        // Divider for separation
+        $show->divider();
+
+        // Billing Details (Using built-in fields)
+        $show->field('billing_first_name', __('Billing First Name'));
+        $show->field('billing_last_name', __('Billing Last Name'));
+        $show->field('billing_company', __('Billing Company'));
+        $show->field('billing_address_line_1', __('Billing Address Line 1'));
+        $show->field('billing_address_line_2', __('Billing Address Line 2'));
+        $show->field('billing_city', __('Billing City'));
+        $show->field('billing_state', __('Billing State'));
+        $show->field('billing_postcode', __('Billing Postcode'));
+        $show->field('billing_country', __('Billing Country'));
+        $show->field('billing_phone', __('Billing Phone'));
+        $show->field('billing_email', __('Billing Email'));
+
         return $show;
     }
+
 
     /**
      * Make a form builder.

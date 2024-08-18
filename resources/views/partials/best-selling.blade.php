@@ -24,6 +24,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var bestSellingSwiper = new Swiper('.best-selling-swiper', {
             loop: true,
+            slidesPerView: 2,
+            spaceBetween: 10,
             autoplay: {
                 delay: 2500,
                 disableOnInteraction: false

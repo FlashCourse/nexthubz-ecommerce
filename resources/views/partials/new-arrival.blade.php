@@ -23,6 +23,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var newArrivalsSwiper = new Swiper('.new-arrivals-swiper', {
             loop: true,
+            slidesPerView: 2,
+            spaceBetween: 10,
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false

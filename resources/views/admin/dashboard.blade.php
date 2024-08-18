@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->created_at->format('d M Y') }}</td>
-                                <td>{{ $order->user->name }}</td>
+                                <td>{{ $order->user->name ?? 'N/A' }}</td>
                                 <td>${{ number_format($order->total, 2) }}</td>
                                 <td>
                                     <a href="{{ route('admin.orders.show', $order->id) }}"

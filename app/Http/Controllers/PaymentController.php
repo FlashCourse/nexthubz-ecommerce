@@ -24,7 +24,7 @@ class PaymentController extends Controller
 
         try {
             $address = $this->createOrUpdateAddress($addressData);
-            $order = $this->createOrder($address->id, $orderData);
+            $order = $this->createOrder($orderData, $addressData);
             $this->processStock($cartItems);
             $this->createOrderItems($order, $cartItems);
             $payment = $this->createPayment($order);
@@ -54,15 +54,29 @@ class PaymentController extends Controller
         );
     }
 
-    protected function createOrder($addressId, $orderData)
+    protected function createOrder($orderData, $addressData)
     {
         $user = Auth::user();
-        return Order::create(array_merge($orderData, [
+
+        // Map address data to the order's shipping fields
+        $shippingData = [
+            'shipping_first_name' => $addressData['first_name'],
+            'shipping_last_name' => $addressData['last_name'],
+            'shipping_address_line_1' => $addressData['address1'],
+            'shipping_address_line_2' => $addressData['address2'],
+            'shipping_city' => $addressData['city'],
+            'shipping_state' => $addressData['state'],
+            'shipping_postcode' => $addressData['zip_code'],
+            'shipping_country' => $addressData['country'],
+            'shipping_phone' => $addressData['phone'],
+        ];
+
+        return Order::create(array_merge($orderData, $shippingData, [
             'user_id' => $user ? $user->id : null,
-            'address_id' => $addressId,
             'status' => 'pending',
         ]));
     }
+
 
     protected function createOrderItems($order, $cartItems)
     {

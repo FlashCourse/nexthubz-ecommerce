@@ -23,6 +23,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var discountedProductsSwiper = new Swiper('.discounted-products-swiper', {
             loop: true,
+            slidesPerView: 2,
+            spaceBetween: 10,
             autoplay: {
                 delay: 2500,
                 disableOnInteraction: false

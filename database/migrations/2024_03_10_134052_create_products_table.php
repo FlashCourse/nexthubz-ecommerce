@@ -16,14 +16,28 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('image')->nullable();
+
+            // Pricing and stock
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2)->nullable();
             $table->integer('stock')->unsigned()->default(0);
+            $table->integer('sales_count')->default(0);
+
+
+            // Product Attributes
+            $table->boolean('is_new')->default(false);
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_best_selling')->default(false);
+
+
             $table->boolean('active')->default(true);
             $table->timestamps();
+
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

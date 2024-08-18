@@ -11,33 +11,49 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'address_id',
-        'payment_method',
+        'shipping_first_name',
+        'shipping_last_name',
+        'shipping_company',
+        'shipping_address_line_1',
+        'shipping_address_line_2',
+        'shipping_city',
+        'shipping_state',
+        'shipping_postcode',
+        'shipping_country',
+        'shipping_phone',
+        'shipping_email',
+        'billing_first_name',
+        'billing_last_name',
+        'billing_company',
+        'billing_address_line_1',
+        'billing_address_line_2',
+        'billing_city',
+        'billing_state',
+        'billing_postcode',
+        'billing_country',
+        'billing_phone',
+        'billing_email',
         'subtotal',
         'tax',
-        'shipping',
+        'shipping_cost',
+        'due_amount',
+        'paid_amount',
         'total',
-        'due',
-        'paid',
         'status',
-    ];    
+    ];
 
-    public function orderItems() {
+    public function orderItems()
+    {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-
-    public function address() {
-        return $this->belongsTo(Address::class);
-    }
-
 
     public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
-
 }
