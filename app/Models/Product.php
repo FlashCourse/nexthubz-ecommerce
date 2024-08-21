@@ -14,11 +14,16 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'short_description',
         'category_id',
         'image',
         'price',
         'discount',
         'stock',
+        'sales_count',
+        'is_new',
+        'is_featured',
+        'is_best_selling',
         'active',
     ];
 

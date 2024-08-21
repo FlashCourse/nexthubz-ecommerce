@@ -29,4 +29,9 @@ class HomeController extends Controller
 
         return view('categories', compact('categories'));
     }
+
+    public function selectCheckout()
+    {
+        return view('select-checkout');
+    }
 }

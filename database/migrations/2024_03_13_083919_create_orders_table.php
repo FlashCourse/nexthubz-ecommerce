@@ -13,21 +13,46 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('address_id')->nullable();
-            $table->string('payment_method')->default('undefined');
+            $table->unsignedBigInteger('user_id')->nullable();
+
+            // Address fields for shipping
+            $table->string('shipping_first_name');
+            $table->string('shipping_last_name');
+            $table->string('shipping_company')->nullable();
+            $table->string('shipping_address_line_1');
+            $table->string('shipping_address_line_2')->nullable();
+            $table->string('shipping_city');
+            $table->string('shipping_state')->nullable();
+            $table->string('shipping_postcode');
+            $table->string('shipping_country');
+            $table->string('shipping_phone');
+            $table->string('shipping_email')->nullable();
+
+            // Shipping Details
+            $table->string('billing_first_name')->nullable();
+            $table->string('billing_last_name')->nullable();
+            $table->string('billing_company')->nullable();
+            $table->string('billing_address_line_1')->nullable();
+            $table->string('billing_address_line_2')->nullable();
+            $table->string('billing_city')->nullable();
+            $table->string('billing_state')->nullable();
+            $table->string('billing_postcode')->nullable();
+            $table->string('billing_country')->nullable();
+            $table->string('billing_phone')->nullable();
+            $table->string('billing_email')->nullable();
+
+            // Order Details
             $table->decimal('subtotal', 10, 2)->nullable();
             $table->decimal('tax', 10, 2)->nullable();
-            $table->decimal('shipping', 10, 2)->nullable();
+            $table->decimal('shipping_cost', 10, 2)->nullable();
+            $table->decimal('due_amount', 10, 2)->nullable();
+            $table->decimal('paid_amount', 10, 2)->nullable();
             $table->decimal('total', 10, 2)->nullable();
-            $table->decimal('due', 10, 2)->nullable();
-            $table->decimal('paid', 10, 2)->nullable();
             $table->enum('status', ['initiated', 'pending', 'processing', 'shipped', 'delivered', 'canceled'])->default('initiated');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('set null');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
-        
     }
 
     /**

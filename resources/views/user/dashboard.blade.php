@@ -60,7 +60,8 @@
                                     </div>
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Total Price:</p>
-                                        <p class="text-green-500 font-bold">${{ number_format($order->total, 2) }}</p>
+                                        <p class="text-orange-500 font-black">
+                                            &#2547;{{ number_format($order->total, 2) }}</p>
                                     </div>
                                     <div>
                                         <a href="{{ route('user.order.details', ['order' => $order->id]) }}"

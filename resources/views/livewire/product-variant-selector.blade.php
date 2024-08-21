@@ -24,7 +24,7 @@
     @endif
 
     <div class="mb-4">
-        <h2 class="text-xl font-semibold">Price: ${{ $selectedVariantPrice }}</h2>
+        <h2 class="text-xl font-black">Price: &#2547; {{ $selectedVariantPrice }}</h2>
     </div>
 
     <div class="mb-4">
