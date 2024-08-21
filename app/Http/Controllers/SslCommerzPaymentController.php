@@ -12,8 +12,10 @@ use App\Models\Address;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
-class SslCommerzPaymentController extends Controller
+class SslCommerzPaymentController extends PaymentController
 {
     protected $stockService;
 
@@ -23,10 +25,11 @@ class SslCommerzPaymentController extends Controller
     }
     public function index()
     {
-        $cartData = session('cartData', []);
-        $orderData = session('orderData', []);
+        $sessionData = $this->getSessionData();
 
-        // Check if both cartData and orderData are empty
+        $cartData = $sessionData['cartItems'];
+        $orderData = $sessionData['orderData'];
+
         if (empty($cartData) && empty($orderData)) {
             abort(404);
         }
@@ -37,88 +40,21 @@ class SslCommerzPaymentController extends Controller
 
     public function pay(Request $request)
     {
-
         $user = Auth::user();
 
-        $cartItems = [];
+        $sessionData = $this->getSessionData();
+        $result = $this->processOrder($sessionData['addressData'], $sessionData['orderData'], $sessionData['cartItems']);
 
-        $orderData = [];
+        $this->clearSessionData();
 
-        $addressData = [];
-
-        $addressData = session()->get('addressData');
-
-        $orderData = session()->get('orderData');
-
-        $cartItems = session()->get('cartData');
-
-        // Start a database transaction
-        DB::beginTransaction();
-
-        try {
-            // Retrieve the quantities for all products and variants
-            $productQuantities = [];
-            foreach ($cartItems as $item) {
-                $productQuantities[] = [
-                    'product_id' => $item['product_id'],
-                    'variant_id' => $item['variant_id'] ?? null,
-                    'quantity' => $item['quantity']
-                ];
-            }
-
-            $this->stockService->deductStock($productQuantities);
-
-            // Use firstOrCreate directly on the Address model
-            $address = Address::firstOrCreate(['user_id' => $user->id], $addressData);
-
-            // create order
-            $order = Order::create([
-                'user_id' => $user->id,
-                'address' => $address->id,
-                'payment_method' => 'online',
-                'tax' => $orderData['tax'],
-                'shipping' => $orderData['shipping'],
-                'subtotal' => $orderData['subtotal'],
-                'total' => $orderData['total'],
-                'status' => 'pending',
-            ]);
-
-            // Prepare data for order items insertion
-            $orderItemsData = [];
-            foreach ($cartItems as $item) {
-                $orderItem = [
-                    'order_id' => $order->id,
-                    'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'price' => $item['price'],
-                ];
-
-                if (!empty($item['variant_id'])) {
-                    $orderItem['variant_id'] = $item['variant_id'];
-                }
-
-                $orderItemsData[] = $orderItem;
-            }
-
-            // Insert all the order items to the CartItem
-            OrderItem::insert($orderItemsData);
-
-            // Dispatch the job to rollback stock if checkout failed
-            CheckOrderStatus::dispatch($order->id)->delay(now()->addMinutes(5));
-
-            session()->forget('cartData');
-            session()->forget('orderData');
-
-            // Commit the transaction
-            DB::commit();
-        } catch (\Exception $e) {
-            // Rollback the transaction on error
-            DB::rollBack();
-            // Handle the exception, log or throw it if necessary
-            throw $e;
+        if ($request->user()) {
+            $this->sendOrderEmail($request->user(), $result);
         }
 
+        CheckOrderStatus::dispatch($result['order']->id)->delay(now()->addMinutes(30));
 
+        $orderData = $result['order'];
+        $addressData = $result['address'];
 
 
         # Here you have to receive all the order data to initate the payment.
@@ -134,7 +70,7 @@ class SslCommerzPaymentController extends Controller
         Payment::create([
             'invoice_id' => uniqid(),
             'transaction_id' => $post_data['tran_id'],
-            'order_id' => $order->id,
+            'order_id' => $orderData['id'],
             'amount' => $orderData['total'],
             'total' => $orderData['total'],
             'payment_method' => 'online',
@@ -143,15 +79,15 @@ class SslCommerzPaymentController extends Controller
         ]);
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] = $user->name;
-        $post_data['cus_email'] = $user->email;
+        $post_data['cus_name'] = $user->name ?? "guest";
+        $post_data['cus_email'] = $user->email ?? "guest";
         $post_data['cus_add1'] = " ";
         $post_data['cus_add2'] = " ";
         $post_data['cus_city'] = " ";
         $post_data['cus_state'] = " ";
         $post_data['cus_postcode'] = " ";
-        $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
+        $post_data['cus_country'] = $addressData->country;
+        $post_data['cus_phone'] = $addressData->phone;
         $post_data['cus_fax'] = " ";
 
         # SHIPMENT INFORMATION
@@ -169,6 +105,9 @@ class SslCommerzPaymentController extends Controller
         $post_data['product_category'] = " ";
         $post_data['product_profile'] = " ";
 
+        # Additional info
+        $post_data['value_a'] = $orderData['id'];
+
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
         $payment_options = $sslc->makePayment($post_data, 'hosted');
@@ -185,6 +124,8 @@ class SslCommerzPaymentController extends Controller
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
         $currency = $request->input('currency');
+        $order_id = $request->input('value_a');
+
 
         $sslc = new SslCommerzNotification();
 
@@ -208,8 +149,20 @@ class SslCommerzPaymentController extends Controller
                 Order::where('id', $payment->order_id)
                     ->update(['status' => 'processing']);
 
+                // Generate a unique token and store it in the session
+                $token = Str::random(60);
+                session()->put('download_token', $token);
+                session()->put('order_id', $order_id);
                 session()->put('order_success', true);
-                return redirect()->route('order-success');
+
+                // Generate a signed URL that includes the token (set for one-time use)
+                $signedUrl = URL::temporarySignedRoute(
+                    'generate-invoice-pdf',
+                    now()->addMinutes(10),
+                    ['order' => $order_id, 'token' => $token]
+                );
+
+                return redirect()->route('order-success', ['signedUrl' => $signedUrl]);
             }
         } else if ($payment->status == 'completed') {
             // That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.

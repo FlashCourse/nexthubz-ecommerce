@@ -32,6 +32,7 @@ class PaymentController extends Controller
             DB::commit();
 
             return [
+                'address' => $address,
                 'order' => $order,
                 'payment' => $payment,
                 'orderItems' => OrderItem::where('order_id', $order->id)->get(),
