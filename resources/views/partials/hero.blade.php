@@ -4,7 +4,7 @@
             <!-- Slide 1 -->
             <div class="swiper-slide">
                 <div class="max-w-7xl mx-auto space-x-8 flex flex-col lg:flex-row items-center justify-between">
-                    <div class="lg:w-1/2 flex justify-center mb-6 lg:mb-0">
+                    <div class=" w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
                         <img src="images/hero-image.webp" alt="Slide 1" class="rounded-lg max-h-96">
                     </div>
                     <div class="lg:w-1/2 lg:text-left py-5 md:py-0 text-center">
@@ -21,7 +21,7 @@
             <!-- Slide 2 -->
             <div class="swiper-slide">
                 <div class="max-w-7xl mx-auto space-x-8 flex flex-col lg:flex-row items-center justify-between">
-                    <div class="lg:w-1/2 flex justify-center mb-6 lg:mb-0">
+                    <div class="w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
                         <img src="images/hero-image1.jpg" alt="Slide 2" class="rounded-lg max-h-96">
                     </div>
                     <div class="lg:w-1/2 lg:text-left py-5 md:py-0 text-center">
