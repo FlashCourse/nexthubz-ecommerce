@@ -54,9 +54,9 @@
                                 <div class="flex justify-between">
 
                                     <div class="flex flex-col">
-                                        <p class="mt-2 text-xs  text-gray-800">&#2547;{{ $item['price'] }}</p>
+                                        <p class="mt-2 text-xs font-black text-gray-800">&#2547;{{ $item['price'] }}</p>
 
-                                        <p class=" text-sm font-semibold text-gray-800">
+                                        <p class=" text-sm font-black text-gray-800">
                                             &#2547;{{ $item['price'] * $item['quantity'] }}</p>
                                     </div>
                                     <div class="flex items-center mt-2 space-x-2">
@@ -95,14 +95,14 @@
                     <a href="{{ $totalPrice > 0 ? route('checkout') : '#' }}"
                         class=" bg-orange-800 absolute bottom-2 left-2 right-2 text-white hover:bg-orange-900 font-bold py-2 px-4 rounded transition duration-300 ease-in-out {{ $totalPrice > 0 ? '' : 'cursor-not-allowed' }}">
                         <span
-                            class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
+                            class="inline-block font-black text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
                     </a>
                 @else
                     <!-- If not authenticated, link to the select-checkout page -->
                     <a href="{{ $totalPrice > 0 ? route('select-checkout') : '#' }}"
                         class="bg-orange-800 absolute bottom-2 left-2 right-2 text-white hover:bg-orange-900 font-bold py-2 px-4 rounded transition duration-300 ease-in-out {{ $totalPrice > 0 ? '' : 'cursor-not-allowed' }}">
                         <span
-                            class="inline-block text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
+                            class="inline-block font-black text-lg">Checkout{{ $totalPrice > 0 ? ' (Total &#2547;' . $totalPrice . ')' : '' }}</span>
                     </a>
                 @endif
             </div>

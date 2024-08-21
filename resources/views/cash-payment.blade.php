@@ -30,10 +30,12 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="py-4 px-6">${{ number_format($cartItem['price'], 2) }}</td>
+                                        <td class="py-4 px-6 font-black">&#2547;
+                                            {{ number_format($cartItem['price'], 2) }}</td>
                                         <td class="py-4 px-6">{{ $cartItem['quantity'] }}</td>
-                                        <td class="py-4 px-6">
-                                            ${{ number_format($cartItem['price'] * $cartItem['quantity'], 2) }}</td>
+                                        <td class="py-4 px-6 font-black">
+                                            &#2547; {{ number_format($cartItem['price'] * $cartItem['quantity'], 2) }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -47,13 +49,16 @@
                         <h2 class="text-lg font-semibold border-b border-gray-200 py-4 px-6">Order Summary</h2>
                         <div class="grid grid-cols-2 gap-4 px-6 py-4">
                             <div class="text-gray-600">Subtotal:</div>
-                            <div class="text-right">${{ number_format($orderData['subtotal'], 2) }}</div>
+                            <div class="text-right font-black">&#2547; {{ number_format($orderData['subtotal'], 2) }}
+                            </div>
                             <div class="text-gray-600">Tax:</div>
-                            <div class="text-right">${{ number_format($orderData['tax'], 2) }}</div>
+                            <div class="text-right font-black">&#2547; {{ number_format($orderData['tax'], 2) }}</div>
                             <div class="text-gray-600">Shipping:</div>
-                            <div class="text-right">${{ number_format($orderData['shipping'], 2) }}</div>
+                            <div class="text-right font-black">&#2547; {{ number_format($orderData['shipping'], 2) }}
+                            </div>
                             <div class="text-xl font-semibold">Total:</div>
-                            <div class="text-xl font-semibold text-right">${{ number_format($orderData['total'], 2) }}
+                            <div class="text-xl font-black text-right">&#2547;
+                                {{ number_format($orderData['total'], 2) }}
                             </div>
                         </div>
                     </div>

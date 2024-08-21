@@ -151,8 +151,8 @@
                                         <img src="{{ asset('storage/' . $item['image']) }}"
                                             alt="{{ $item['name'] }}" class="w-16 h-16 object-cover rounded">
                                         <div class="ml-4">
-                                            <h4 class="font-semibold">{{ $item['name'] }}</h4>
-                                            <p class="text-sm text-gray-500">&#2547;{{ $item['price'] }} x
+                                            <h4 class="font-black">{{ $item['name'] }}</h4>
+                                            <p class="text-sm font-black text-gray-500">&#2547;{{ $item['price'] }} x
                                                 {{ $item['quantity'] }}</p>
                                             @if (isset($item['variant_attributes']) && is_array($item['variant_attributes']))
                                                 <div class="flex flex-wrap gap-1 mt-1 text-xs">
@@ -173,7 +173,7 @@
                                         </div>
                                     </div>
                                     <span
-                                        class="font-semibold text-orange-500">&#2547;{{ $item['price'] * $item['quantity'] }}</span>
+                                        class="font-black text-orange-500">&#2547;{{ $item['price'] * $item['quantity'] }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -187,7 +187,7 @@
                     <div class="flex items-center justify-between mb-2">
                         <p class="text-gray-600">Subtotal:</p>
                         <!-- Replace with dynamic data -->
-                        <p class="font-semibold text-orange-500">&#2547;{{ $subtotal }}</p>
+                        <p class="font-black text-orange-500">&#2547;{{ $subtotal }}</p>
                     </div>
 
                     <!-- Additional Charges -->
@@ -197,11 +197,12 @@
                         <ul class="pl-4 list-disc">
                             <li class="flex justify-between">
                                 <span>Tax</span>
-                                <span class="text-orange-500">&#2547;{{ number_format($tax, 2) }}</span>
+                                <span class="text-orange-500 font-black">&#2547;{{ number_format($tax, 2) }}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span>Shipping</span>
-                                <span class="text-orange-500">&#2547;{{ number_format($shipping, 2) }}</span>
+                                <span
+                                    class="text-orange-500 font-black">&#2547;{{ number_format($shipping, 2) }}</span>
                             </li>
                             <!-- Add more charges as needed -->
                         </ul>
@@ -210,7 +211,7 @@
                     <div class="flex items-center justify-between mb-2">
                         <p class="text-gray-600">Total:</p>
                         <!-- Replace with dynamic data -->
-                        <p class="text-lg font-bold text-orange-500">&#2547;{{ number_format($total, 2) }}</p>
+                        <p class="text-lg font-black text-orange-500">&#2547;{{ number_format($total, 2) }}</p>
                     </div>
                 </div>
 
