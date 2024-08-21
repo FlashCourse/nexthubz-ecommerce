@@ -39,7 +39,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table> font-black
+                        </table>
                     </div>
                 </div>
 
