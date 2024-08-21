@@ -37,7 +37,7 @@
                 <div class="hidden md:block absolute mx-2 border-r">
                     <x-dropdown align="left" width="48" dropdownClasses="bg-gray-100">
                         <x-slot name="trigger">
-                            <button class="flex items-center"><span class="whitespace-nowrap mr-1">All Categories
+                            <button class="flex items-center"><span class="whitespace-nowrap mr-1 mt-1">All Categories
                                 </span><i class="fa-solid fa-chevron-down mr-2"></i></button>
                         </x-slot>
                         <x-slot name="content">
