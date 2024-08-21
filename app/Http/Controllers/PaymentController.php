@@ -27,7 +27,7 @@ class PaymentController extends Controller
             $order = $this->createOrder($orderData, $addressData);
             $this->processStock($cartItems);
             $this->createOrderItems($order, $cartItems);
-            $payment = $this->createPayment($order);
+            $payment = $this->createPaymentData($order);
 
             DB::commit();
 
@@ -105,7 +105,7 @@ class PaymentController extends Controller
         $this->deductStock($productQuantities);
     }
 
-    protected function createPayment($order)
+    protected function createPaymentData($order)
     {
         return Payment::create([
             'order_id' => $order->id,
