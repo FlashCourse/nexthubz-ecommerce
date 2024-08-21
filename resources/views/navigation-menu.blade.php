@@ -6,9 +6,13 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('home') }}" class="flex items-center text-orange-500">
+                    <a href="{{ route('home') }}" class="hidden md:flex items-center text-orange-500">
 
                         <img src="{{ asset('images/logo.png') }}" height="50px" width="180px" alt="logo">
+                    </a>
+                    <a href="{{ route('home') }}" class="flex md:hidden items-center text-orange-500">
+
+                        <img src="{{ asset('images/logo-mobile.png') }}" height="50px" width="50px" alt="logo">
                     </a>
                 </div>
 
@@ -29,8 +33,8 @@
             </div>
 
             {{-- Search Form --}}
-            <div class="hidden md:flex relative items-center flex-grow py-3 max-w-md">
-                <div class="absolute mx-2 border-r">
+            <div class="relative items-center flex-grow py-3 max-w-md">
+                <div class="hidden md:block absolute mx-2 border-r">
                     <x-dropdown align="left" width="48" dropdownClasses="bg-gray-100">
                         <x-slot name="trigger">
                             <button class="flex items-center"><span class="whitespace-nowrap mr-1">All Categories
@@ -202,7 +206,7 @@
 
 
             <!-- Hamburger -->
-            <div class="flex items-center -me-2 sm:hidden">
+            {{-- <div class="flex items-center -me-2 sm:hidden">
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -213,7 +217,7 @@
                             stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -313,9 +317,9 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('product.search') }}" class="flex flex-col items-center">
-                    <i class="fas fa-search"></i>
-                    <span class="text-xs">Search</span>
+                <a href="{{ route('categories') }}" class="flex flex-col items-center">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="text-xs">Category</span>
                 </a>
             </li>
             <li>
