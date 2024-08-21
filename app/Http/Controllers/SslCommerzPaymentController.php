@@ -4,25 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CheckOrderStatus;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Services\StockService;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
-use App\Models\Address;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 
 class SslCommerzPaymentController extends PaymentController
 {
-    protected $stockService;
-
-    public function __construct(StockService $stockService)
-    {
-        $this->stockService = $stockService;
-    }
     public function index()
     {
         $sessionData = $this->getSessionData();
@@ -212,7 +202,7 @@ class SslCommerzPaymentController extends PaymentController
             Order::where('id', $payment->order_id)
                 ->update(['status' => 'canceled']);
 
-            $this->stockService->restoreStock($payment->order_id);
+            $this->restoreStock($payment->order_id);
 
 
             return redirect()->route('order-failure')->with('order_failure', true);
