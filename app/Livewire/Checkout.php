@@ -7,26 +7,46 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Facades\Redirect;
+use Livewire\Attributes\Validate;
 
 class Checkout extends Component
 {
 
-    public $errors;
+    public $stockErrors;
     public $stockAvailable;
 
     // Shipping Address
-    public $firstName;
-    public $lastName;
-    public $address1;
-    public $address2;
-    public $city;
-    public $state;
-    public $zipCode;
-    public $country;
-    public $phone;
+    #[Validate('required|string|max:255')]
+    public $firstName = '';
+
+    #[Validate('required|string|max:255')]
+    public $lastName = '';
+
+    #[Validate('required|string|max:255')]
+    public $address1 = '';
+
+    #[Validate('nullable|string|max:255')]
+    public $address2 = '';
+
+    #[Validate('required|string|max:255')]
+    public $city = '';
+
+    #[Validate('nullable|string|max:255')]
+    public $state = '';
+
+    #[Validate('required|string|max:20')]
+    public $zipCode = '';
+
+    #[Validate('required|string|max:255')]
+    public $country = '';
+
+    #[Validate('required|string|max:15')]
+    public $phone = '';
+
 
 
     // Payment Method
+    #[Validate('required|in:cash,bkash,online')]
     public $paymentMethod = '';
 
     public $cart = [];
@@ -97,7 +117,7 @@ class Checkout extends Component
             $productData[$product->id] = $product;
         }
 
-        $this->errors = [];
+        $this->stockErrors = [];
 
         // Check availability for each product in the cart
         $this->stockAvailable = true;
@@ -112,16 +132,17 @@ class Checkout extends Component
             // Check if the product exists and if it has sufficient stock
             if (!$product) {
                 $this->stockAvailable = false;
-                $this->errors[$productId] = 'Product not found.';
+                $this->stockErrors[$productId] = 'Product not found.';
             } elseif ($product->stock < $requestedQuantity) {
                 $this->stockAvailable = false;
-                $this->errors[$productId] = 'Insufficient stock.';
+                $this->stockErrors[$productId] = 'Insufficient stock.';
             }
         }
     }
 
     public function save()
     {
+        $this->validate();
         // Store address information to the database
         $address = [
             'first_name' => $this->firstName,
