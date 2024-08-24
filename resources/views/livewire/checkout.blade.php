@@ -38,13 +38,23 @@
                         <label for="firstName" class="block text-sm font-medium text-gray-600">First Name</label>
                         <x-input type="text" wire:model="firstName" id="firstName" name="firstName"
                             value="{{ $firstName }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('firstName')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Last Name -->
                     <div class="mb-4">
                         <label for="lastName" class="block text-sm font-medium text-gray-600">Last Name</label>
                         <x-input type="text" wire:model="lastName" id="lastName" name="lastName"
-                            value="{{ $lastName }}" class="w-full p-2 mt-1" />
+                            value="{{ $lastName }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('lastName')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Address Line 1 -->
@@ -52,6 +62,11 @@
                         <label for="address1" class="block text-sm font-medium text-gray-600">Address Line 1</label>
                         <x-input type="text" wire:model="address1" id="address1" name="address1"
                             value="{{ $address1 }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('address1')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Address Line 2 -->
@@ -59,6 +74,11 @@
                         <label for="address2" class="block text-sm font-medium text-gray-600">Address Line 2</label>
                         <x-input type="text" wire:model="address2" id="address2" name="address2"
                             value="{{ $address2 }}" class="w-full p-2 mt-1" />
+                        <div>
+                            @error('address2')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- City -->
@@ -66,13 +86,23 @@
                         <label for="city" class="block text-sm font-medium text-gray-600">City</label>
                         <x-input type="text" wire:model="city" id="city" name="city"
                             value="{{ $city }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('city')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- State -->
                     <div class="mb-4">
                         <label for="state" class="block text-sm font-medium text-gray-600">State</label>
                         <x-input type="text" wire:model="state" id="state" name="state"
-                            value="{{ $state }}" class="w-full p-2 mt-1" required />
+                            value="{{ $state }}" class="w-full p-2 mt-1" />
+                        <div>
+                            @error('state')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- ZIP Code -->
@@ -80,6 +110,11 @@
                         <label for="zipCode" class="block text-sm font-medium text-gray-600">ZIP Code</label>
                         <x-input type="text" wire:model="zipCode" id="zipCode" name="zipCode"
                             value="{{ $zipCode }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('zipCode')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Country -->
@@ -87,6 +122,11 @@
                         <label for="country" class="block text-sm font-medium text-gray-600">Country</label>
                         <x-input type="text" wire:model="country" id="country" name="country"
                             value="{{ $country }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('country')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <!-- Phone Number -->
@@ -94,6 +134,11 @@
                         <label for="phone" class="block text-sm font-medium text-gray-600">Phone Number</label>
                         <x-input type="tel" wire:model="phone" id="phone" name="phone"
                             value="{{ $phone }}" class="w-full p-2 mt-1" required />
+                        <div>
+                            @error('phone')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
 
@@ -114,7 +159,7 @@
                     </div>
                     <div class="flex items-center p-4 bg-gray-100 rounded-md">
                         <input type="radio" wire:model="paymentMethod" id="bkash" name="paymentMethod"
-                            value="bkash" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
+                            value="bkash" class="w-4 h-4 text-orange-500 focus:ring-orange-500">
                         <label for="bkash" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
                             <i class="fas fa-mobile-alt text-2xl text-orange-500 mr-2"></i>
                             <span>bKash</span>
@@ -122,12 +167,17 @@
                     </div>
                     <div class="flex items-center p-4 bg-gray-100 rounded-md">
                         <input type="radio" wire:model="paymentMethod" id="card" name="paymentMethod"
-                            value="card" class="w-4 h-4 text-orange-500 focus:ring-orange-500" required>
+                            value="card" class="w-4 h-4 text-orange-500 focus:ring-orange-500">
                         <label for="card" class="ml-4 text-gray-600 hover:cursor-pointer flex items-center">
                             <i class="fas fa-credit-card text-2xl text-orange-500 mr-2"></i>
                             <span>Card Payment</span>
                         </label>
                     </div>
+                </div>
+                <div>
+                    @error('paymentMethod')
+                        <span class="text-red-500 text-center">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -163,12 +213,13 @@
                                                     @endforeach
                                                 </div>
                                             @endif
-                                            @if (isset($availability['errors'][$item['product_id']]))
+                                            @if (isset($availability['stockErrors'][$item['product_id']]))
                                                 <p class="text-sm text-red-500">
-                                                    {{ $availability['errors'][$item['product_id']] }}</p>
+                                                    {{ $availability['stockErrors'][$item['product_id']] }}</p>
                                             @endif
-                                            @if (isset($errors[$item['product_id']]))
-                                                <p class="text-sm text-red-500">{{ $errors[$item['product_id']] }}</p>
+                                            @if (isset($stockErrors[$item['product_id']]))
+                                                <p class="text-sm text-red-500">
+                                                    {{ $stockErrors[$item['product_id']] }}</p>
                                             @endif
                                         </div>
                                     </div>
