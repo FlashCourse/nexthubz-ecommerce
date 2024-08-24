@@ -1,5 +1,5 @@
 <div class="p-4 bg-white border flex flex-col justify-between rounded-lg hover:shadow-xl">
-    <a href="{{ route('product.details', ['product' => $product->id]) }}">
+    <a href="{{ route('product.details', ['product' => $product->slug]) }}">
         <img src="{{ asset('storage/' . $product->image) }}" alt=""
             class="object-cover w-full h-40 mb-4 rounded-lg">
     </a>
