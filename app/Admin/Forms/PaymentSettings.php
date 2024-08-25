@@ -73,6 +73,26 @@ class PaymentSettings extends Form
             ->help('Provide instructions for offline payment.')
             ->default($this->getSettingValue('offline_instructions'));
 
+        // SSLCommerz Settings
+        $this->divider('SSLCommerz Settings');
+        $this->switch('sslcommerz_active', 'Activate SSLCommerz')
+            ->help('Enable or disable SSLCommerz as a payment method.')
+            ->default($this->getSettingValue('sslcommerz_active') === 'true');
+
+        $this->text('sslcommerz_store_id', 'SSLCommerz Store ID')
+            ->rules('required_if:sslcommerz_active,true')
+            ->help('Enter your SSLCommerz Store ID.')
+            ->default($this->getSettingValue('sslcommerz_store_id'));
+
+        $this->text('sslcommerz_store_password', 'SSLCommerz Store Password')
+            ->rules('required_if:sslcommerz_active,true')
+            ->help('Enter your SSLCommerz Store Password.')
+            ->default($this->getSettingValue('sslcommerz_store_password'));
+
+        $this->switch('sslcommerz_testmode', 'Test Mode')
+            ->help('Enable or disable test mode for SSLCommerz.')
+            ->default($this->getSettingValue('sslcommerz_testmode') === 'true');
+
         // Disable reset button and change submit button text
         $this->disableReset();
     }
@@ -89,6 +109,10 @@ class PaymentSettings extends Form
             'stripe_secret' => $this->getSettingValue('stripe_secret'),
             'offline_active' => $this->getSettingValue('offline_active') === 'true',
             'offline_instructions' => $this->getSettingValue('offline_instructions'),
+            'sslcommerz_active' => $this->getSettingValue('sslcommerz_active') === 'true',
+            'sslcommerz_store_id' => $this->getSettingValue('sslcommerz_store_id'),
+            'sslcommerz_store_password' => $this->getSettingValue('sslcommerz_store_password'),
+            'sslcommerz_testmode' => $this->getSettingValue('sslcommerz_testmode') === 'true',
         ];
     }
 
