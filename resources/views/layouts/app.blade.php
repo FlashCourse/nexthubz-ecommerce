@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Dynamic SEO Meta Tags -->
+    <title>{{ $settings->get('meta_title', 'Default Title') }}</title>
+    <meta name="description" content="{{ $settings->get('meta_description', 'Default description for the website.') }}">
+    <meta name="keywords" content="{{ $settings->get('meta_keywords', 'default, keywords') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
