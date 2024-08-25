@@ -15,6 +15,28 @@ class GeneralSettings extends Form
     {
         $data = $request->all();
 
+        // Define a list of all possible switch keys without _cb suffix
+        $switchKeys = [
+            'user_registration',
+            'account_approval',
+            'social_sharing',
+            'maintenance_mode'
+        ];
+
+        // Handle switches with _cb suffix
+        foreach ($switchKeys as $key) {
+            // Check if the _cb key exists in the data
+            if (array_key_exists("{$key}_cb", $data)) {
+                // Convert value to boolean (true or false stored as 1 or 0)
+                $data[$key] = (int) filter_var($data["{$key}_cb"], FILTER_VALIDATE_BOOLEAN);
+                unset($data["{$key}_cb"]); // Remove the _cb key after processing
+            } else {
+                // If _cb key does not exist, switch is off
+                $data[$key] = 0;
+            }
+        }
+
+
         foreach ($data as $key => $value) {
             if (str_contains($key, '_file_del_') && !empty($value)) {
                 $fieldName = str_replace('_file_del_', '', $key);
