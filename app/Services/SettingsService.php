@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Config;
 
 class SettingsService
 {
-    protected $cacheDuration = 60 * 60 * 24; // Cache for 24 hours
+    protected $cacheDuration = 60; // Cache for 1 minutes
 
     /**
      * Get a specific setting value with automated key existence check.
@@ -19,11 +19,29 @@ class SettingsService
      */
     public function get($key, $default = null)
     {
-        // Check if the setting is cached, if not, fetch from the database and cache it
-        return Cache::remember("setting_{$key}", $this->cacheDuration, function () use ($key, $default) {
-            return Setting::where('key', $key)->value('value') ?? $default;
-        });
+        // First, check if the setting exists in the cache
+        $cachedValue = Cache::get("setting_{$key}");
+
+        // If the cache is empty, fetch from the database
+        if ($cachedValue === null) {
+            // Fetch the value from the database
+            $value = Setting::where('key', $key)->value('value');
+
+            // If the value exists in the database, cache it
+            if ($value !== null) {
+                Cache::put("setting_{$key}", $value, $this->cacheDuration);
+                return $value;
+            }
+
+            // If the value does not exist in the database, return the default value
+            // Do not cache the default value to avoid stale cache issues
+            return $default;
+        }
+
+        // If the cached value is found, return it
+        return $cachedValue;
     }
+
 
     /**
      * Get all settings.

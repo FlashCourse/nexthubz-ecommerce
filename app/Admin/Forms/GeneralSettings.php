@@ -5,6 +5,7 @@ namespace App\Admin\Forms;
 use OpenAdmin\Admin\Widgets\Form;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Storage;
 
 class GeneralSettings extends Form
 {
@@ -15,7 +16,24 @@ class GeneralSettings extends Form
         $data = $request->all();
 
         foreach ($data as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            if (str_contains($key, '_file_del_') && !empty($value)) {
+                $fieldName = str_replace('_file_del_', '', $key);
+                $currentValue = Setting::where('key', $fieldName)->value('value');
+                if ($currentValue) {
+                    Storage::disk('admin')->delete($currentValue);
+                }
+                Setting::updateOrCreate(['key' => $fieldName], ['value' => null]);
+                continue;
+            }
+
+            if ($request->hasFile($key)) {
+                $file = $request->file($key);
+                $filename = $file->storeAs('', $file->getClientOriginalName(), 'admin');
+                $value = basename($filename);
+                Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            } else {
+                Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            }
         }
 
         admin_toastr('Saved Successfully', 'success');
@@ -31,9 +49,17 @@ class GeneralSettings extends Form
             ->help('Enter the name of your site')
             ->default($this->getSettingValue('site_name'));
 
-        $this->image('site_logo', 'Site Logo')
+        $this->image('site_logo',  __('Site Logo'))
             ->help('Upload the logo of your site')
             ->default($this->getSettingValue('site_logo'));
+
+        $this->image('site_logo_small',  __('Site Logo Small'))
+            ->help('Upload the logo of your site for mobile screen')
+            ->default($this->getSettingValue('site_logo_small'));
+
+        $this->image('site_favicon',  __('Site Favicon'))
+            ->help('Upload the favicon of your site')
+            ->default($this->getSettingValue('site_favicon'));
 
         $this->text('tagline', 'Tagline')
             ->help('Enter the tagline of your site')
@@ -193,6 +219,8 @@ class GeneralSettings extends Form
         return [
             'site_name' => $this->getSettingValue('site_name'),
             'site_logo' => $this->getSettingValue('site_logo'),
+            'site_logo_small' => $this->getSettingValue('site_logo_small'),
+            'site_favicon' => $this->getSettingValue('site_favicon'),
             'tagline' => $this->getSettingValue('tagline'),
             'language' => $this->getSettingValue('language'),
             'time_zone' => $this->getSettingValue('time_zone'),
