@@ -42,6 +42,11 @@ class Product extends Model
         return $this->hasMany(Variant::class);
     }
 
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'promotion_products');
+    }
+
     protected static function boot()
     {
         parent::boot();
