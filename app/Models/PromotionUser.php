@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PromotionProduct extends Model
+class PromotionUser extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'promotion_id',
-        'product_id',
+        'user_id',
     ];
 
     /**
-     * Get the promotion that owns the PromotionProduct.
+     * Get the promotion associated with the PromotionUser.
      */
     public function promotion()
     {
@@ -23,10 +23,10 @@ class PromotionProduct extends Model
     }
 
     /**
-     * Get the product that is associated with the PromotionProduct.
+     * Get the user who used the promotion.
      */
-    public function product()
+    public function user()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class);
     }
 }

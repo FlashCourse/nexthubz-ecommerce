@@ -9,6 +9,8 @@ use App\Admin\Controllers\OrderItemController;
 use App\Admin\Controllers\PaymentController;
 use App\Admin\Controllers\ProductController;
 use App\Admin\Controllers\PromotionController;
+use App\Admin\Controllers\PromotionProductController;
+use App\Admin\Controllers\PromotionUserController;
 use App\Admin\Controllers\ReviewController;
 use App\Admin\Controllers\SettingController;
 use App\Admin\Controllers\UserController;
@@ -39,6 +41,8 @@ Route::group([
     $router->resource('variants', VariantController::class);
     $router->resource('variant-attributes', VariantAttributeController::class);
     $router->resource('promotions', PromotionController::class);
+    $router->resource('promotion-products', PromotionProductController::class);
+    $router->resource('promotion-users', PromotionUserController::class);
 
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');
