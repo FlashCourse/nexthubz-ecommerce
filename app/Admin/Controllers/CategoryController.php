@@ -26,14 +26,23 @@ class CategoryController extends AdminController
     {
         $grid = new Grid(new Category());
 
+        $grid->quickSearch('name');
+
         $grid->column('id', __('Id'));
+        $grid->column('image', __('Image'))->image('', '50', '50');
         $grid->column('name', __('Name'));
-        $grid->column('parent_id', __('Parent id'));
+        // $grid->column('parent_id', __('Parent id'));
         $grid->column('slug', __('Slug'));
-        $grid->column('image', __('Image'));
-        $grid->column('description', __('Description'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
+
+
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->between('created_at', __('Created at'))->datetime();
+            $filter->between('updated_at', __('Updated at'))->datetime();
+            // $filter->equal('parent_id', __('Parent Category'))->select(Category::pluck('name', 'id')->toArray());
+        });
 
         return $grid;
     }
@@ -70,7 +79,7 @@ class CategoryController extends AdminController
         $form = new Form(new Category());
 
         $form->text('name', __('Name'));
-        $form->number('parent_id', __('Parent id'));
+        // $form->number('parent_id', __('Parent id'));
         $form->image('image', __('Image'))->move('images/categories')->uniqueName();;
         $form->ckeditor('description')->options(['lang' => 'fr', 'height' => 500, 'contentsCss' => '/css/frontend-body-content.css']);
 

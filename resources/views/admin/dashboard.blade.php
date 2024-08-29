@@ -1,30 +1,56 @@
 <section class="py-5">
     <div class="row g-3">
         <div class="col-12 col-md-6 col-lg-3">
-            <div class="bg-primary text-white p-3 rounded shadow">
-                <div class="h6">Total Orders</div>
-                <div class="h5 fw-bolder">{{ $totalOrders }}</div>
+            <div class="bg-primary text-white p-3 rounded shadow d-flex align-items-center">
+                <div class="bg-white rounded-circle d-flex justify-content-center align-items-center"
+                    style="width: 50px; height: 50px;">
+                    <i class="icon-shopping-cart text-primary fa-lg"></i> <!-- OpenAdmin icon for cart -->
+                </div>
+                <div class="ms-3">
+                    <div class="h6">Total Orders</div>
+                    <div class="h5 fw-bolder">{{ $totalOrders }}</div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-            <div class="bg-success text-white p-3 rounded shadow">
-                <div class="h6">Total Sales</div>
-                <div class="h5 fw-bolder">${{ number_format($totalSales, 2) }}</div>
+            <div class="bg-success text-white p-3 rounded shadow d-flex align-items-center">
+                <div class="bg-white rounded-circle d-flex justify-content-center align-items-center"
+                    style="width: 50px; height: 50px;">
+                    <i class="icon-dollar-sign text-success fa-lg"></i> <!-- OpenAdmin icon for dollar -->
+                </div>
+                <div class="ms-3">
+                    <div class="h6">Total Sales</div>
+                    <div class="h5 fw-bolder">${{ number_format($totalSales, 2) }}</div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-            <div class="bg-warning text-white p-3 rounded shadow">
-                <div class="h6">Total Revenue</div>
-                <div class="h5 fw-bolder">${{ number_format($totalRevenue, 2) }}</div>
+            <div class="bg-warning text-white p-3 rounded shadow d-flex align-items-center">
+                <div class="bg-white rounded-circle d-flex justify-content-center align-items-center"
+                    style="width: 50px; height: 50px;">
+                    <i class="icon-chart-line text-warning fa-lg"></i> <!-- OpenAdmin icon for chart line -->
+                </div>
+                <div class="ms-3">
+                    <div class="h6">Total Revenue</div>
+                    <div class="h5 fw-bolder">${{ number_format($totalRevenue, 2) }}</div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-            <div class="bg-danger text-white p-3 rounded shadow">
-                <div class="h6">New Customers</div>
-                <div class="h5 fw-bolder">{{ $newCustomers }}</div>
+            <div class="bg-danger text-white p-3 rounded shadow d-flex align-items-center">
+                <div class="bg-white rounded-circle d-flex justify-content-center align-items-center"
+                    style="width: 50px; height: 50px;">
+                    <i class="icon-user-plus text-danger fa-lg"></i> <!-- OpenAdmin icon for user plus -->
+                </div>
+                <div class="ms-3">
+                    <div class="h6">New Customers</div>
+                    <div class="h5 fw-bolder">{{ $newCustomers }}</div>
+                </div>
             </div>
         </div>
     </div>
+
+
     <div class="mt-4">
         <div class="bg-white p-4 rounded shadow">
             <div class="d-flex justify-content-between align-items-center mb-3">

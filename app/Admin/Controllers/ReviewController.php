@@ -19,7 +19,12 @@ class ReviewController extends AdminController
     {
         $grid = new Grid(new Review());
 
-        $grid->quickSearch();
+        $grid->quickSearch('id', 'user_id', 'rating');
+        $grid->disableCreateButton();
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
 
         $grid->column('id', __('Id'))->sortable();
         $grid->column('user_id', __('User'))->display(function ($userId) {
@@ -45,14 +50,6 @@ class ReviewController extends AdminController
             $filter->equal('rating', 'Rating');
             $filter->between('created_at', 'Created at')->datetime();
             $filter->between('updated_at', 'Updated at')->datetime();
-        });
-
-        $grid->header(function () {
-            return 'Review Management';
-        });
-
-        $grid->footer(function ($query) {
-            return 'Total reviews: ' . $query->count();
         });
 
         $grid->model()->orderBy('id', 'desc');
@@ -88,17 +85,5 @@ class ReviewController extends AdminController
         });
 
         return $show;
-    }
-
-    protected function form()
-    {
-        $form = new Form(new Review());
-
-        $form->select('user_id', __('User'))->options(User::all()->pluck('name', 'id'))->rules('required');
-        $form->select('product_id', __('Product'))->options(Product::all()->pluck('name', 'id'))->rules('required');
-        $form->number('rating', __('Rating'))->rules('required|integer|min:1|max:5');
-        $form->textarea('comment', __('Comment'))->rules('required');
-
-        return $form;
     }
 }

@@ -29,30 +29,39 @@ class ProductController extends AdminController
         $grid = new Grid(new Product());
 
         $grid->column('id', __('Id'));
-        $grid->column('image', __('Image'))->image()->sortable();
+        $grid->column('image', __('Image'))->image('', '50', '50');
         $grid->column('name', __('Name'));
-        $grid->column('slug', __('Slug'));
-        $grid->column('short_description', __('Short Description'));
-        $grid->column('description', __('Description'));
+        // $grid->column('slug', __('Slug'));
+        // $grid->column('short_description', __('Short Description'));
+        // $grid->column('description', __('Description'));
         $grid->column('category_id', __('Category'))->display(function ($categoryId) {
             return Category::find($categoryId)->name ?? 'N/A';
-        });
-        $grid->column('price', __('Price'));
-        $grid->column('discount', __('Discount'));
+        })->label('info');
+        // $grid->column('sales_count', __('Sales Count'));
         $grid->column('stock', __('Stock'));
-        $grid->column('sales_count', __('Sales Count'));
+        $grid->column('price', __('Price'))->color('green');
+        // $grid->column('discount', __('Discount'));
+        $grid->column('is_new', __('Is New'))->bool();
+        $grid->column('is_featured', __('Is Featured'))->bool();
+        $grid->column('is_best_selling', __('Is Best Selling'))->bool();
+        $grid->column('active', __('Active'))->bool();
 
-        // Inline editing fields using switch
-        // $grid->column('is_new', __('Is New'));
-        // $grid->column('is_featured', __('Is Featured'));
-        // $grid->column('is_best_selling', __('Is Best Selling'));
-        // $grid->column('active', __('Active'));
+        // $grid->column('created_at', __('Created at'))->sortable();
+        // $grid->column('updated_at', __('Updated at'))->sortable();
 
-        $grid->column('created_at', __('Created at'))->sortable();
-        $grid->column('updated_at', __('Updated at'))->sortable();
 
-        // Sort the grid by 'created_at' in descending order
+
+        // sort, search and filter
         $grid->model()->orderBy('created_at', 'desc');
+
+        $grid->quickSearch('name');
+
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->between('created_at', __('Created at'))->datetime();
+            $filter->between('updated_at', __('Updated at'))->datetime();
+            $filter->equal('category_id', __('Category'))->select(Category::pluck('name', 'id')->toArray());
+        });
 
         return $grid;
     }
@@ -131,20 +140,20 @@ class ProductController extends AdminController
         $form = new Form(new Product());
 
         $form->text('name', __('Name'))->rules('required|max:255');
-        $form->textarea('short_description', __('Short Description'))->rules('nullable');
-        $form->textarea('description', __('Description'))->rules('nullable');
         $form->select('category_id', __('Category'))->options(function () {
             return Category::pluck('name', 'id');
         })->rules('required');
         $form->image('image', __('Image'))->move('images/products')->uniqueName()->rules('nullable|image');
         $form->decimal('price', __('Price'))->rules('required|numeric');
-        $form->decimal('discount', __('Discount'))->default(0.00)->rules('nullable|numeric');
+        // $form->decimal('discount', __('Discount'))->default(0.00)->rules('nullable|numeric');
         $form->number('stock', __('Stock'))->rules('required|integer|min:0');
-        $form->number('sales_count', __('Sales Count'))->default(0)->rules('required|integer|min:0');
+        // $form->number('sales_count', __('Sales Count'))->default(0)->rules('required|integer|min:0');
         $form->switch('is_new', __('Is New'))->default(0);
         $form->switch('is_featured', __('Is Featured'))->default(0);
         $form->switch('is_best_selling', __('Is Best Selling'))->default(0);
         $form->switch('active', __('Active'))->default(1);
+        $form->textarea('short_description', __('Short Description'))->rules('nullable');
+        $form->ckeditor('description')->options(['lang' => 'fr', 'height' => 500, 'contentsCss' => '/css/frontend-body-content.css']);
 
         // Customize the footer
         $form->footer(function ($footer) {
