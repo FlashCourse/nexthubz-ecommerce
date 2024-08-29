@@ -35,8 +35,8 @@ class PaymentController extends AdminController
         $grid->column('payment_method', __('Payment method'));
         // $grid->column('payment_date', __('Payment date'));
         $grid->column('status', __('Status'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
         $grid->quickSearch('transaction_id', 'order_id', 'amount', 'currency', 'payment_method', 'status');
 

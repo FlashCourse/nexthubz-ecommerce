@@ -29,8 +29,8 @@ class AttributeController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
         return $grid;
     }
@@ -47,8 +47,8 @@ class AttributeController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $show->field('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
         // Define a nested resource for Variants
         $show->attributeValues('AttributeValues', function ($relation) use ($id) {

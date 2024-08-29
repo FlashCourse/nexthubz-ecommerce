@@ -4,7 +4,6 @@ namespace App\Admin\Controllers;
 
 use App\Models\Product;
 use OpenAdmin\Admin\Controllers\AdminController;
-use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use App\Models\Review;
@@ -37,12 +36,8 @@ class ReviewController extends AdminController
         })->sortable();
         $grid->column('rating', __('Rating'))->badge('success')->sortable();
         $grid->column('comment', __('Comment'));
-        $grid->column('created_at', __('Created at'))->display(function ($createdAt) {
-            return Carbon::parse($createdAt)->format('d/m/Y H:i');
-        })->sortable();
-        $grid->column('updated_at', __('Updated at'))->display(function ($updatedAt) {
-            return Carbon::parse($updatedAt)->format('d/m/Y H:i');
-        })->sortable();
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A')->sortable();
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A')->sortable();
 
         $grid->filter(function ($filter) {
             $filter->equal('user_id', 'User')->select(User::all()->pluck('name', 'id'));
@@ -77,12 +72,8 @@ class ReviewController extends AdminController
         })->badge('success');
         $show->field('comment', 'Comment');
         $show->divider();
-        $show->field('created_at', 'Created At')->as(function ($createdAt) {
-            return Carbon::parse($createdAt)->format('d/m/Y H:i');
-        });
-        $show->field('updated_at', 'Updated At')->as(function ($updatedAt) {
-            return Carbon::parse($updatedAt)->format('d/m/Y H:i');
-        });
+        $show->field('created_at', 'Created At')->dateFormat('F d, Y h:i A');
+        $show->field('updated_at', 'Updated At')->dateFormat('F d, Y h:i A');
 
         $show->panel()
             ->tools(function ($tools) {
