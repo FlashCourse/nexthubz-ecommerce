@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotion_users', function (Blueprint $table) {
+        Schema::create('order_events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('promotion_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('order_id');
+            $table->string('event_type'); // e.g., status_update, payment_received
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promotion_users');
+        Schema::dropIfExists('order_events');
     }
 };

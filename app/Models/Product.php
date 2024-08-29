@@ -12,6 +12,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'sku',
         'slug',
         'description',
         'short_description',
@@ -40,11 +41,6 @@ class Product extends Model
     public function variants()
     {
         return $this->hasMany(Variant::class);
-    }
-
-    public function promotions()
-    {
-        return $this->belongsToMany(Promotion::class, 'promotion_products');
     }
 
     protected static function boot()

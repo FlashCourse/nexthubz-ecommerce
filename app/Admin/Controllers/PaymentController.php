@@ -28,7 +28,6 @@ class PaymentController extends AdminController
         $grid = new Grid(new Payment());
 
         $grid->column('id', __('Id'));
-        $grid->column('invoice_id', __('Invoice id'));
         $grid->column('transaction_id', __('Transaction id'));
         $grid->column('order_id', __('Order id'));
         $grid->column('amount', __('Amount'));
@@ -53,7 +52,6 @@ class PaymentController extends AdminController
         $show = new Show(Payment::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('invoice_id', __('Invoice id'));
         $show->field('transaction_id', __('Transaction id'));
         $show->field('order_id', __('Order id'));
         $show->field('amount', __('Amount'));
@@ -75,8 +73,6 @@ class PaymentController extends AdminController
     protected function form()
     {
         $form = new Form(new Payment());
-
-        $form->text('invoice_id', __('Invoice id'))->default(uniqid());
         $form->text('transaction_id', __('Transaction id'));
         $form->number('order_id', __('Order id'));
         $form->decimal('amount', __('Amount'));

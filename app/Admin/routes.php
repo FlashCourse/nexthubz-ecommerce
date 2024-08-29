@@ -40,9 +40,6 @@ Route::group([
     $router->resource('attribute-values', AttributeValueController::class);
     $router->resource('variants', VariantController::class);
     $router->resource('variant-attributes', VariantAttributeController::class);
-    $router->resource('promotions', PromotionController::class);
-    $router->resource('promotion-products', PromotionProductController::class);
-    $router->resource('promotion-users', PromotionUserController::class);
 
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');

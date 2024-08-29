@@ -43,6 +43,9 @@ class Checkout extends Component
     #[Validate('required|string|max:15')]
     public $phone = '';
 
+    // #[Validate('nullable|string|max:15')]
+    // public $couponCode = '';
+
 
 
     // Payment Method
@@ -143,7 +146,6 @@ class Checkout extends Component
     public function save()
     {
         $this->validate();
-        // Store address information to the database
         $address = [
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,

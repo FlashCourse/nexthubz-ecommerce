@@ -58,14 +58,11 @@ class SslCommerzPaymentController extends PaymentController
 
         // Create a new payment record
         Payment::create([
-            'invoice_id' => uniqid(),
             'transaction_id' => $post_data['tran_id'],
             'order_id' => $orderData['id'],
             'amount' => $orderData['total'],
-            'total' => $orderData['total'],
             'payment_method' => 'online',
             'currency' => $post_data['currency'],
-            'nvoice_date' => now(),
         ]);
 
         # CUSTOMER INFORMATION

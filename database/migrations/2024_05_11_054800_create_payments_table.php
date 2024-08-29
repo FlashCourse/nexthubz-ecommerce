@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_id')->unique();
             $table->string('transaction_id')->unique();
             $table->unsignedBigInteger('order_id');
             $table->decimal('amount', 10, 2);
-            $table->decimal('total', 10, 2)->after('amount');
             $table->string('currency');
             $table->string('payment_method');
             $table->timestamp('payment_date')->nullable();
-            $table->timestamp('invoice_date')->after('payment_date')->nullable();
             $table->enum('status', ['pending', 'completed', 'failed', 'canceled'])->default('pending');
             $table->timestamps();
 
