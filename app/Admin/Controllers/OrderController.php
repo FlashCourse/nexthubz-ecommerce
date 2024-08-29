@@ -49,6 +49,13 @@ class OrderController extends AdminController
         $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
         $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
+        $grid->quickSearch('id', 'user_id', 'status');
+        $grid->disableCreateButton();
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
+
         return $grid;
     }
 
@@ -122,6 +129,12 @@ class OrderController extends AdminController
                 $actions->disableDelete();
             });
         });
+
+        $show->panel()
+            ->tools(function ($tools) {
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
 
         return $show;
     }

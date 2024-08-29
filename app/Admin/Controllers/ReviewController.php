@@ -84,6 +84,11 @@ class ReviewController extends AdminController
             return Carbon::parse($updatedAt)->format('d/m/Y H:i');
         });
 
+        $show->panel()
+            ->tools(function ($tools) {
+                $tools->disableEdit();
+            });
+
         return $show;
     }
 }

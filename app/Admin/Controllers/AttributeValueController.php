@@ -63,9 +63,17 @@ class AttributeValueController extends AdminController
     {
         $form = new Form(new AttributeValue());
 
+        $attributeId = request()->query('attribute_id');
+
         $form->number('id', __('Id'));
-        $form->number('attribute_id', __('Attribute id'));
+        $form->hidden('attribute_id', __('Attribute id'))->default($attributeId);
         $form->text('value', __('Value'));
+
+        $form->saved(function (Form $form) {
+            $attribute = $form->model()->attribute_id;
+            $url = admin_url('attributes') . '/' .  $attribute;
+            return redirect($url);
+        });
 
         return $form;
     }
