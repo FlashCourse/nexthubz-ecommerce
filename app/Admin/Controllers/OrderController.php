@@ -7,6 +7,7 @@ use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
 use \App\Models\Order;
+use App\Models\User;
 
 class OrderController extends AdminController
 {
@@ -27,15 +28,16 @@ class OrderController extends AdminController
         $grid = new Grid(new Order());
 
         $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('address_id', __('Address id'));
-        $grid->column('payment_method', __('Payment method'));
+        $grid->column('user_id', __('User'))->display(function ($userId) {
+            $user = User::find($userId);
+            return $user ? $user->name : 'N/A';
+        });
         $grid->column('subtotal', __('Subtotal'));
-        $grid->column('tax', __('Tax'));
-        $grid->column('shipping', __('Shipping'));
+        $grid->column('tax', __('Tax'))->color('red');
+        $grid->column('shipping_cost', __('Shipping Cost'))->color('red');
+        $grid->column('due_amount', __('Due Amount'));
+        $grid->column('paid_amount', __('Paid Amount'))->color('green');
         $grid->column('total', __('Total'));
-        $grid->column('due', __('Due'));
-        $grid->column('paid', __('Paid'));
         $grid->column('status', __('Status'))->select([
             'initiated' => 'Initiated',
             'pending' => 'Pending',
@@ -44,8 +46,15 @@ class OrderController extends AdminController
             'delivered' => 'Delivered',
             'canceled' => 'Canceled',
         ]);
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
+
+        $grid->quickSearch('id', 'user_id', 'status');
+        $grid->disableCreateButton();
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
 
         return $grid;
     }
@@ -63,8 +72,6 @@ class OrderController extends AdminController
         // Basic order fields
         $show->field('id', __('Id'));
         $show->field('user_id', __('User id'));
-        $show->field('address_id', __('Address id'));
-        $show->field('payment_method', __('Payment method'));
         $show->field('subtotal', __('Subtotal'));
         $show->field('tax', __('Tax'));
         $show->field('shipping_cost', __('Shipping'));
@@ -107,30 +114,28 @@ class OrderController extends AdminController
         $show->field('billing_phone', __('Billing Phone'));
         $show->field('billing_email', __('Billing Email'));
 
+        $show->orderItems('OrderItems', function ($relation) {
+            $relation->resource('/admin/order-items');
+
+            $relation->product_id(__('Product ID'));
+            $relation->variant_id(__('Variant ID'));
+            $relation->price(__('Price'));
+            $relation->quantity(__('Quantity'));
+            $relation->discount(__('Discount'));
+
+            $relation->disableCreateButton();
+            $relation->actions(function ($actions) {
+                $actions->disableEdit();
+                $actions->disableDelete();
+            });
+        });
+
+        $show->panel()
+            ->tools(function ($tools) {
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
+
         return $show;
-    }
-
-
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new Order());
-
-        $form->number('user_id', __('User id'));
-        $form->number('address_id', __('Address id'));
-        $form->text('payment_method', __('Payment method'))->default('undefined');
-        $form->decimal('subtotal', __('Subtotal'));
-        $form->decimal('tax', __('Tax'));
-        $form->decimal('shipping', __('Shipping'));
-        $form->decimal('total', __('Total'));
-        $form->decimal('due', __('Due'));
-        $form->decimal('paid', __('Paid'));
-        $form->text('status', __('Status'))->default('initiated');
-
-        return $form;
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('sku')->unique();
+            $table->string('image')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('stock');
             $table->timestamps();

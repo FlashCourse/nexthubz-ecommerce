@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('order_events', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id')->unique();
             $table->unsignedBigInteger('order_id');
-            $table->decimal('amount', 10, 2);
-            $table->string('currency');
-            $table->string('payment_method');
-            $table->timestamp('payment_date')->nullable();
-            $table->enum('status', ['pending', 'completed', 'failed', 'canceled'])->default('pending');
-            $table->timestamps();
-
+            $table->string('event_type'); // e.g., status_update, payment_received
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('order_events');
     }
 };

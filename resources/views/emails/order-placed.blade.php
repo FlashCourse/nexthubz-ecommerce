@@ -11,11 +11,6 @@
         style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">INVOICE</h1>
         <div style="margin-bottom: 20px;">
-            <p style="font-size: 18px; margin: 0;"><strong>INVOICE NUMBER:</strong> {{ $payment->invoice_id }}</p>
-            <p style="font-size: 18px; margin: 0;"><strong>INVOICE DATE:</strong>
-                {{ $payment->invoice_date->format('d-m-Y') }}</p>
-        </div>
-        <div style="margin-bottom: 20px;">
             <h2 style="font-size: 20px; font-weight: bold;">Billed From</h2>
             <p>Next Hubz Limited</p>
             <p>contact@nexthubz.com</p>

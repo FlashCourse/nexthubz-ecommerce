@@ -31,21 +31,31 @@
             <div class="flex flex-col">
                 <h2 class="text-3xl font-bold mb-4">Follow Us</h2>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-white hover:text-gray-500">
-                        <i class="fab fa-facebook-f text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-white hover:text-gray-500">
-                        <i class="fab fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-white hover:text-gray-500">
-                        <i class="fab fa-instagram text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-white hover:text-gray-500">
-                        <i class="fab fa-pinterest text-2xl"></i>
-                    </a>
+                    @if ($facebookUrl = $settings->get('facebook_link'))
+                        <a href="{{ $facebookUrl }}" class="text-white hover:text-gray-500">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                    @endif
+
+                    @if ($twitterUrl = $settings->get('twitter_link'))
+                        <a href="{{ $twitterUrl }}" class="text-white hover:text-gray-500">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                    @endif
+
+                    @if ($instagramUrl = $settings->get('instagram_link'))
+                        <a href="{{ $instagramUrl }}" class="text-white hover:text-gray-500">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    @endif
+
+                    @if ($linkedinUrl = $settings->get('linkedin_link'))
+                        <a href="{{ $linkedinUrl }}" class="text-white hover:text-gray-500">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
-
         </div>
 
         {{-- Newsletter Section --}}

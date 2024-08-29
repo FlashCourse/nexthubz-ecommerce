@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -109,14 +108,11 @@ class PaymentController extends Controller
     {
         return Payment::create([
             'order_id' => $order->id,
-            'invoice_id' => 'NHL-INV#' . Str::random(6),
             'transaction_id' => Str::uuid(),
             'amount' => $order->total,
-            'total' => $order->total,
             'currency' => 'BDT',
             'payment_method' => 'cash',
             'status' => 'pending',
-            'invoice_date' => Carbon::now(),
         ]);
     }
 

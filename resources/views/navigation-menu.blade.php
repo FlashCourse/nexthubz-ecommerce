@@ -8,11 +8,13 @@
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('home') }}" class="hidden md:flex items-center text-orange-500">
 
-                        <img src="{{ asset('images/logo---width.png') }}" height="50px" width="180px" alt="logo">
+                        <img src="{{ asset('storage/' . $settings->get('site_logo', 'default-logo.png')) }}"
+                            height="50px" width="180px" alt="logo">
                     </a>
                     <a href="{{ route('home') }}" class="flex md:hidden items-center text-orange-500">
 
-                        <img src="{{ asset('images/logo-mobile.png') }}" height="50px" width="50px" alt="logo">
+                        <img src="{{ asset('storage/' . $settings->get('site_logo_small', 'default-mobile-logo.png')) }}"
+                            height="50px" width="50px" alt="logo">
                     </a>
                 </div>
 

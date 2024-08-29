@@ -45,6 +45,7 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2)->nullable();
             $table->decimal('tax', 10, 2)->nullable();
             $table->decimal('shipping_cost', 10, 2)->nullable();
+            $table->decimal('total_discount', 10, 2)->default(0.00);
             $table->decimal('due_amount', 10, 2)->nullable();
             $table->decimal('paid_amount', 10, 2)->nullable();
             $table->decimal('total', 10, 2)->nullable();

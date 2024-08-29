@@ -144,7 +144,6 @@
 
             </div>
 
-
             {{-- Payment Methods --}}
             <div class="p-6 mb-8 bg-white rounded-lg border">
                 <h2 class="mb-4 text-xl font-semibold">Payment Method</h2>
@@ -181,8 +180,23 @@
                 </div>
             </div>
 
+            {{-- Coupon Code --}}
+            {{-- <div class="p-6 mb-8 bg-white rounded-lg border">
+                <h2 class="mb-4 text-xl font-semibold">Coupon Code</h2>
+                <div class="flex items-center">
+                    <x-input type="text" wire:model="couponCode" id="couponCode" name="couponCode"
+                        value="{{ $couponCode }}" class="w-full p-2 mt-1" placeholder="Enter your coupon code" />
 
-
+                </div>
+                <div>
+                    @error('couponCode')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                    @if (session()->has('couponMessage'))
+                        <span class="text-green-500">{{ session('couponMessage') }}</span>
+                    @endif
+                </div>
+            </div> --}}
 
 
             {{-- Payment Summary --}}

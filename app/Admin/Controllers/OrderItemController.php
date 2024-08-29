@@ -34,6 +34,12 @@ class OrderItemController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
+        $grid->disableCreateButton();
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
+
         return $grid;
     }
 
@@ -55,23 +61,12 @@ class OrderItemController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
+        $show->panel()
+            ->tools(function ($tools) {
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
+
         return $show;
-    }
-
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new OrderItem());
-
-        $form->number('order_id', __('Order id'));
-        $form->number('product_id', __('Product id'));
-        $form->decimal('price', __('Price'));
-        $form->number('quantity', __('Quantity'));
-
-        return $form;
     }
 }

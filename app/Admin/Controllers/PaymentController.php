@@ -28,16 +28,43 @@ class PaymentController extends AdminController
         $grid = new Grid(new Payment());
 
         $grid->column('id', __('Id'));
-        $grid->column('invoice_id', __('Invoice id'));
         $grid->column('transaction_id', __('Transaction id'));
         $grid->column('order_id', __('Order id'));
         $grid->column('amount', __('Amount'));
         $grid->column('currency', __('Currency'));
         $grid->column('payment_method', __('Payment method'));
-        $grid->column('payment_date', __('Payment date'));
+        // $grid->column('payment_date', __('Payment date'));
         $grid->column('status', __('Status'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
+
+        $grid->quickSearch('transaction_id', 'order_id', 'amount', 'currency', 'payment_method', 'status');
+
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->like('transaction_id', __('Transaction id'));
+            $filter->like('order_id', __('Order id'));
+            $filter->between('amount', __('Amount'));
+            $filter->like('currency', __('Currency'));
+            $filter->equal('payment_method', __('Payment method'))->select([
+                'credit_card' => 'Credit Card',
+                'paypal' => 'PayPal',
+                'bank_transfer' => 'Bank Transfer',
+            ]);
+            $filter->equal('status', __('Status'))->select([
+                'pending' => 'Pending',
+                'completed' => 'Completed',
+                'failed' => 'Failed',
+            ]);
+            $filter->between('created_at', __('Created at'))->datetime();
+            $filter->between('updated_at', __('Updated at'))->datetime();
+        });
+
+        $grid->disableCreateButton();
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+            $actions->disableDelete();
+        });
 
         return $grid;
     }
@@ -53,16 +80,21 @@ class PaymentController extends AdminController
         $show = new Show(Payment::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('invoice_id', __('Invoice id'));
         $show->field('transaction_id', __('Transaction id'));
         $show->field('order_id', __('Order id'));
         $show->field('amount', __('Amount'));
         $show->field('currency', __('Currency'));
         $show->field('payment_method', __('Payment method'));
-        $show->field('payment_date', __('Payment date'));
+        // $show->field('payment_date', __('Payment date'));
         $show->field('status', __('Status'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
+
+        $show->panel()
+            ->tools(function ($tools) {
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
 
         return $show;
     }
@@ -75,8 +107,6 @@ class PaymentController extends AdminController
     protected function form()
     {
         $form = new Form(new Payment());
-
-        $form->text('invoice_id', __('Invoice id'))->default(uniqid());
         $form->text('transaction_id', __('Transaction id'));
         $form->number('order_id', __('Order id'));
         $form->decimal('amount', __('Amount'));

@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('variant_id')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
+            $table->decimal('discount', 10, 2)->default(0.00);
+            $table->string('promotion_name')->nullable();
+            $table->string('promotion_code')->nullable();
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

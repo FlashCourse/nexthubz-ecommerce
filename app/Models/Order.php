@@ -36,6 +36,7 @@ class Order extends Model
         'subtotal',
         'tax',
         'shipping_cost',
+        'total_discount',
         'due_amount',
         'paid_amount',
         'total',
@@ -55,5 +56,10 @@ class Order extends Model
     public function cart()
     {
         return $this->belongsTo(Cart::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(OrderEvent::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
+use OpenAdmin\Admin\Grid\Tools\QuickCreate;
 use OpenAdmin\Admin\Show;
 use \App\Models\Attribute;
 
@@ -28,8 +29,8 @@ class AttributeController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
         return $grid;
     }
@@ -46,18 +47,18 @@ class AttributeController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
+        $show->field('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
 
         // Define a nested resource for Variants
-        $show->attributeValues('AttributeValues', function ($attributeValues) use ($id) {
-            $attributeValues->setResource('/admin/attribute-values');
-            // Configure fields to display for Variants
-            $attributeValues->attribute_id();
-            $attributeValues->value();
-            // Add more fields as needed
+        $show->attributeValues('AttributeValues', function ($relation) use ($id) {
+            $relation->setResource('/admin/attribute-values');
 
-
+            $relation->quickCreate(function (QuickCreate $create) use ($id) {
+                $create->hidden('attribute_id', 'Attribute ID')->default($id);
+                $create->text('value', 'Value');
+            });
+            $relation->value();
         });
 
         return $show;
