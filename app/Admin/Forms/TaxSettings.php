@@ -14,10 +14,26 @@ class TaxSettings extends Form
     {
         $data = $request->all();
 
-        // Convert JSON fields to arrays
-        $data['tax_by_country'] = json_encode($data['tax_by_country']);
-        $data['tax_by_product'] = json_encode($data['tax_by_product']);
+        // Define a list of all switch keys
+        $switchKeys = ['tax_by_country_active', 'tax_by_product_active'];
 
+        // Set all switch fields to '0' (inactive) initially
+        foreach ($switchKeys as $key) {
+            $data[$key] = 0;
+        }
+
+        // Activate the switch fields based on input
+        foreach ($switchKeys as $key) {
+            if ($request->has("{$key}_cb")) {
+                $data[$key] = 1;
+            }
+        }
+
+        // Convert JSON fields to arrays
+        $data['tax_by_country'] = json_encode($request->input('tax_by_country', ''));
+        $data['tax_by_product'] = json_encode($request->input('tax_by_product', ''));
+
+        // Update or create each setting based on processed data
         foreach ($data as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
@@ -29,9 +45,7 @@ class TaxSettings extends Form
 
     public function form()
     {
-
-
-        // Default Tax Settings
+        // Default Tax Settings (Enabled)
         $this->divider('Default Tax Settings');
         $this->text('default_tax_rate', 'Default Tax Rate')
             ->rules('required')
@@ -46,25 +60,29 @@ class TaxSettings extends Form
             ->help('Message to display when prices exclude tax')
             ->default($this->getSettingValue('tax_exclusive_message'));
 
-        // Tax by Country/Region
+        // Tax by Country/Region (Disabled)
         $this->divider('Tax by Country/Region');
         $this->switch('tax_by_country_active', 'Activate Tax by Country/Region')
             ->help('Enable or disable tax settings by country/region.')
-            ->default($this->getSettingValue('tax_by_country_active') === 'true');
+            ->default((int) $this->getSettingValue('tax_by_country_active')) // Cast to int for boolean display
+            ->disable(); // Disable input
 
         $this->textarea('tax_by_country', 'Tax Rates by Country/Region')
             ->help('Define tax rates for different countries and states/regions in JSON format.')
-            ->default($this->getSettingValue('tax_by_country'));
+            ->default($this->getSettingValue('tax_by_country'))
+            ->disable(); // Disable input
 
-        // Tax by Product
+        // Tax by Product (Disabled)
         $this->divider('Tax by Product');
         $this->switch('tax_by_product_active', 'Activate Tax by Product')
             ->help('Enable or disable tax settings by product.')
-            ->default($this->getSettingValue('tax_by_product_active') === 'true');
+            ->default((int) $this->getSettingValue('tax_by_product_active')) // Cast to int for boolean display
+            ->disable(); // Disable input
 
         $this->textarea('tax_by_product', 'Tax Rates by Product')
             ->help('Set specific tax rates for individual products in JSON format.')
-            ->default($this->getSettingValue('tax_by_product'));
+            ->default($this->getSettingValue('tax_by_product'))
+            ->disable(); // Disable input
 
         // Disable reset button and change submit button text
         $this->disableReset();
@@ -73,13 +91,12 @@ class TaxSettings extends Form
     public function data()
     {
         return [
-            'tax_settings_active' => $this->getSettingValue('tax_settings_active') === 'true',
             'default_tax_rate' => $this->getSettingValue('default_tax_rate'),
             'tax_inclusive_message' => $this->getSettingValue('tax_inclusive_message'),
             'tax_exclusive_message' => $this->getSettingValue('tax_exclusive_message'),
-            'tax_by_country_active' => $this->getSettingValue('tax_by_country_active') === 'true',
+            'tax_by_country_active' => (int) $this->getSettingValue('tax_by_country_active'), // Cast to int for boolean display
             'tax_by_country' => $this->getSettingValue('tax_by_country'),
-            'tax_by_product_active' => $this->getSettingValue('tax_by_product_active') === 'true',
+            'tax_by_product_active' => (int) $this->getSettingValue('tax_by_product_active'), // Cast to int for boolean display
             'tax_by_product' => $this->getSettingValue('tax_by_product'),
         ];
     }
