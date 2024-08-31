@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Address;
+use App\Services\SettingsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -53,15 +54,18 @@ class Checkout extends Component
     public $paymentMethod = '';
 
     public $cart = [];
-    public $tax = 0.03;
-    public $shipping = 30;
+    public $tax;
+    public $shipping;
     public $subtotal = 0;
     public $total = 0;
 
     public $order_id; // database order id to store in the order for tracking order
 
-    public function mount()
+    protected $settings;
+
+    public function mount(SettingsService $settings)
     {
+        $this->settings = $settings;
         $this->cart = session()->get('cart', []);
         if (empty($this->cart)) {
             // Redirect to the home page
@@ -94,6 +98,14 @@ class Checkout extends Component
         $this->zipCode = $addressData['zip_code'] ?? '';
         $this->country = $addressData['country'] ?? '';
         $this->phone = $addressData['phone'] ?? '';
+
+
+        // Set Shipping and Tax
+        $this->tax = $this->settings->get('default_tax_rate') / 100;
+        $this->shipping = $this->settings->get('flat_rate_shipping_active')
+            ? $this->settings->get('flat_rate_amount')
+            : 0;
+
         $this->calculateSubtotal();
         $this->calculateTotal();
         $this->checkAvailability();
