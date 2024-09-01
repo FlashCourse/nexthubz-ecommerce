@@ -124,7 +124,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Invoice</h1>
+            <h1>Order Placed</h1>
             <p>Order Date: {{ $order->created_at->format('Y-m-d') }}</p>
             <p>Order Number: {{ $order->order_number }}</p>
         </div>

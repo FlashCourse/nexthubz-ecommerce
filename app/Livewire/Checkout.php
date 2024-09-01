@@ -113,7 +113,7 @@ class Checkout extends Component
             'subtotal' => $this->subtotal,
             'total_discount' => $this->discountAmount,
             'tax' => $this->tax,
-            'shipping' => $this->shipping,
+            'shipping_cost' => $this->shipping,
             'total' => $this->total,
         ];
 

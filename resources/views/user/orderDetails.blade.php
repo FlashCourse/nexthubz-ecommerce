@@ -74,7 +74,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
                     <div>
                         <p class="text-gray-600">Shipping:</p>
-                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->shipping, 2) }}</p>
+                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->shipping_cost, 2) }}</p>
                     </div>
                     <div>
                         <p class="text-gray-600">Tax:</p>
