@@ -4,6 +4,9 @@ use App\Admin\Controllers\AddressController;
 use App\Admin\Controllers\AttributeController;
 use App\Admin\Controllers\AttributeValueController;
 use App\Admin\Controllers\CategoryController;
+use App\Admin\Controllers\CouponController;
+use App\Admin\Controllers\CouponUsageController;
+use App\Admin\Controllers\DiscountController;
 use App\Admin\Controllers\OrderController;
 use App\Admin\Controllers\OrderItemController;
 use App\Admin\Controllers\PaymentController;
@@ -40,6 +43,9 @@ Route::group([
     $router->resource('attribute-values', AttributeValueController::class);
     $router->resource('variants', VariantController::class);
     $router->resource('variant-attributes', VariantAttributeController::class);
+    $router->resource('coupons', CouponController::class);
+    $router->resource('discounts', DiscountController::class);
+    $router->resource('coupon-usages', CouponUsageController::class);
 
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');
