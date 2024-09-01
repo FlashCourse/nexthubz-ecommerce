@@ -33,8 +33,8 @@
                                     <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                                 </div>
                                 <div class="mb-2 md:mr-6 w-full md:w-auto">
-                                    <p class="text-gray-600">Order ID:</p>
-                                    <p class="text-orange-500 font-bold">{{ $order->id }}</p>
+                                    <p class="text-gray-600">Order Number:</p>
+                                    <p class="text-orange-500 font-bold">{{ $order->order_number }}</p>
                                 </div>
                                 <div class="mb-2 md:mr-6 w-full md:w-auto">
                                     <p class="text-gray-600">Status:</p>

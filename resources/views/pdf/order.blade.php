@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice #{{ $order->id }}</title>
+    <title>Invoice #{{ $order->order_number }}</title>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -126,7 +126,7 @@
         <div class="header">
             <h1>Invoice</h1>
             <p>Order Date: {{ $order->created_at->format('Y-m-d') }}</p>
-            <p>Order Number: {{ $order->id }}</p>
+            <p>Order Number: {{ $order->order_number }}</p>
         </div>
 
         <div class="company-info">

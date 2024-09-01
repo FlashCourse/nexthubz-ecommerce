@@ -58,15 +58,15 @@
             <div class="bg-white rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold p-6 border-b">Order Details</h2>
 
-                <!-- Order Date and ID -->
+                <!-- Order Date and Number -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
                     <div>
                         <p class="text-gray-600">Order Date:</p>
                         <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                     </div>
                     <div>
-                        <p class="text-gray-600">Order ID:</p>
-                        <p class="text-orange-500 font-bold">{{ $order->id }}</p>
+                        <p class="text-gray-600">Order Number:</p>
+                        <p class="text-orange-500 font-bold">{{ $order->order_number }}</p>
                     </div>
                 </div>
 

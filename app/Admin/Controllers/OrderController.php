@@ -27,7 +27,8 @@ class OrderController extends AdminController
     {
         $grid = new Grid(new Order());
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('ID'));
+        $grid->column('order_Number', __('Order Number'));
         $grid->column('user_id', __('User'))->display(function ($userId) {
             $user = User::find($userId);
             return $user ? $user->name : 'N/A';
@@ -71,6 +72,7 @@ class OrderController extends AdminController
 
         // Basic order fields
         $show->field('id', __('Id'));
+        $show->field('order_number', __('Order Number'));
         $show->field('user_id', __('User id'));
         $show->field('subtotal', __('Subtotal'));
         $show->field('tax', __('Tax'));
