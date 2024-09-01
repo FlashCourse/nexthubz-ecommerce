@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('sku')->unique();
             $table->string('image')->nullable();
-            $table->decimal('price', 8, 2);
+            $table->decimal('regular_price', 10, 2);
+            $table->decimal('sale_price', 10, 2);
             $table->integer('stock');
             $table->timestamps();
         });

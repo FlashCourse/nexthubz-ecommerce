@@ -43,6 +43,12 @@ class Order extends Model
         'status',
     ];
 
+    // Define the accessor
+    public function getPrefixedOrderIdAttribute()
+    {
+        return 'ORD-' . $this->id;
+    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
@@ -58,8 +64,8 @@ class Order extends Model
         return $this->belongsTo(Cart::class);
     }
 
-    public function events()
+    public function logs()
     {
-        return $this->hasMany(OrderEvent::class);
+        return $this->hasMany(OrderLog::class);
     }
 }

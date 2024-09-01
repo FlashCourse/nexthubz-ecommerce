@@ -6,24 +6,26 @@
 
 <section class="py-8 px-4">
     <div class="mx-auto max-w-7xl">
-        @if (session()->has('message'))
-            <x-modal id="myModal" maxWidth="lg">
-                <div class="p-4 bg-red-500 text-white text-center">{{ session('message') }}</div>
-            </x-modal>
-        @endif
+        <div class="mb-4">
+            @if (session()->has('message'))
+                <x-modal id="myModal" maxWidth="lg">
+                    <div class="p-4 bg-red-500 text-white text-center">{{ session('message') }}</div>
+                </x-modal>
+            @endif
 
-        @if (session()->has('success'))
-            <div
-                class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-                {{ session('success') }}
-            </div>
-        @endif
+            @if (session()->has('success'))
+                <div
+                    class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        @if (session()->has('error'))
-            <div class="alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                {{ session('error') }}
-            </div>
-        @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
 
         <form wire:submit.prevent="save">
             @include('livewire.partials.shipping-address-form')

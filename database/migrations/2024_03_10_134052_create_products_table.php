@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('image')->nullable();
 
             // Pricing and stock
-            $table->decimal('price', 10, 2);
-            $table->decimal('discount', 10, 2)->nullable();
+            $table->decimal('regular_price', 10, 2);
+            $table->decimal('sale_price', 10, 2);
+
             $table->integer('stock')->unsigned()->default(0);
             $table->integer('sales_count')->default(0);
 

@@ -24,7 +24,17 @@
     @endif
 
     <div class="mb-4">
-        <h2 class="text-xl font-black">Price: &#2547; {{ $selectedVariantPrice }}</h2>
+        <h2 class="text-xl font-black">
+            @if ($hasDiscount)
+                <!-- Show sale price first and regular price with strikethrough -->
+                <span class="text-red-500">&#2547; {{ number_format($selectedVariantPrice, 2) }}</span>
+                <span class="line-through text-gray-500 ml-2">&#2547;
+                    {{ number_format($selectedVariantRegularPrice, 2) }}</span>
+            @else
+                <!-- Show only the regular price -->
+                <span>&#2547; {{ number_format($selectedVariantPrice, 2) }}</span>
+            @endif
+        </h2>
     </div>
 
     <div class="mb-4">
@@ -37,7 +47,6 @@
             <i class="fas fa-star text-yellow-500"></i>
         </div>
     </div>
-
 
     <div x-data="{ show: @entangle('message').defer }" x-init="@this.on('productAddedToCart', () => {
         show = true;

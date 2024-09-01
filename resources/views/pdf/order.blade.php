@@ -197,8 +197,8 @@
                     <tr>
                         <th>Product</th>
                         <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th>Price (BDT)</th>
+                        <th>Total (BDT)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -206,33 +206,31 @@
                         <tr>
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->quantity }}</td>
-                            <td>{{ $order->currency }} ${{ number_format($item->price, 2) }}</td>
-                            <td>{{ $order->currency }} ${{ number_format($item->price * $item->quantity, 2) }}</td>
+                            <td>BDT {{ number_format($item->price, 2) }}</td>
+                            <td>BDT {{ number_format($item->price * $item->quantity, 2) }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="3" class="total-amount">Subtotal:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->subtotal, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->subtotal, 2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="total-amount">Taxes (VAT/GST):</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->tax, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->tax, 2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="total-amount">Shipping:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->shipping_cost, 2) }}
-                        </td>
+                        <td class="total-amount">BDT {{ number_format($order->shipping_cost, 2) }}</td>
                     </tr>
-                    @if ($order->discount)
+                    @if ($order->total_discount)
                         <tr>
                             <td colspan="3" class="total-amount">Discount:</td>
-                            <td class="total-amount">- {{ $order->currency }}
-                                ${{ number_format($order->discount, 2) }}</td>
+                            <td class="total-amount">- BDT {{ number_format($order->total_discount, 2) }}</td>
                         </tr>
                     @endif
                     <tr>
                         <td colspan="3" class="total-amount">Total Amount:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->total, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->total, 2) }}</td>
                     </tr>
                 </tbody>
             </table>

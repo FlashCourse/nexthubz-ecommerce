@@ -32,7 +32,8 @@ class VariantController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('product_id', __('Product id'));
         $grid->column('sku', __('Sku'));
-        $grid->column('price', __('Price'));
+        $grid->column('regular_price', __('Regular Price'));
+        $grid->column('sale_price', __('Sale Price'));
         $grid->column('stock', __('Stock'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -54,7 +55,8 @@ class VariantController extends AdminController
         $show->field('id', __('Id'));
         $show->field('product_id', __('Product id'));
         $show->field('sku', __('Sku'));
-        $show->field('price', __('Price'));
+        $show->field('regular_price', __('Regular Price'));
+        $show->field('sale_price', __('Sale Price'));
         $show->field('stock', __('Stock'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -123,7 +125,8 @@ class VariantController extends AdminController
 
         $form->number('product_id', __('Product id'))->default($productId);
         $form->text('sku', __('Sku'))->default(uniqid());
-        $form->decimal('price', __('Price'));
+        $form->decimal('regular_price', __('Regular Price'));
+        $form->decimal('sale_price', __('Sale Price'));
         $form->number('stock', __('Stock'));
 
         // Customize the footer

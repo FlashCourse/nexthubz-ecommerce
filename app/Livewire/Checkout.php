@@ -47,7 +47,7 @@ class Checkout extends Component
     #[Validate('required|string|max:15')]
     public $phone = '';
 
-    #[Validate('required|in:cash,bkash,online')]
+    #[Validate('required|in:cash,bkash,card')]
     public $paymentMethod = '';
 
     public $cart = [];
@@ -68,8 +68,6 @@ class Checkout extends Component
         if (empty($this->cart)) {
             return Redirect::route('home');
         }
-
-        session(['cartData' => $this->cart]);
 
         $address = Auth::check() ? Address::where('user_id', Auth::id())->first() : null;
         $addressData = $address ? $address->toArray() : [];
@@ -112,14 +110,16 @@ class Checkout extends Component
         session(['addressData' => $address]);
 
         $orderData = [
+            'subtotal' => $this->subtotal,
+            'total_discount' => $this->discountAmount,
             'tax' => $this->tax,
             'shipping' => $this->shipping,
-            'subtotal' => $this->subtotal,
             'total' => $this->total,
         ];
 
         session(['orderData' => $orderData]);
         session()->forget('cart');
+        session(['cartData' => $this->cart]);
 
         if ($this->paymentMethod === 'cash') {
             return redirect()->route('cash-payment');
@@ -161,21 +161,21 @@ class Checkout extends Component
         $coupon = Coupon::where('code', $this->couponCode)->active()->first();
 
         if (!$coupon) {
-            session()->flash('error', 'Invalid or expired coupon code.');
+            session()->flash('coupon_error', 'Invalid or expired coupon code.');
             $this->discountAmount = 0;
             $this->calculateTotal();
             return;
         }
 
         if (!$coupon->isValid()) {
-            session()->flash('error', 'Coupon is not valid for use.');
+            session()->flash('coupon_error', 'Coupon is not valid for use.');
             $this->discountAmount = 0;
             $this->calculateTotal();
             return;
         }
 
         if (!is_array($this->cart) || empty($this->cart)) {
-            session()->flash('error', 'Cart is not properly initialized or is empty.');
+            session()->flash('coupon_error', 'Cart is not properly initialized or is empty.');
             return;
         }
 
@@ -196,7 +196,7 @@ class Checkout extends Component
         $this->calculateSubtotal();
         $this->calculateTotal();
 
-        session()->flash('success', 'Coupon applied successfully!');
+        session()->flash('coupon_success', 'Coupon applied successfully!');
     }
 
     public function render()

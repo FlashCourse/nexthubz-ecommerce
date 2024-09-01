@@ -8,16 +8,16 @@
           </x-button>
       </div>
       <div>
-          @if (session()->has('success'))
+          @if (session()->has('coupon_success'))
               <div
                   class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4">
-                  {{ session('success') }}
+                  {{ session('coupon_success') }}
               </div>
           @endif
-          @if (session()->has('error'))
+          @if (session()->has('coupon_error'))
               <div
                   class="alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
-                  {{ session('error') }}
+                  {{ session('coupon_error') }}
               </div>
           @endif
       </div>
