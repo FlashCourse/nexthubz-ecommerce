@@ -1,7 +1,7 @@
 <div x-data="{ sidebarOpen: false }" x-bind:class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }"
     @open-filter.window="sidebarOpen = true" class="relative lg:block lg:w-1/4 pr-8">
     <div wire:loading class="fixed">
-        <div class="fixed top-0 left-0 w-full h-full flex items-center  justify-center z-50">
+        <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
             <i class="fas fa-spinner fa-3x text-orange-500 animate-spin"></i>
         </div>
     </div>
@@ -43,9 +43,37 @@
                         </label>
                     </li>
                 @endforeach
-
             </ul>
+        </div>
+
+        {{-- Rating Filter --}}
+        <div class="mb-8">
+            <h3 class="mb-2 text-gray-600">Filter by Rating:</h3>
+            <ul>
+                @foreach (range(5, 1) as $rating)
+                    <li>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" wire:click="updateRating('{{ $rating }}')" name="rating"
+                                value="{{ $rating }}" {{ $selectedRating == $rating ? 'checked' : '' }}
+                                class="form-radio text-orange-500" />
+                            <span class="{{ $selectedRating == $rating ? 'font-bold text-orange-500' : '' }}">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $rating)
+                                        <i class="fas fa-star text-orange-500"></i>
+                                    @else
+                                        <i class="far fa-star text-orange-500"></i>
+                                    @endif
+                                @endfor
+                            </span>
+                        </label>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Reset Filters Button at the Bottom -->
+        <div class="mt-8">
+            <button wire:click="resetFilters" class="p-1 text-white bg-orange-500 rounded-md">Reset Filters</button>
         </div>
     </div>
 </div>
-

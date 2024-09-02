@@ -11,6 +11,7 @@ class ProductFilters extends Component
     public $maxPrice = '';
     public $categories;
     public $selectedCategories = [];
+    public $selectedRating = '';
     public $queryParams;
 
     public function mount()
@@ -20,8 +21,9 @@ class ProductFilters extends Component
 
         $this->minPrice = $this->queryParams['minPrice'] ?? '';
         $this->maxPrice = $this->queryParams['maxPrice'] ?? '';
+        $this->selectedRating = $this->queryParams['rating'] ?? '';
 
-        if (isset ($this->queryParams['categories'])) {
+        if (isset($this->queryParams['categories'])) {
             $selectedCategoriesFromUrl = $this->queryParams['categories'];
             $this->selectedCategories = is_array($selectedCategoriesFromUrl) ? $selectedCategoriesFromUrl : explode(',', $selectedCategoriesFromUrl);
         }
@@ -45,23 +47,42 @@ class ProductFilters extends Component
         $this->redirect(route('product.search', $this->queryParams));
     }
 
+    public function updateRating($value)
+    {
+        $this->selectedRating = $value;
+        $this->generateQueryParams();
+        $this->redirect(route('product.search', $this->queryParams));
+    }
+
+    public function resetFilters()
+    {
+        $this->minPrice = '';
+        $this->maxPrice = '';
+        $this->selectedCategories = [];
+        $this->selectedRating = '';
+        $this->generateQueryParams();
+        $this->redirect(route('product.search'));
+    }
+
     private function generateQueryParams()
     {
+        $this->queryParams = []; // Reset the queryParams
 
-
-        if (!empty ($this->minPrice) && is_numeric($this->minPrice)) {
+        if (!empty($this->minPrice) && is_numeric($this->minPrice)) {
             $this->queryParams['minPrice'] = $this->minPrice;
         }
 
-        if (!empty ($this->maxPrice) && is_numeric($this->maxPrice)) {
+        if (!empty($this->maxPrice) && is_numeric($this->maxPrice)) {
             $this->queryParams['maxPrice'] = $this->maxPrice;
         }
 
-        if (!empty ($this->selectedCategories)) {
+        if (!empty($this->selectedCategories)) {
             $this->queryParams['categories'] = implode(',', $this->selectedCategories);
         }
 
-
+        if (!empty($this->selectedRating)) {
+            $this->queryParams['rating'] = $this->selectedRating;
+        }
     }
 
     public function render()
