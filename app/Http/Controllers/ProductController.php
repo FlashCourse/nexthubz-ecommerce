@@ -21,9 +21,18 @@ class ProductController extends Controller
             });
         }
 
-        // Filter by product name
+        // Filter by product name, SKU, or variant SKU if the product parameter is provided
         if ($request->filled('product')) {
-            $query->where('name', 'like', '%' . $request->product . '%');
+            $searchTerm = $request->product;
+
+            // Join with variants and apply search conditions
+            $query->where(function ($subQuery) use ($searchTerm) {
+                $subQuery->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('sku', $searchTerm)
+                    ->orWhereHas('variants', function ($query) use ($searchTerm) {
+                        $query->where('sku', $searchTerm);
+                    });
+            });
         }
 
         // Filter by minPrice

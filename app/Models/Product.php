@@ -46,9 +46,23 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($product) {
+            if (empty($product->sku)) {
+                $product->sku = self::generateUniqueSku();
+            }
             $product->slug = Str::slug($product->name);
         });
+        static::updating(function ($product) {
+            $product->slug = Str::slug($product->name);
+        });
+    }
+
+
+    private static function generateUniqueSku()
+    {
+        $prefix = 'PROD';
+        $uuid = (string) Str::uuid();
+        $uniquePart = substr($uuid, 0, 8);
+        return strtoupper($prefix . '-' . $uniquePart);
     }
 }

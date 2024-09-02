@@ -124,7 +124,6 @@ class VariantController extends AdminController
         $productId = request()->query('product_id'); // Get product_id from the query parameter
 
         $form->number('product_id', __('Product id'))->default($productId);
-        $form->text('sku', __('Sku'))->default(uniqid());
         $form->decimal('regular_price', __('Regular Price'));
         $form->decimal('sale_price', __('Sale Price'));
         $form->number('stock', __('Stock'));

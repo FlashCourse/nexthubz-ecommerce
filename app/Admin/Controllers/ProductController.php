@@ -28,8 +28,8 @@ class ProductController extends AdminController
     {
         $grid = new Grid(new Product());
 
-        $grid->column('id', __('Id'));
         $grid->column('image', __('Image'))->image('', '50', '50');
+        $grid->column('sku', __('SKU'));
         $grid->column('name', __('Name'));
         // $grid->column('slug', __('Slug'));
         // $grid->column('short_description', __('Short Description'));
@@ -54,7 +54,7 @@ class ProductController extends AdminController
         // sort, search and filter
         $grid->model()->orderBy('created_at', 'desc');
 
-        $grid->quickSearch('name');
+        $grid->quickSearch('id', 'sku', 'name');
 
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();
@@ -101,8 +101,7 @@ class ProductController extends AdminController
             $variants->setResource('/admin/variants');
 
             $variants->quickCreate(function (QuickCreate $create) use ($id) {
-                $create->text('product_id', 'Product ID')->default($id);
-                $create->text('sku', 'SKU')->default(uniqid());
+                $create->hidden('product_id', 'Product ID')->default($id);
                 $create->text('regular_price', 'Regular Price');
                 $create->text('sale_price', 'Sale Price');
                 $create->text('stock', 'Stock');
@@ -140,7 +139,6 @@ class ProductController extends AdminController
     protected function form()
     {
         $form = new Form(new Product());
-
         $form->text('name', __('Name'))->rules('required|max:255');
         $form->select('category_id', __('Category'))->options(function () {
             return Category::pluck('name', 'id');
