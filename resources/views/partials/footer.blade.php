@@ -23,8 +23,8 @@
             <!-- Contact -->
             <div class="mb-8 md:mb-0">
                 <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-                <p>Email: info@example.com</p>
-                <p>Phone: +123 456 7890</p>
+                <p>Email: {{ $settings->get('email', 'info@nexthubz.com') }}</p>
+                <p>Phone: {{ $settings->get('hotline', '(+880) 9638000380') }}</p>
             </div>
 
             <!-- Follow Us -->
