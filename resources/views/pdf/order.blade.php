@@ -133,28 +133,32 @@
             <h2 class="section-title">Company Information</h2>
             <table class="info-table">
                 <tr>
-                    <td class="label">Operations HQ:</td>
-                    <td>{{ $companyInfo['operations_hq'] }}</td>
+                    <td class="label">Company Name:</td>
+                    <td>{{ $settings->get('company_name', 'Undefined') }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Corporate:</td>
-                    <td>{{ $companyInfo['corporate'] }}</td>
+                    <td class="label">Operations HQ:</td>
+                    <td>{{ $settings->get('operations_hq', 'Unknown Address') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Corporate Office:</td>
+                    <td>{{ $settings->get('corporate', 'Unknown Address') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Phone:</td>
-                    <td>{{ $companyInfo['phone_1'] }} / {{ $companyInfo['phone_2'] }}</td>
+                    <td>{{ $settings->get('phone_1', 'Undefined') }} / {{ $settings->get('phone_2', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Hotline:</td>
-                    <td>{{ $companyInfo['hotline'] }}</td>
+                    <td>{{ $settings->get('hotline', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Email:</td>
-                    <td>{{ $companyInfo['email'] }}</td>
+                    <td>{{ $settings->get('email', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Skype, Telegram, WhatsApp:</td>
-                    <td>{{ $companyInfo['skype_telegram_whatsapp'] }}</td>
+                    <td>{{ $settings->get('skype_telegram_whatsapp', 'Undefined') }}</td>
                 </tr>
             </table>
         </div>
@@ -237,8 +241,11 @@
         </div>
 
         <div class="footer">
-            <p><strong>{{ $additionalNotes }}</strong></p>
-            <p>Our team is here 24/7, just share your project details, and we'll reach out to you right away.</p>
+            <p><strong>Thank you for your order! If you have any questions, please contact our support team at
+                    {{ $settings->get('hotline', 'Undefined') }} or email us at
+                    {{ $settings->get('email', 'Undefined') }}.</strong></p>
+            <p>{{ $settings->get('get_in_touch', "Our team is here 24/7, just share your project details, and we'll reach out to you right away.") }}
+            </p>
         </div>
     </div>
 </body>

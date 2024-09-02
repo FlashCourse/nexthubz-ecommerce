@@ -1,6 +1,6 @@
 <!-- Check if there are any slides available -->
 @if ($slides->isNotEmpty())
-    <section class="py-20 text-gray-800 bg-orange-100 relative overflow-x-hidden">
+    <section class="py-20 text-gray-800 bg-orange-100 relative overflow-x-hidden px-4">
         <div class="swiper-container hero-swiper">
             <div class="swiper-wrapper">
                 @foreach ($slides as $slide)

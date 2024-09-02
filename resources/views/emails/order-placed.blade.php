@@ -134,27 +134,27 @@
             <table class="info-table">
                 <tr>
                     <td class="label">Operations HQ:</td>
-                    <td>House No: 15 (4/B), Road No: 21, Sector-11, Uttara, Dhaka-1230, Bangladesh</td>
+                    <td>{{ $settings->get('operations_hq', 'Unknown Address') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Corporate:</td>
-                    <td>Plot – 32/C, Tropical Alauddin Tower, Plot-10/E, Road-2, Sector-03, Uttara, Dhaka-1230</td>
+                    <td>{{ $settings->get('corporate', 'Unknown Address') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Phone:</td>
-                    <td>+88 01332-538580 / +88 01332-538581</td>
+                    <td>{{ $settings->get('phone_1', 'Undefined') }} / {{ $settings->get('phone_2', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Hotline:</td>
-                    <td>+88 09638-000380</td>
+                    <td>{{ $settings->get('hotline', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Email:</td>
-                    <td>info@example.com</td>
+                    <td>{{ $settings->get('email', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Skype, Telegram, WhatsApp:</td>
-                    <td>Skype, Telegram, WhatsApp</td>
+                    <td>{{ $settings->get('skype_telegram_whatsapp', 'Undefined') }}</td>
                 </tr>
             </table>
         </div>
@@ -237,9 +237,11 @@
         </div>
 
         <div class="footer">
-            <p><strong>Thank you for your order! If you have any questions, please contact our support team at +88
-                    09638-000380 or email us at info@example.com.</strong></p>
-            <p>Our team is here 24/7, just share your project details, and we'll reach out to you right away.</p>
+            <p><strong>Thank you for your order! If you have any questions, please contact our support team at
+                    {{ $settings->get('hotline', 'Undefined') }} or email us at
+                    {{ $settings->get('email', 'Undefined') }}.</strong></p>
+            <p>{{ $settings->get('get_in_touch', "Our team is here 24/7, just share your project details, and we'll reach out to you right away.") }}
+            </p>
         </div>
     </div>
 </body>

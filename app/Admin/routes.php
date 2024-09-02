@@ -49,6 +49,7 @@ Route::group([
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     $router->get('settings/site', [SettingController::class, 'site'])->name('settings.site');
+    $router->get('settings/company', [SettingController::class, 'company'])->name('settings.company');
     $router->get('settings/shipping', [SettingController::class, 'shipping'])->name('settings.shipping');
     $router->get('settings/payment', [SettingController::class, 'payment'])->name('settings.payment');
     $router->get('settings/tax', [SettingController::class, 'tax'])->name('settings.tax');
