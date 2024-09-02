@@ -11,11 +11,9 @@ use App\Admin\Controllers\OrderController;
 use App\Admin\Controllers\OrderItemController;
 use App\Admin\Controllers\PaymentController;
 use App\Admin\Controllers\ProductController;
-use App\Admin\Controllers\PromotionController;
-use App\Admin\Controllers\PromotionProductController;
-use App\Admin\Controllers\PromotionUserController;
 use App\Admin\Controllers\ReviewController;
 use App\Admin\Controllers\SettingController;
+use App\Admin\Controllers\SlideController;
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\VariantAttributeController;
 use App\Admin\Controllers\VariantController;
@@ -46,6 +44,7 @@ Route::group([
     $router->resource('coupons', CouponController::class);
     $router->resource('discounts', DiscountController::class);
     $router->resource('coupon-usages', CouponUsageController::class);
+    $router->resource('slides', SlideController::class);
 
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');
