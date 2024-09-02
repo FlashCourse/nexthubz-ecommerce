@@ -46,13 +46,13 @@
                             <div class="mb-4 border-b pb-4">
                                 <div class="flex flex-wrap md:flex-no-wrap justify-between items-center">
                                     <div class="mb-2 md:mr-6">
+                                        <p class="text-gray-600">Order Number:</p>
+                                        <p class="text-orange-500 font-bold">{{ $order->order_number }}</p>
+                                    </div>
+                                    <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Order Date:</p>
                                         <p class="text-orange-500 font-bold">{{ $order->created_at->format('F d, Y') }}
                                         </p>
-                                    </div>
-                                    <div class="mb-2 md:mr-6">
-                                        <p class="text-gray-600">Order ID:</p>
-                                        <p class="text-orange-500 font-bold">{{ $order->id }}</p>
                                     </div>
                                     <div class="mb-2 md:mr-6">
                                         <p class="text-gray-600">Status:</p>
@@ -65,10 +65,12 @@
                                     </div>
                                     <div>
                                         <a href="{{ route('user.order.details', ['order' => $order->id]) }}"
-                                            class="text-orange-500 hover:text-orange-700">
-                                            <i class="fa-solid fa-arrow-right"></i>
+                                            class="inline-flex items-center px-3 py-2 text-white bg-orange-500 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                            title="View Order Details">
+                                            <i class="fas fa-eye mr-2"></i> View
                                         </a>
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach

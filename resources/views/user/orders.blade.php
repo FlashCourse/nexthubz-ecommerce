@@ -10,7 +10,7 @@
             {{-- Order Filters --}}
             <div class="mb-8">
                 <label for="status" class="text-gray-600 block mb-2">Filter by Status:</label>
-                <select id="status" name="status" class="p-2 border rounded-md">
+                <select id="status" name="status" class="py-2 focus:ring-0 border rounded-md">
                     <option value="all">All Orders</option>
                     <option value="pending">Pending</option>
                     <option value="shipped">Shipped</option>
@@ -45,10 +45,11 @@
                                     <p class="text-orange-500 font-black">&#2547;{{ number_format($order->total, 2) }}
                                     </p>
                                 </div>
-                                <div class="w-full md:w-auto">
+                                <div>
                                     <a href="{{ route('user.order.details', ['order' => $order->id]) }}"
-                                        class="text-orange-500 hover:text-orange-700">
-                                        <i class="fa-solid fa-arrow-right"></i>
+                                        class="inline-flex items-center px-3 py-2 text-white bg-orange-500 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                        title="View Order Details">
+                                        <i class="fas fa-eye mr-2"></i> View
                                     </a>
                                 </div>
                             </div>
