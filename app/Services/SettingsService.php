@@ -110,10 +110,18 @@ class SettingsService
     {
         // Ensure all keys are checked for existence before accessing their values
         config([
+            // SSLCommerz configuration
             'sslcommerz.apiCredentials.store_id' => $this->get('sslcommerz_store_id', env('SSLCZ_STORE_ID')),
             'sslcommerz.apiCredentials.store_password' => $this->get('sslcommerz_store_password', env('SSLCZ_STORE_PASSWORD')),
             'sslcommerz.apiDomain' => $this->get('sslcommerz_testmode', false) ? "https://securepay.sslcommerz.com" : "https://sandbox.sslcommerz.com",
             'sslcommerz.connect_from_localhost' => $this->get('sslcommerz_is_localhost', env('IS_LOCALHOST')),
+
+            // bKash configuration
+            'bkash.base_url' => $this->get('bkash_base_url', env('BKASH_BASE_URL')),
+            'bkash.app_key' => $this->get('bkash_app_key', env('BKASH_APP_KEY')),
+            'bkash.app_secret' => $this->get('bkash_app_secret', env('BKASH_APP_SECRET')),
+            'bkash.username' => $this->get('bkash_username', env('BKASH_USERNAME')),
+            'bkash.password' => $this->get('bkash_password', env('BKASH_PASSWORD')),
         ]);
     }
 }
