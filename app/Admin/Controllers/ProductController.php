@@ -80,7 +80,6 @@ class ProductController extends AdminController
         $show->field('name', __('Name'));
         $show->field('slug', __('Slug'));
         $show->field('short_description', __('Short Description'));
-        $show->field('description', __('Description'));
         $show->field('category_id', __('Category'))->as(function ($categoryId) {
             return Category::find($categoryId)->name ?? 'N/A';
         });

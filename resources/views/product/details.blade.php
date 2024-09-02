@@ -28,7 +28,7 @@
 
             <div class="bg-white border rounded-lg p-8 mb-12">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Product Description</h3>
-                <div class="text-gray-700 leading-relaxed">{!! $product->description !!}</div>
+                <div class="text-gray-700 leading-relaxed"> {!! html_entity_decode($product->description, ENT_QUOTES, 'UTF-8') !!}</div>
             </div>
             <div class="bg-white border rounded-lg p-8">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Reviews</h3>
