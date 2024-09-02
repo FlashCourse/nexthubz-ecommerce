@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
 use App\Models\Setting;
-use Illuminate\Support\Facades\Config;
 
 class SettingsService
 {
@@ -22,23 +21,23 @@ class SettingsService
         // First, check if the setting exists in the cache
         $cachedValue = Cache::get("setting_{$key}");
 
-        // If the cache is empty, fetch from the database
-        if ($cachedValue === null) {
+        // If the cached value is not set or is empty, fetch from the database
+        if ($cachedValue === null || $cachedValue === '') {
             // Fetch the value from the database
             $value = Setting::where('key', $key)->value('value');
 
-            // If the value exists in the database, cache it
-            if ($value !== null) {
+            // Check if the value exists and is not empty
+            if ($value !== null && $value !== '') {
+                // Cache the value if it exists and is not empty
                 Cache::put("setting_{$key}", $value, $this->cacheDuration);
                 return $value;
             }
 
-            // If the value does not exist in the database, return the default value
-            // Do not cache the default value to avoid stale cache issues
+            // If the value does not exist or is empty, return the default value
             return $default;
         }
 
-        // If the cached value is found, return it
+        // If the cached value is found and not empty, return it
         return $cachedValue;
     }
 
@@ -109,14 +108,12 @@ class SettingsService
      */
     public function updateConfig()
     {
-        $settings = $this->all(); // Get all settings
-
         // Ensure all keys are checked for existence before accessing their values
         config([
-            'sslcommerz.apiCredentials.store_id' => $this->has('sslcommerz_store_id') ? $settings['sslcommerz_store_id'] : env('SSLCZ_STORE_ID'),
-            'sslcommerz.apiCredentials.store_password' => $this->has('sslcommerz_store_password') ? $settings['sslcommerz_store_password'] : env('SSLCZ_STORE_PASSWORD'),
-            'sslcommerz.apiDomain' => $this->has('sslcommerz_testmode') && $settings['sslcommerz_testmode'] ? "https://sandbox.sslcommerz.com" : "https://securepay.sslcommerz.com",
-            'sslcommerz.connect_from_localhost' => $this->has('sslcommerz_is_localhost') ? $settings['sslcommerz_is_localhost'] : env('IS_LOCALHOST'),
+            'sslcommerz.apiCredentials.store_id' => $this->get('sslcommerz_store_id', env('SSLCZ_STORE_ID')),
+            'sslcommerz.apiCredentials.store_password' => $this->get('sslcommerz_store_password', env('SSLCZ_STORE_PASSWORD')),
+            'sslcommerz.apiDomain' => $this->get('sslcommerz_testmode', false) ? "https://securepay.sslcommerz.com" : "https://sandbox.sslcommerz.com",
+            'sslcommerz.connect_from_localhost' => $this->get('sslcommerz_is_localhost', env('IS_LOCALHOST')),
         ]);
     }
 }
