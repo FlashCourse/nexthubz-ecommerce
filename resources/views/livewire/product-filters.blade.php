@@ -55,7 +55,7 @@
                         <label class="flex items-center space-x-2">
                             <input type="radio" wire:click="updateRating('{{ $rating }}')" name="rating"
                                 value="{{ $rating }}" {{ $selectedRating == $rating ? 'checked' : '' }}
-                                class="form-radio text-orange-500" />
+                                class="form-radio focus:border-orange-500 focus:ring-orange-500 text-orange-500" />
                             <span class="{{ $selectedRating == $rating ? 'font-bold text-orange-500' : '' }}">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $rating)
