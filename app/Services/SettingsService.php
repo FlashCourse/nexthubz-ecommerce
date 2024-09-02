@@ -122,6 +122,12 @@ class SettingsService
             'bkash.app_secret' => $this->get('bkash_app_secret', env('BKASH_APP_SECRET')),
             'bkash.username' => $this->get('bkash_username', env('BKASH_USERNAME')),
             'bkash.password' => $this->get('bkash_password', env('BKASH_PASSWORD')),
+
+            // Mailer configuration
+            'mail.mailers.smtp.host' => $this->get('email_smtp_host', env('MAIL_HOST')),
+            'mail.mailers.smtp.port' => $this->get('email_smtp_port', env('MAIL_PORT', 587)),
+            'mail.mailers.smtp.username' => $this->get('email_smtp_username', env('MAIL_USERNAME')),
+            'mail.mailers.smtp.password' => $this->get('email_smtp_password', env('MAIL_PASSWORD')),
         ]);
     }
 }
