@@ -124,6 +124,8 @@ class SettingsService
             'bkash.password' => $this->get('bkash_password', env('BKASH_PASSWORD')),
 
             // Mailer configuration
+            'mail.from.address' => $this->get('email_from_address', env('MAIL_FROM_ADDRESS')),
+            'mail.from.name' => $this->get('email_from_name', env('MAIL_FROM_NAME')),
             'mail.mailers.smtp.host' => $this->get('email_smtp_host', env('MAIL_HOST')),
             'mail.mailers.smtp.port' => $this->get('email_smtp_port', env('MAIL_PORT', 587)),
             'mail.mailers.smtp.username' => $this->get('email_smtp_username', env('MAIL_USERNAME')),
