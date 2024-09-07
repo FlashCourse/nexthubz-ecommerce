@@ -104,6 +104,7 @@ class ProductController extends AdminController
                 $create->text('regular_price', 'Regular Price');
                 $create->text('sale_price', 'Sale Price');
                 $create->text('stock', 'Stock');
+                $create->image('image', 'Image');
             });
 
 

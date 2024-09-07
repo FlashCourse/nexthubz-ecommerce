@@ -28,7 +28,8 @@ class HomeController extends Controller
     }
     public function categories()
     {
-        $categories = Category::paginate(10);
+        // Fetch all categories
+        $categories = Category::with('children')->get();
 
         return view('categories', compact('categories'));
     }

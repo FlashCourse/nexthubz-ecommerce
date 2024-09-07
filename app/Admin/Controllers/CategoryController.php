@@ -6,7 +6,7 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\Category;
+use App\Models\Category;
 
 class CategoryController extends AdminController
 {
@@ -31,17 +31,19 @@ class CategoryController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('image', __('Image'))->image('', '50', '50');
         $grid->column('name', __('Name'));
-        // $grid->column('parent_id', __('Parent id'));
+        $grid->column('parent_id', __('Parent Category'))->display(function ($parentId) {
+            $parent = Category::find($parentId);
+            return $parent ? $parent->name : '-';
+        });
         $grid->column('slug', __('Slug'));
         $grid->column('created_at', __('Created at'))->dateFormat('F d, Y h:i A');
         $grid->column('updated_at', __('Updated at'))->dateFormat('F d, Y h:i A');
-
 
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();
             $filter->between('created_at', __('Created at'))->datetime();
             $filter->between('updated_at', __('Updated at'))->datetime();
-            // $filter->equal('parent_id', __('Parent Category'))->select(Category::pluck('name', 'id')->toArray());
+            $filter->equal('parent_id', __('Parent Category'))->select(Category::pluck('name', 'id')->toArray());
         });
 
         return $grid;
@@ -59,9 +61,13 @@ class CategoryController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('parent_id', __('Parent id'));
+        $show->field('parent_id', __('Parent Category'))->as(function ($parentId) {
+            $parent = Category::find($parentId);
+            return $parent ? $parent->name : '-';
+        });
         $show->field('slug', __('Slug'));
-        $show->field('image', __('Image'));
+        $show->field('image', __('Image'))->image();
+        $show->field('icon', __('Icon'))->image();  // Show the icon
         $show->field('description', __('Description'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -78,11 +84,18 @@ class CategoryController extends AdminController
     {
         $form = new Form(new Category());
 
-        $form->text('name', __('Name'));
-        // $form->number('parent_id', __('Parent id'));
-        $form->image('image', __('Image'))->move('images/categories')->uniqueName();;
-        $form->ckeditor('description')->options(['lang' => 'fr', 'height' => 500, 'contentsCss' => '/css/frontend-body-content.css']);
+        $form->text('name', __('Name'))->required();
 
+        // Allow null by adding an empty option and handling the null case directly.
+        $form->select('parent_id', __('Parent Category'))
+            ->options(Category::pluck('name', 'id')->toArray())
+            ->default('') // Allows an empty selection
+            ->help('Leave empty to make this a top-level category.');
+
+        $form->image('image', __('Image'))->move('images/categories')->uniqueName();
+        $form->image('icon', __('Icon'))->move('images/icons')->uniqueName();  // Icon field added
+        $form->ckeditor('description', __('Description'))->options(['lang' => 'fr', 'height' => 500, 'contentsCss' => '/css/frontend-body-content.css']);
+        $form->text('slug', __('Slug'))->required();
 
         return $form;
     }

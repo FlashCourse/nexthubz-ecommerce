@@ -30,6 +30,7 @@ class VariantController extends AdminController
         $grid = new Grid(new Variant());
 
         $grid->column('id', __('Id'));
+        $grid->column('image', __('Image'))->image('', '50', '50');
         $grid->column('product_id', __('Product id'));
         $grid->column('sku', __('Sku'));
         $grid->column('regular_price', __('Regular Price'));
@@ -53,6 +54,7 @@ class VariantController extends AdminController
         $show = new Show($variant);
 
         $show->field('id', __('Id'));
+        $show->field('image', __('Image'))->image();
         $show->field('product_id', __('Product id'));
         $show->field('sku', __('Sku'));
         $show->field('regular_price', __('Regular Price'));
@@ -127,6 +129,8 @@ class VariantController extends AdminController
         $form->decimal('regular_price', __('Regular Price'));
         $form->decimal('sale_price', __('Sale Price'));
         $form->number('stock', __('Stock'));
+        $form->image('image', __('Image'));
+
 
         // Customize the footer
         $form->footer(function ($footer) {

@@ -1,20 +1,21 @@
-<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })" :class="{ 'bg-white shadow-md': isSticky, '': !isSticky }"
-    class="sticky top-0 z-30 bg-orange-0">
+<nav x-data="{ open: false, isSticky: false }" x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 0 })"
+    :class="{ 'bg-background shadow-md': isSticky, 'bg-light': !isSticky }" class="sticky  top-0 z-30 bg-light">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between items-center max-h-28">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex items-center shrink-0">
-                    <a href="{{ route('home') }}" class="hidden md:flex items-center text-orange-500">
-
+                <div class="flex items-center py-2 shrink-0">
+                    <!-- Desktop logo -->
+                    <a href="{{ route('home') }}" class="hidden md:flex items-center text-accent">
                         <img src="{{ asset('storage/' . $settings->get('site_logo', 'default-logo.png')) }}"
-                            height="50px" width="180px" alt="logo">
+                            alt="logo" class="max-h-20 max-w-[100%] object-contain" />
                     </a>
-                    <a href="{{ route('home') }}" class="flex md:hidden items-center text-orange-500">
 
+                    <!-- Mobile logo -->
+                    <a href="{{ route('home') }}" class="flex md:hidden items-center text-accent">
                         <img src="{{ asset('storage/' . $settings->get('site_logo_small', 'default-mobile-logo.png')) }}"
-                            height="50px" width="50px" alt="logo">
+                            alt="logo" class="max-h-16 max-w-[100%] object-contain" />
                     </a>
                 </div>
 
@@ -29,47 +30,35 @@
                             {{ __('Shop') }}
                         </x-nav-link>
                     @endauth
-
-
                 </div>
             </div>
 
             {{-- Search Form --}}
-            <div class="relative items-center flex-grow py-3 max-w-md">
-                <div class="hidden md:block absolute mx-2 border-r">
-                    <x-dropdown align="left" width="48" dropdownClasses="bg-gray-100">
-                        <x-slot name="trigger">
-                            <button class="flex items-center"><span class="whitespace-nowrap mr-1 mt-1">All Categories
-                                </span><i class="fa-solid fa-chevron-down mr-2"></i></button>
-                        </x-slot>
-                        <x-slot name="content">
-                            <!-- Dropdown content goes here -->
-                            <ul class="p-4">
-                                @foreach ($composerCategories as $category)
-                                    <x-dropdown-link
-                                        href="{{ route('product.search', ['categories' => $category->slug]) }}">
-                                        @if ($category->icon)
-                                            <img src="{{ asset('storage/' . $category->icon) }}" alt="category-icon"
-                                                class="w-5 h-5 mr-2 inline-block align-middle" />
-                                        @endif
-                                        {{ $category->name }}
-                                    </x-dropdown-link>
-                                @endforeach
-                            </ul>
-                        </x-slot>
-                    </x-dropdown>
+            <div class="flex items-center md:w-full max-w-md mx-auto relative">
+                <!-- Category Dropdown (visually placed inside the search input on the left) -->
+                <div class="absolute hidden inset-y-0 left-0 border-r md:flex items-center">
+                    <x-category-dropdown :categories="$composerCategories" class="h-full pl-3 pr-2 py-2  rounded-l-md" />
                 </div>
 
-                <form action="/product/search?" method="GET" class="flex justify-center w-full">
+                <!-- Search Form -->
+                <form action="/product/search?" method="GET" class="flex items-center md:w-full">
+                    <!-- Search Input -->
                     <x-input type="text" name="product" placeholder="Search..."
-                        class="md:pl-36 md:pr-10 md:w-full" />
-                    <x-button type="submit" class="-ml-8">Search</x-button>
+                        class="w-full py-2 px-2 md:pl-36 md:pr-20 border border-gray-300 rounded-l-md rounded-r-none focus:ring-0 focus:border-0 focus:outline-none" />
+                    <!-- Search Button (visually attached to the right of the search input) -->
+                    <div class="flex items-center">
+                        <button type="submit"
+                            class="h-full hidden md:block bg-primary text-white border border-gray-300 border-l-0 rounded-r-md px-4 py-2">Search</button>
+                        <button type="submit"
+                            class="h-full block md:hidden bg-primary text-white border border-gray-300 border-l-0 rounded-r-md px-4 py-2">
+                            <i class="fas fa-search"></i></button>
+                    </div>
                 </form>
             </div>
 
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
 
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="relative text-xl ms-8">
                     <i class="fa-solid fa-heart"></i>
                 </div>
@@ -84,9 +73,6 @@
                     </div>
                 @endguest
 
-
-
-
                 @auth
                     <!-- Teams Dropdown -->
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
@@ -95,7 +81,7 @@
                                 <x-slot name="trigger">
                                     <span class="inline-flex rounded-md">
                                         <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-foreground transition duration-150 ease-in-out bg-light border border-transparent rounded-md hover:text-dark focus:outline-none focus:bg-background active:bg-background">
                                             {{ Auth::user()->currentTeam->name }}
 
                                             <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +96,7 @@
                                 <x-slot name="content">
                                     <div class="w-60">
                                         <!-- Team Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                        <div class="block px-4 py-2 text-xs text-muted">
                                             {{ __('Manage Team') }}
                                         </div>
 
@@ -127,9 +113,9 @@
 
                                         <!-- Team Switcher -->
                                         @if (Auth::user()->allTeams()->count() > 1)
-                                            <div class="border-t border-gray-200"></div>
+                                            <div class="border-t border-muted"></div>
 
-                                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                            <div class="block px-4 py-2 text-xs text-muted">
                                                 {{ __('Switch Teams') }}
                                             </div>
 
@@ -149,14 +135,14 @@
                             <x-slot name="trigger">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                     <button
-                                        class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                                        class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-secondary">
                                         <img class="object-cover w-8 h-8 rounded-full"
                                             src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                     </button>
                                 @else
                                     <span class="inline-flex rounded-md">
                                         <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-foreground transition duration-150 ease-in-out bg-light border border-transparent rounded-md hover:text-dark focus:outline-none focus:bg-background active:bg-background">
                                             {{ Auth::user()->name }}
 
                                             <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -171,14 +157,13 @@
 
                             <x-slot name="content">
                                 <!-- Account Management -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                <div class="block px-4 py-2 text-xs text-muted">
                                     {{ __('Manage Account') }}
                                 </div>
 
                                 <x-dropdown-link href="{{ route('user.orders') }}">
                                     {{ __('Orders') }}
                                 </x-dropdown-link>
-
 
                                 <x-dropdown-link href="{{ route('profile.show') }}">
                                     {{ __('Profile') }}
@@ -190,7 +175,7 @@
                                     </x-dropdown-link>
                                 @endif
 
-                                <div class="border-t border-gray-200"></div>
+                                <div class="border-t border-muted"></div>
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}" x-data>
@@ -206,11 +191,10 @@
                 @endauth
             </div>
 
-
             <!-- Hamburger -->
             {{-- <div class="flex items-center -me-2 sm:hidden">
                 <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+                    class="inline-flex items-center justify-center p-2 text-muted transition duration-150 ease-in-out rounded-md hover:text-dark hover:bg-background focus:outline-none focus:bg-background focus:text-dark">
                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -235,7 +219,7 @@
 
         @auth
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-4 border-t border-gray-200">
+            <div class="pt-4 pb-4 border-t border-muted">
                 <div class="flex items-center px-4">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                         <div class="shrink-0 me-3">
@@ -245,8 +229,8 @@
                     @endif
 
                     <div>
-                        <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                        <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+                        <div class="text-base font-medium text-foreground">{{ Auth::user()->name }}</div>
+                        <div class="text-sm font-medium text-muted">{{ Auth::user()->email }}</div>
                     </div>
                 </div>
 
@@ -273,9 +257,9 @@
 
                     <!-- Team Management -->
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                        <div class="border-t border-gray-200"></div>
+                        <div class="border-t border-muted"></div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
+                        <div class="block px-4 py-2 text-xs text-muted">
                             {{ __('Manage Team') }}
                         </div>
 
@@ -293,9 +277,9 @@
 
                         <!-- Team Switcher -->
                         @if (Auth::user()->allTeams()->count() > 1)
-                            <div class="border-t border-gray-200"></div>
+                            <div class="border-t border-muted"></div>
 
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div class="block px-4 py-2 text-xs text-muted">
                                 {{ __('Switch Teams') }}
                             </div>
 
@@ -310,7 +294,7 @@
     </div>
 
     <!-- Mobile Bottom Navbar -->
-    <div class="fixed bottom-0 w-full bg-secondary text-white p-4 md:hidden shadow-2xl">
+    <div class="fixed bottom-0 w-full bg-secondary text-light p-4 md:hidden shadow-2xl">
         <ul class="flex justify-between">
             <li>
                 <a href="{{ route('home') }}" class="flex flex-col items-center">
@@ -335,5 +319,4 @@
             </li>
         </ul>
     </div>
-
 </nav>
