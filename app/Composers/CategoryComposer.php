@@ -9,8 +9,8 @@ class CategoryComposer
 {
     public function compose(View $view): void
     {
-        // Fetch categories from the database
-        $categories = Category::take(10)->get();
+        // Fetch only categories with no parent (parent_id is null)
+        $categories = Category::whereNull('parent_id')->take(10)->get();
 
         // Bind the categories to the view
         $view->with('composerCategories', $categories);

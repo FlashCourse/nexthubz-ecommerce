@@ -11,6 +11,8 @@ class ProductVariantSelector extends Component
     public $variants;
     public $selectedVariant;
     public $selectedVariantPrice;
+    public $selectedVariantRegularPrice;
+    public $hasDiscount = false;
     public $message = '';
 
     public function mount(Product $product)
@@ -18,19 +20,36 @@ class ProductVariantSelector extends Component
         $this->product = $product;
         $this->variants = $product->variants;
         $this->selectedVariant = $this->variants->first()->id ?? null;
-        $this->selectedVariantPrice = $this->variants->first()->price ?? $product->price;
+        $this->updateSelectedVariantPrice();
     }
 
     public function selectVariant($variantId)
     {
         $this->selectedVariant = $variantId;
-        $variant = $this->variants->find($variantId);
-        $this->selectedVariantPrice = $variant ? $variant->price : $this->product->price;
+        $this->updateSelectedVariantPrice();
         $this->resetMessage();
+    }
+
+    private function updateSelectedVariantPrice()
+    {
+        if ($this->selectedVariant) {
+            $variant = $this->variants->find($this->selectedVariant);
+            if ($variant) {
+                $this->selectedVariantPrice = $variant->sale_price < $variant->regular_price ? $variant->sale_price : $variant->regular_price;
+                $this->selectedVariantRegularPrice = $variant->regular_price;
+                $this->hasDiscount = $variant->sale_price < $variant->regular_price;
+            }
+        } else {
+            $this->selectedVariantPrice = $this->product->sale_price < $this->product->regular_price ? $this->product->sale_price : $this->product->regular_price;
+            $this->selectedVariantRegularPrice = $this->product->regular_price;
+            $this->hasDiscount = $this->product->sale_price < $this->product->regular_price;
+        }
     }
 
     public function addToCart()
     {
+        $cart = session()->get('cart', []);
+
         if ($this->variants->isNotEmpty()) {
             $variant = $this->variants->find($this->selectedVariant);
 
@@ -39,7 +58,6 @@ class ProductVariantSelector extends Component
                 return;
             }
 
-            $cart = session()->get('cart', []);
             $variantKey = $this->product->id . '-' . $variant->id;
 
             if (isset($cart[$variantKey])) {
@@ -54,7 +72,8 @@ class ProductVariantSelector extends Component
                     'variant_id' => $variant->id,
                     'name' => $this->product->name,
                     'image' => $this->product->image,
-                    'price' => $variant->price,
+                    'price' => $this->selectedVariantPrice,
+                    'regular_price' => $this->selectedVariantRegularPrice,
                     'stock' => $variant->stock,
                     'variant_attributes' => $variant->variantAttributes->pluck('attributeValue.value', 'attribute.name')->toArray(),
                     'quantity' => 1,
@@ -66,7 +85,6 @@ class ProductVariantSelector extends Component
                 return;
             }
 
-            $cart = session()->get('cart', []);
             $productKey = $this->product->id;
 
             if (isset($cart[$productKey])) {
@@ -80,7 +98,8 @@ class ProductVariantSelector extends Component
                     'product_id' => $this->product->id,
                     'name' => $this->product->name,
                     'image' => $this->product->image,
-                    'price' => $this->product->price,
+                    'price' => $this->selectedVariantPrice,
+                    'regular_price' => $this->selectedVariantRegularPrice,
                     'stock' => $this->product->stock,
                     'quantity' => 1,
                 ];

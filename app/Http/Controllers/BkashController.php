@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Jobs\CheckOrderStatus;
+use App\Models\Payment;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
 
 class BkashController extends PaymentController
@@ -135,21 +139,79 @@ class BkashController extends PaymentController
         return $response->json();
     }
 
+    // public function successPayment(Request $request)
+    // {
+
+    //     // IF PAYMENT SUCCESS THEN YOU CAN APPLY YOUR CONDITION HERE
+    //     if ('Noman' == 'success') {
+
+    //         // THEN YOU CAN REDIRECT TO YOUR ROUTE
+
+    //         Session::flash('successMsg', 'Payment has been Completed Successfully');
+
+    //         return response()->json(['status' => true]);
+    //     }
+
+    //     Session::flash('error', 'Noman Error Message');
+
+    //     return response()->json(['status' => false]);
+    // }
+
     public function successPayment(Request $request)
     {
+        // Retrieve paymentID from the request
+        $paymentID = $request->input('paymentID');
 
-        // IF PAYMENT SUCCESS THEN YOU CAN APPLY YOUR CONDITION HERE
-        if ('Noman' == 'success') {
+        // Retrieve token from session
+        $token = Session::get('bkash_token');
 
-            // THEN YOU CAN REDIRECT TO YOUR ROUTE
+        // bKash payment query URL
+        $url = "$this->base_url/checkout/payment/query/$paymentID";
+        $header = [
+            'Content-Type' => 'application/json',
+            'authorization' => $token,
+            'x-app-key' => $this->app_key
+        ];
 
-            Session::flash('successMsg', 'Payment has been Completed Successfully');
+        // Query the payment to verify its status
+        $response = Http::withHeaders($header)->get($url);
+        $paymentDetails = $response->json();
 
-            return response()->json(['status' => true]);
+        // Check if the payment was successful
+        if (isset($paymentDetails['transactionStatus']) && $paymentDetails['transactionStatus'] == 'Completed') {
+            // Update the payment status and order status in your system
+            $orderId = $paymentDetails['merchantInvoiceNumber']; // Assuming merchantInvoiceNumber is your order identifier
+            $order = Order::find($orderId);
+
+            if ($order) {
+                // Update payment and order statuses
+                Payment::where('transaction_id', $paymentID)->update(['status' => 'completed', 'payment_method' => 'bKash']);
+                $order->update(['status' => 'processing']);
+
+                // Generate a unique token and store it in the session
+                $token = Str::random(60);
+                session()->put('download_token', $token);
+                session()->put('order_id', $order->id);
+                session()->put('order_success', true);
+
+                // Generate a signed URL for downloading the invoice
+                $signedUrl = URL::temporarySignedRoute(
+                    'generate-invoice-pdf',
+                    now()->addMinutes(10),
+                    ['order' => $order->id, 'token' => $token]
+                );
+
+                // Redirect to the success page with the signed URL
+                return redirect()->route('order-success', ['signedUrl' => $signedUrl]);
+            } else {
+                // Order not found
+                Session::flash('error', 'Order not found.');
+                return redirect()->route('order-failure')->with('order_failure', true);
+            }
+        } else {
+            // Payment failed or incomplete
+            Session::flash('error', 'Payment failed or incomplete.');
+            return redirect()->route('order-failure')->with('order_failure', true);
         }
-
-        Session::flash('error', 'Noman Error Message');
-
-        return response()->json(['status' => false]);
     }
 }

@@ -27,7 +27,8 @@ class OrderController extends AdminController
     {
         $grid = new Grid(new Order());
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('ID'));
+        $grid->column('order_Number', __('Order Number'));
         $grid->column('user_id', __('User'))->display(function ($userId) {
             $user = User::find($userId);
             return $user ? $user->name : 'N/A';
@@ -55,6 +56,33 @@ class OrderController extends AdminController
             $actions->disableEdit();
             $actions->disableDelete();
         });
+        // Adding filters
+        $grid->filter(function ($filter) {
+            // Remove default id filter
+            $filter->disableIdFilter();
+
+            // Filter by order number
+            $filter->like('order_number', __('Order Number'));
+
+            // Filter by user
+            $filter->equal('user_id', __('User'))->select(User::all()->pluck('name', 'id'));
+
+            // Filter by status
+            $filter->equal('status', __('Status'))->select([
+                'initiated' => 'Initiated',
+                'pending' => 'Pending',
+                'processing' => 'Processing',
+                'shipped' => 'Shipped',
+                'delivered' => 'Delivered',
+                'canceled' => 'Canceled',
+            ]);
+
+            // Filter by created_at date range
+            $filter->between('created_at', __('Created At'))->date();
+
+            // Filter by total amount range
+            $filter->between('total', __('Total Amount'));
+        });
 
         return $grid;
     }
@@ -71,6 +99,7 @@ class OrderController extends AdminController
 
         // Basic order fields
         $show->field('id', __('Id'));
+        $show->field('order_number', __('Order Number'));
         $show->field('user_id', __('User id'));
         $show->field('subtotal', __('Subtotal'));
         $show->field('tax', __('Tax'));
@@ -137,5 +166,22 @@ class OrderController extends AdminController
             });
 
         return $show;
+    }
+
+    protected function form()
+    {
+        $form = new Form(new Order());
+
+        // Basic order details
+        $form->select('status', __('Status'))->options([
+            'initiated' => 'Initiated',
+            'pending' => 'Pending',
+            'processing' => 'Processing',
+            'shipped' => 'Shipped',
+            'delivered' => 'Delivered',
+            'canceled' => 'Canceled',
+        ]);
+
+        return $form;
     }
 }

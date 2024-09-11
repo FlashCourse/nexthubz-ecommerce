@@ -1,7 +1,3 @@
-import defaultTheme from "tailwindcss/defaultTheme";
-import forms from "@tailwindcss/forms";
-import typography from "@tailwindcss/typography";
-
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -13,15 +9,26 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
-            },
             colors: {
-                primary: "#14532d", // Green color for primary
-                secondary: "#064e3b", // Darker green color for secondary
+                primary: "var(--color-primary)",
+                secondary: "var(--color-secondary)",
+                background: "var(--color-background)",
+                foreground: "var(--color-foreground)",
+
+                success: "var(--color-success)",
+                warning: "var(--color-warning)",
+                danger: "var(--color-danger)",
+                info: "var(--color-info)",
+
+                price: "var(--color-price)",
+                discount: "var(--color-discount)",
+
+                dark: "var(--color-dark)",
+                light: "var(--color-light)",
+                muted: "var(--color-muted)",
+                highlight: "var(--color-highlight)",
+                overlay: "var(--color-overlay)",
             },
         },
     },
-
-    plugins: [forms, typography],
 };

@@ -28,8 +28,8 @@ class ProductController extends AdminController
     {
         $grid = new Grid(new Product());
 
-        $grid->column('id', __('Id'));
         $grid->column('image', __('Image'))->image('', '50', '50');
+        $grid->column('sku', __('SKU'));
         $grid->column('name', __('Name'));
         // $grid->column('slug', __('Slug'));
         // $grid->column('short_description', __('Short Description'));
@@ -39,8 +39,8 @@ class ProductController extends AdminController
         })->label('info');
         // $grid->column('sales_count', __('Sales Count'));
         $grid->column('stock', __('Stock'));
-        $grid->column('price', __('Price'))->color('green');
-        // $grid->column('discount', __('Discount'));
+        $grid->column('regular_price', __('Regular Price'));
+        $grid->column('sale_price', __('Sale Price'))->color('green');
         $grid->column('is_new', __('Is New'))->bool();
         $grid->column('is_featured', __('Is Featured'))->bool();
         $grid->column('is_best_selling', __('Is Best Selling'))->bool();
@@ -54,7 +54,7 @@ class ProductController extends AdminController
         // sort, search and filter
         $grid->model()->orderBy('created_at', 'desc');
 
-        $grid->quickSearch('name');
+        $grid->quickSearch('id', 'sku', 'name');
 
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();
@@ -80,13 +80,12 @@ class ProductController extends AdminController
         $show->field('name', __('Name'));
         $show->field('slug', __('Slug'));
         $show->field('short_description', __('Short Description'));
-        $show->field('description', __('Description'));
         $show->field('category_id', __('Category'))->as(function ($categoryId) {
             return Category::find($categoryId)->name ?? 'N/A';
         });
         $show->field('image', __('Image'))->image();
-        $show->field('price', __('Price'));
-        $show->field('discount', __('Discount'));
+        $show->field('regular_price', __('Regular Price'));
+        $show->field('sale_price', __('Sale Price'));
         $show->field('stock', __('Stock'));
         $show->field('sales_count', __('Sales Count'));
         $show->field('is_new', __('Is New'));
@@ -101,17 +100,19 @@ class ProductController extends AdminController
             $variants->setResource('/admin/variants');
 
             $variants->quickCreate(function (QuickCreate $create) use ($id) {
-                $create->text('product_id', 'Product ID')->default($id);
-                $create->text('sku', 'SKU')->default(uniqid());
-                $create->text('price', 'Price');
+                $create->hidden('product_id', 'Product ID')->default($id);
+                $create->text('regular_price', 'Regular Price');
+                $create->text('sale_price', 'Sale Price');
                 $create->text('stock', 'Stock');
+                $create->image('image', 'Image');
             });
 
 
             // Configure fields to display for Variants
             $variants->product()->name();
             $variants->sku();
-            $variants->price();
+            $variants->regular_price();
+            $variants->sale_price();
             $variants->stock();
             // Add more fields as needed
 
@@ -138,14 +139,13 @@ class ProductController extends AdminController
     protected function form()
     {
         $form = new Form(new Product());
-
         $form->text('name', __('Name'))->rules('required|max:255');
         $form->select('category_id', __('Category'))->options(function () {
             return Category::pluck('name', 'id');
         })->rules('required');
         $form->image('image', __('Image'))->move('images/products')->uniqueName()->rules('nullable|image');
-        $form->decimal('price', __('Price'))->rules('required|numeric');
-        // $form->decimal('discount', __('Discount'))->default(0.00)->rules('nullable|numeric');
+        $form->decimal('regular_price', __('Regular Price'))->rules('required|numeric');
+        $form->decimal('sale_price', __('Sale Price'))->rules('required|numeric');
         $form->number('stock', __('Stock'))->rules('required|integer|min:0');
         // $form->number('sales_count', __('Sales Count'))->default(0)->rules('required|integer|min:0');
         $form->switch('is_new', __('Is New'))->default(0);

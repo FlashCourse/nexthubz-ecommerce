@@ -70,7 +70,7 @@ class VariantAttributeController extends AdminController
         $variantId = request()->query('variant_id');
 
         $form->number('id', __('Id'));
-        $form->number('variant_id', __('Variant id'))->default($variantId);
+        $form->hidden('variant_id', __('Variant id'))->default($variantId);
         $form->select('attribute_id', __('Attribute'))->options(function () {
             $attributes = Attribute::all();
             return $attributes->pluck('name', 'id');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Slide;
 
 class HomeController extends Controller
 {
@@ -11,7 +12,9 @@ class HomeController extends Controller
     {
         $categories = Category::take(12)->get();
         $products = Product::take(8)->get();
-        return view('index', compact('products', 'categories'));
+
+        $slides = Slide::where('active', true)->get();
+        return view('index', compact('products', 'categories', 'slides'));
     }
 
     public function contact()
@@ -25,7 +28,8 @@ class HomeController extends Controller
     }
     public function categories()
     {
-        $categories = Category::paginate(10);
+        // Fetch all categories
+        $categories = Category::with('children')->get();
 
         return view('categories', compact('categories'));
     }

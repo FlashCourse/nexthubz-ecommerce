@@ -18,8 +18,8 @@ class Product extends Model
         'short_description',
         'category_id',
         'image',
-        'price',
-        'discount',
+        'regular_price',
+        'sale_price',
         'stock',
         'sales_count',
         'is_new',
@@ -46,9 +46,23 @@ class Product extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($product) {
+            if (empty($product->sku)) {
+                $product->sku = self::generateUniqueSku();
+            }
             $product->slug = Str::slug($product->name);
         });
+        static::updating(function ($product) {
+            $product->slug = Str::slug($product->name);
+        });
+    }
+
+
+    private static function generateUniqueSku()
+    {
+        $prefix = 'PROD';
+        $uuid = (string) Str::uuid();
+        $uniquePart = substr($uuid, 0, 8);
+        return strtoupper($prefix . '-' . $uniquePart);
     }
 }

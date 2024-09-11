@@ -58,37 +58,50 @@
             <div class="bg-white rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold p-6 border-b">Order Details</h2>
 
-                <!-- Order Date and ID -->
+                <!-- Order Date and Number -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
                     <div>
                         <p class="text-gray-600">Order Date:</p>
                         <p class="text-green-500 font-bold">{{ $order->created_at->format('F d, Y') }}</p>
                     </div>
                     <div>
-                        <p class="text-gray-600">Order ID:</p>
-                        <p class="text-green-500 font-bold">{{ $order->id }}</p>
+                        <p class="text-gray-600">Order Number:</p>
+                        <p class="text-orange-500 font-bold">{{ $order->order_number }}</p>
                     </div>
                 </div>
 
+
                 <!-- Order Summary -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-8 p-6 border-b">
-                    <div>
-                        <p class="text-gray-600">Shipping:</p>
-                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->shipping, 2) }}</p>
+                <div class="p-6 border-b bg-white shadow-md rounded-md">
+                    <div class="grid grid-cols-1 md:grid-cols-1 gap-y-4 md:gap-x-8">
+                        <div class="flex justify-between items-center">
+                            <p class="text-gray-700 font-medium">Subtotal:</p>
+                            <p class="text-orange-500 font-black">&#2547;{{ number_format($order->subtotal, 2) }}</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-gray-700 font-medium">Shipping:</p>
+                            <p class="text-orange-500 font-black">+
+                                &#2547;{{ number_format($order->shipping_cost, 2) }}
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-gray-700 font-medium">Tax:</p>
+                            <p class="text-orange-500 font-black">+ &#2547;{{ number_format($order->tax, 2) }}</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-gray-700 font-medium">Total Discount:</p>
+                            <p class="text-orange-500 font-black">-
+                                &#2547;{{ number_format($order->total_discount, 2) }}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-600">Tax:</p>
-                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->tax, 2) }}</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-600">Subtotal:</p>
-                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->subtotal, 2) }}</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-600">Total Price:</p>
-                        <p class="text-orange-500 font-black">&#2547;{{ number_format($order->total, 2) }}</p>
+                    <hr class="my-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <p class="text-gray-900 font-semibold text-lg">Total Price:</p>
+                        <p class="text-orange-500 font-black text-lg">&#2547;{{ number_format($order->total, 2) }}</p>
                     </div>
                 </div>
+
 
             </div>
         </div>

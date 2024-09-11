@@ -286,8 +286,8 @@ class GeneralSettings extends Form
         // Add logic to retrieve available languages
         return [
             'en' => 'English',
-            'es' => 'Spanish',
-            'fr' => 'French',
+            // 'es' => 'Spanish',
+            // 'fr' => 'French',
         ];
     }
 
@@ -296,8 +296,8 @@ class GeneralSettings extends Form
         // Add logic to retrieve available time zones
         return [
             'UTC' => 'UTC',
-            'PST' => 'Pacific Standard Time',
-            'EST' => 'Eastern Standard Time',
+            // 'PST' => 'Pacific Standard Time',
+            // 'EST' => 'Eastern Standard Time',
         ];
     }
 
@@ -305,9 +305,10 @@ class GeneralSettings extends Form
     {
         // Add logic to retrieve available currencies
         return [
-            'USD' => 'USD',
-            'EUR' => 'EUR',
-            'GBP' => 'GBP',
+            // 'USD' => 'USD',
+            // 'EUR' => 'EUR',
+            // 'GBP' => 'GBP',
+            'BDT' => 'BDT',
         ];
     }
 

@@ -11,6 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'order_number',
         'shipping_first_name',
         'shipping_last_name',
         'shipping_company',
@@ -42,6 +43,22 @@ class Order extends Model
         'total',
         'status',
     ];
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $order->order_number = self::generateOrderNumber();
+        });
+    }
+
+    public static function generateOrderNumber()
+    {
+        $prefix = 'ORD-';
+        $lastOrder = self::orderBy('id', 'desc')->first();
+        $lastId = $lastOrder ? $lastOrder->id : 0;
+        return $prefix . str_pad($lastId + 1, 6, '0', STR_PAD_LEFT); // Example: ORD-000001
+    }
 
     public function orderItems()
     {
@@ -58,8 +75,8 @@ class Order extends Model
         return $this->belongsTo(Cart::class);
     }
 
-    public function events()
+    public function logs()
     {
-        return $this->hasMany(OrderEvent::class);
+        return $this->hasMany(OrderLog::class);
     }
 }

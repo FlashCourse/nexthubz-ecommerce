@@ -19,7 +19,8 @@ class PaymentSettings extends Form
             'paypal_active',
             'stripe_active',
             'offline_active',
-            'sslcommerz_active'
+            'sslcommerz_active',
+            'bkash_active' // Added bKash
         ];
 
         // Set all switch fields to '0' (inactive) initially
@@ -38,6 +39,8 @@ class PaymentSettings extends Form
         $data['paypal'] = json_encode($request->input('paypal', ''));
         $data['stripe'] = json_encode($request->input('stripe', ''));
         $data['offline'] = json_encode($request->input('offline', ''));
+        $data['sslcommerz'] = json_encode($request->input('sslcommerz', ''));
+        $data['bkash'] = json_encode($request->input('bkash', '')); // Added bKash
 
         // Update or create each setting based on processed data
         foreach ($data as $key => $value) {
@@ -55,14 +58,67 @@ class PaymentSettings extends Form
         $this->divider('Offline Payment Settings');
         $this->switch('offline_active', 'Activate Offline Payment')
             ->help('Enable or disable offline payment method.')
-            ->default((int) $this->getSettingValue('offline_active')) // Cast to int for boolean display
-            ->disable(); // Disable input
+            ->default((int) $this->getSettingValue('offline_active'));
 
         $this->textarea('offline_instructions', 'Offline Payment Instructions')
             ->rules('required_if:offline_active,true')
             ->help('Provide instructions for offline payment.')
-            ->default($this->getSettingValue('offline_instructions'))
-            ->disable(); // Disable input
+            ->default($this->getSettingValue('offline_instructions'));
+
+        // bKash Settings (Disabled by Default)
+        $this->divider('bKash Settings');
+        $this->switch('bkash_active', 'Activate bKash')
+            ->help('Enable or disable bKash as a payment method.')
+            ->default((int) $this->getSettingValue('bkash_active'));
+
+        $this->text('bkash_base_url', 'bKash Base URL')
+            ->rules('required_if:bkash_active,true')
+            ->help('Enter your bKash Base URL.')
+            ->default($this->getSettingValue('bkash_base_url'));
+
+        $this->text('bkash_app_key', 'bKash App Key')
+            ->rules('required_if:bkash_active,true')
+            ->help('Enter your bKash App Key.')
+            ->default($this->getSettingValue('bkash_app_key'));
+
+        $this->text('bkash_app_secret', 'bKash App Secret')
+            ->rules('required_if:bkash_active,true')
+            ->help('Enter your bKash App Secret.')
+            ->default($this->getSettingValue('bkash_app_secret'));
+
+        $this->text('bkash_username', 'bKash Username')
+            ->rules('required_if:bkash_active,true')
+            ->help('Enter your bKash Username.')
+            ->default($this->getSettingValue('bkash_username'));
+
+        $this->text('bkash_password', 'bKash Password')
+            ->rules('required_if:bkash_active,true')
+            ->help('Enter your bKash Password.')
+            ->default($this->getSettingValue('bkash_password'));
+
+        // SSLCommerz Settings (Disabled by Default)
+        $this->divider('SSLCommerz Settings');
+        $this->switch('sslcommerz_active', 'Activate SSLCommerz')
+            ->help('Enable or disable SSLCommerz as a payment method.')
+            ->default((int) $this->getSettingValue('sslcommerz_active'));
+
+
+        $this->text('sslcommerz_store_id', 'SSLCommerz Store ID')
+            ->rules('required_if:sslcommerz_active,true')
+            ->help('Enter your SSLCommerz Store ID.')
+            ->default($this->getSettingValue('sslcommerz_store_id'));
+
+
+        $this->text('sslcommerz_store_password', 'SSLCommerz Store Password')
+            ->rules('required_if:sslcommerz_active,true')
+            ->help('Enter your SSLCommerz Store Password.')
+            ->default($this->getSettingValue('sslcommerz_store_password'));
+
+
+        $this->switch('sslcommerz_testmode', 'Test Mode')
+            ->help('Enable or disable test mode for SSLCommerz.')
+            ->default((int) $this->getSettingValue('sslcommerz_testmode'));
+
 
         // PayPal Settings (Disabled by Default)
         $this->divider('PayPal Settings');
@@ -102,30 +158,6 @@ class PaymentSettings extends Form
             ->default($this->getSettingValue('stripe_secret'))
             ->disable(); // Disable input
 
-        // SSLCommerz Settings (Disabled by Default)
-        $this->divider('SSLCommerz Settings');
-        $this->switch('sslcommerz_active', 'Activate SSLCommerz')
-            ->help('Enable or disable SSLCommerz as a payment method.')
-            ->default((int) $this->getSettingValue('sslcommerz_active')) // Cast to int for boolean display
-            ->disable(); // Disable input
-
-        $this->text('sslcommerz_store_id', 'SSLCommerz Store ID')
-            ->rules('required_if:sslcommerz_active,true')
-            ->help('Enter your SSLCommerz Store ID.')
-            ->default($this->getSettingValue('sslcommerz_store_id'))
-            ->disable(); // Disable input
-
-        $this->text('sslcommerz_store_password', 'SSLCommerz Store Password')
-            ->rules('required_if:sslcommerz_active,true')
-            ->help('Enter your SSLCommerz Store Password.')
-            ->default($this->getSettingValue('sslcommerz_store_password'))
-            ->disable(); // Disable input
-
-        $this->switch('sslcommerz_testmode', 'Test Mode')
-            ->help('Enable or disable test mode for SSLCommerz.')
-            ->default((int) $this->getSettingValue('sslcommerz_testmode')) // Cast to int for boolean display
-            ->disable(); // Disable input
-
         // Disable reset button and change submit button text
         $this->disableReset();
     }
@@ -145,6 +177,12 @@ class PaymentSettings extends Form
             'sslcommerz_store_id' => $this->getSettingValue('sslcommerz_store_id'),
             'sslcommerz_store_password' => $this->getSettingValue('sslcommerz_store_password'),
             'sslcommerz_testmode' => (int) $this->getSettingValue('sslcommerz_testmode'), // Cast to int for boolean display
+            'bkash_active' => (int) $this->getSettingValue('bkash_active'), // Cast to int for boolean display
+            'bkash_base_url' => $this->getSettingValue('bkash_base_url'),
+            'bkash_app_key' => $this->getSettingValue('bkash_app_key'),
+            'bkash_app_secret' => $this->getSettingValue('bkash_app_secret'),
+            'bkash_username' => $this->getSettingValue('bkash_username'),
+            'bkash_password' => $this->getSettingValue('bkash_password'),
         ];
     }
 

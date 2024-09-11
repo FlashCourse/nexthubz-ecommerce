@@ -1,4 +1,4 @@
-<footer class="bg-secondary px-4 text-white py-12">
+<footer class="bg-primary px-4 text-light py-12">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-8">
 
@@ -23,8 +23,8 @@
             <!-- Contact -->
             <div class="mb-8 md:mb-0">
                 <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-                <p>Email: support@nextaven.com</p>
-                <p>Phone: +88 09638 855555</p>
+                <p>Email: {{ $settings->get('email', 'info@nexthubz.com') }}</p>
+                <p>Phone: {{ $settings->get('hotline', '(+880) 9638000380') }}</p>
             </div>
 
             <!-- Follow Us -->
@@ -32,25 +32,25 @@
                 <h2 class="text-3xl font-bold mb-4">Follow Us</h2>
                 <div class="flex space-x-4">
                     @if ($facebookUrl = $settings->get('facebook_link'))
-                        <a href="{{ $facebookUrl }}" class="text-white hover:text-gray-500">
+                        <a href="{{ $facebookUrl }}" class="hover:text-secondary">
                             <i class="fab fa-facebook-f text-2xl"></i>
                         </a>
                     @endif
 
                     @if ($twitterUrl = $settings->get('twitter_link'))
-                        <a href="{{ $twitterUrl }}" class="text-white hover:text-gray-500">
+                        <a href="{{ $twitterUrl }}" class="hover:text-secondary">
                             <i class="fab fa-twitter text-2xl"></i>
                         </a>
                     @endif
 
                     @if ($instagramUrl = $settings->get('instagram_link'))
-                        <a href="{{ $instagramUrl }}" class="text-white hover:text-gray-500">
+                        <a href="{{ $instagramUrl }}" class="hover:text-secondary">
                             <i class="fab fa-instagram text-2xl"></i>
                         </a>
                     @endif
 
                     @if ($linkedinUrl = $settings->get('linkedin_link'))
-                        <a href="{{ $linkedinUrl }}" class="text-white hover:text-gray-500">
+                        <a href="{{ $linkedinUrl }}" class="hover:text-secondary">
                             <i class="fab fa-linkedin text-2xl"></i>
                         </a>
                     @endif
@@ -66,7 +66,7 @@
             <form action="#" method="post" class="flex justify-center">
                 <x-input type="email" name="email" placeholder="Your Email"
                     class="px-4 py-2 border rounded-none focus:outline-none" />
-                <button type="submit" class="px-4 py-2 text-white bg-green-500 rounded-r">Subscribe</button>
+                <button type="submit" class="px-4 py-2 text-light bg-secondary rounded-r">Subscribe</button>
             </form>
         </div>
     </div>

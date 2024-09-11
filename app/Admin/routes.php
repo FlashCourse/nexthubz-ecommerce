@@ -4,15 +4,16 @@ use App\Admin\Controllers\AddressController;
 use App\Admin\Controllers\AttributeController;
 use App\Admin\Controllers\AttributeValueController;
 use App\Admin\Controllers\CategoryController;
+use App\Admin\Controllers\CouponController;
+use App\Admin\Controllers\CouponUsageController;
+use App\Admin\Controllers\DiscountController;
 use App\Admin\Controllers\OrderController;
 use App\Admin\Controllers\OrderItemController;
 use App\Admin\Controllers\PaymentController;
 use App\Admin\Controllers\ProductController;
-use App\Admin\Controllers\PromotionController;
-use App\Admin\Controllers\PromotionProductController;
-use App\Admin\Controllers\PromotionUserController;
 use App\Admin\Controllers\ReviewController;
 use App\Admin\Controllers\SettingController;
+use App\Admin\Controllers\SlideController;
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\VariantAttributeController;
 use App\Admin\Controllers\VariantController;
@@ -40,10 +41,15 @@ Route::group([
     $router->resource('attribute-values', AttributeValueController::class);
     $router->resource('variants', VariantController::class);
     $router->resource('variant-attributes', VariantAttributeController::class);
+    $router->resource('coupons', CouponController::class);
+    $router->resource('discounts', DiscountController::class);
+    $router->resource('coupon-usages', CouponUsageController::class);
+    $router->resource('slides', SlideController::class);
 
     // Individual routes for settings
     $router->get('settings/general', [SettingController::class, 'general'])->name('settings.general');
     $router->get('settings/site', [SettingController::class, 'site'])->name('settings.site');
+    $router->get('settings/company', [SettingController::class, 'company'])->name('settings.company');
     $router->get('settings/shipping', [SettingController::class, 'shipping'])->name('settings.shipping');
     $router->get('settings/payment', [SettingController::class, 'payment'])->name('settings.payment');
     $router->get('settings/tax', [SettingController::class, 'tax'])->name('settings.tax');

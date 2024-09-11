@@ -1,77 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Invoice - {{ $payment->invoice_id }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice #{{ $order->order_number }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #333;
+        }
+
+        .header p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .company-info,
+        .customer-info,
+        .order-summary {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 8px;
+            vertical-align: top;
+            color: #555;
+        }
+
+        .info-table td.label {
+            font-weight: bold;
+            width: 150px;
+            color: #333;
+        }
+
+        .order-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .order-summary-table th,
+        .order-summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .order-summary-table th {
+            background-color: #f8f8f8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .order-summary-table td {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer strong {
+            color: #333;
+        }
+    </style>
 </head>
 
-<body style="background-color: #f4f4f4; font-family: Arial, sans-serif; margin: 0; padding: 20px;">
-    <div
-        style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-        <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">INVOICE</h1>
-        <div style="margin-bottom: 20px;">
-            <h2 style="font-size: 20px; font-weight: bold;">Billed From</h2>
-            <p>Next Hubz Limited</p>
-            <p>contact@nexthubz.com</p>
-            <p>+8809638000380</p>
-            <p>House No: 15 (4/B), Road No: 21, Sector-11, Uttara, Dhaka-1230, Bangladesh</p>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Placed</h1>
+            <p>Order Date: {{ $order->created_at->format('Y-m-d') }}</p>
+            <p>Order Number: {{ $order->order_number }}</p>
         </div>
-        <div style="margin-bottom: 20px;">
-            <h2 style="font-size: 20px; font-weight: bold;">Billed To</h2>
-            <p>{{ $order->user->name }}</p>
-            <p>{{ $order->user->email }}</p>
-            @if ($order->address)
-                <p>{{ $order->address->phone }}</p>
-                {{-- <p>{{ $order->address->full_address }}</p> --}}
-            @else
-                <p>No address found</p>
-            @endif
+
+        <div class="company-info">
+            <h2 class="section-title">Company Information</h2>
+            <table class="info-table">
+                <tr>
+                    <td class="label">Operations HQ:</td>
+                    <td>{{ $settings->get('operations_hq', 'Unknown Address') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Corporate:</td>
+                    <td>{{ $settings->get('corporate', 'Unknown Address') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Phone:</td>
+                    <td>{{ $settings->get('phone_1', 'Undefined') }} / {{ $settings->get('phone_2', 'Undefined') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Hotline:</td>
+                    <td>{{ $settings->get('hotline', 'Undefined') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Email:</td>
+                    <td>{{ $settings->get('email', 'Undefined') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Skype, Telegram, WhatsApp:</td>
+                    <td>{{ $settings->get('skype_telegram_whatsapp', 'Undefined') }}</td>
+                </tr>
+            </table>
         </div>
-        <div style="margin-bottom: 20px;">
-            <p style="font-size: 18px; font-weight: bold;">Status: <span
-                    style="color: {{ $payment->status == 'completed' ? '#38a169' : '#e53e3e' }};">{{ strtoupper($payment->status) }}</span>
-            </p>
+
+        <div class="customer-info">
+            <h2 class="section-title">Customer Information</h2>
+            <table class="info-table">
+                <tr>
+                    <td class="label">Name:</td>
+                    <td>{{ $order->shipping_first_name }} {{ $order->shipping_last_name }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Address:</td>
+                    <td>
+                        {{ $order->shipping_address_line_1 }}<br>
+                        @if ($order->shipping_address_line_2)
+                            {{ $order->shipping_address_line_2 }}<br>
+                        @endif
+                        {{ $order->shipping_city }}, {{ $order->shipping_state }} {{ $order->shipping_postcode }}<br>
+                        {{ $order->shipping_country }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Phone:</td>
+                    <td>{{ $order->shipping_phone }}</td>
+                </tr>
+                @if ($order->shipping_email)
+                    <tr>
+                        <td class="label">Email:</td>
+                        <td>{{ $order->shipping_email }}</td>
+                    </tr>
+                @endif
+            </table>
         </div>
-        <div style="margin-bottom: 20px;">
-            <table style="width: 100%; border-collapse: collapse;">
+
+        <div class="order-summary">
+            <h2 class="section-title">Order Summary</h2>
+            <table class="order-summary-table">
                 <thead>
                     <tr>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Description</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Quantity</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Unit Price</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tax</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Amount (BDT)</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price (BDT)</th>
+                        <th>Total (BDT)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orderItems as $item)
+                    @foreach ($order->orderItems as $item)
                         <tr>
-                            <td style="border: 1px solid #dddddd; padding: 8px;">{{ $item->product->name }}</td>
-                            <td style="border: 1px solid #dddddd; padding: 8px;">{{ $item->quantity }}</td>
-                            <td style="border: 1px solid #dddddd; padding: 8px;">BDT
-                                {{ number_format($item->price, 2) }}</td>
-                            <td style="border: 1px solid #dddddd; padding: 8px;">BDT {{ number_format($item->tax, 2) }}
-                            </td>
-                            <td style="border: 1px solid #dddddd; padding: 8px;">BDT
-                                {{ number_format($item->quantity * $item->price + $item->tax, 2) }}</td>
+                            <td>{{ $item->product->name }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>BDT {{ number_format($item->price, 2) }}</td>
+                            <td>BDT {{ number_format($item->price * $item->quantity, 2) }}</td>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="3" class="total-amount">Subtotal:</td>
+                        <td class="total-amount">BDT {{ number_format($order->subtotal, 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="total-amount">Taxes (VAT/GST):</td>
+                        <td class="total-amount">BDT {{ number_format($order->tax, 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="total-amount">Shipping:</td>
+                        <td class="total-amount">BDT {{ number_format($order->shipping_cost, 2) }}</td>
+                    </tr>
+                    @if ($order->total_discount)
+                        <tr>
+                            <td colspan="3" class="total-amount">Discount:</td>
+                            <td class="total-amount">- BDT {{ number_format($order->total_discount, 2) }}</td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <td colspan="3" class="total-amount">Total Amount:</td>
+                        <td class="total-amount">BDT {{ number_format($order->total, 2) }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div style="margin-bottom: 20px;">
-            <p style="font-size: 18px; font-weight: bold;">Sub Total: BDT {{ number_format($order->subtotal, 2) }}</p>
-            <p style="font-size: 18px; font-weight: bold;">Tax: BDT {{ number_format($order->tax, 2) }}</p>
-            <p style="font-size: 18px; font-weight: bold;">Shipping: BDT {{ number_format($order->shipping, 2) }}</p>
-            <p style="font-size: 18px; font-weight: bold;">Total: BDT {{ number_format($order->total, 2) }}</p>
-        </div>
-        <div style="margin-bottom: 20px;">
-            <h2 style="font-size: 20px; font-weight: bold;">Terms and Conditions</h2>
-            <p>Please pay within due time.</p>
-        </div>
-        <div style="text-align: center;">
-            <p>Thanks for your payment</p>
+
+        <div class="footer">
+            <p><strong>Thank you for your order! If you have any questions, please contact our support team at
+                    {{ $settings->get('hotline', 'Undefined') }} or email us at
+                    {{ $settings->get('email', 'Undefined') }}.</strong></p>
+            <p>{{ $settings->get('get_in_touch', "Our team is here 24/7, just share your project details, and we'll reach out to you right away.") }}
+            </p>
         </div>
     </div>
 </body>

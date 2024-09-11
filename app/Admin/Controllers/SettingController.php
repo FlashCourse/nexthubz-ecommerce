@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Forms\ApiSettings;
+use App\Admin\Forms\CompanySettings;
 use App\Admin\Forms\GeneralSettings;
 use App\Admin\Forms\NotificationSettings;
 use App\Admin\Forms\PaymentSettings;
@@ -31,6 +32,16 @@ class SettingController extends Controller
         return $content
             ->title('Settings')
             ->row($siteSettingForm->render());
+    }
+
+    public function company(Content $content)
+    {
+        // Instantiate the form objects
+        $companySettingForm = new CompanySettings();
+
+        return $content
+            ->title('Settings')
+            ->row($companySettingForm->render());
     }
 
     public function shipping(Content $content)

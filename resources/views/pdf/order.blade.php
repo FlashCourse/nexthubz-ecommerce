@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice #{{ $order->id }}</title>
+    <title>Invoice #{{ $order->order_number }}</title>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -124,37 +124,41 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Invoice</h1>
+            <h1>Order Placed</h1>
             <p>Order Date: {{ $order->created_at->format('Y-m-d') }}</p>
-            <p>Order Number: {{ $order->id }}</p>
+            <p>Order Number: {{ $order->order_number }}</p>
         </div>
 
         <div class="company-info">
             <h2 class="section-title">Company Information</h2>
             <table class="info-table">
                 <tr>
-                    <td class="label">Operations HQ:</td>
-                    <td>{{ $companyInfo['operations_hq'] }}</td>
+                    <td class="label">Company Name:</td>
+                    <td>{{ $settings->get('company_name', 'Undefined') }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Corporate:</td>
-                    <td>{{ $companyInfo['corporate'] }}</td>
+                    <td class="label">Operations HQ:</td>
+                    <td>{{ $settings->get('operations_hq', 'Unknown Address') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Corporate Office:</td>
+                    <td>{{ $settings->get('corporate', 'Unknown Address') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Phone:</td>
-                    <td>{{ $companyInfo['phone_1'] }} / {{ $companyInfo['phone_2'] }}</td>
+                    <td>{{ $settings->get('phone_1', 'Undefined') }} / {{ $settings->get('phone_2', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Hotline:</td>
-                    <td>{{ $companyInfo['hotline'] }}</td>
+                    <td>{{ $settings->get('hotline', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Email:</td>
-                    <td>{{ $companyInfo['email'] }}</td>
+                    <td>{{ $settings->get('email', 'Undefined') }}</td>
                 </tr>
                 <tr>
                     <td class="label">Skype, Telegram, WhatsApp:</td>
-                    <td>{{ $companyInfo['skype_telegram_whatsapp'] }}</td>
+                    <td>{{ $settings->get('skype_telegram_whatsapp', 'Undefined') }}</td>
                 </tr>
             </table>
         </div>
@@ -197,8 +201,8 @@
                     <tr>
                         <th>Product</th>
                         <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th>Price (BDT)</th>
+                        <th>Total (BDT)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -206,41 +210,42 @@
                         <tr>
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->quantity }}</td>
-                            <td>{{ $order->currency }} ${{ number_format($item->price, 2) }}</td>
-                            <td>{{ $order->currency }} ${{ number_format($item->price * $item->quantity, 2) }}</td>
+                            <td>BDT {{ number_format($item->price, 2) }}</td>
+                            <td>BDT {{ number_format($item->price * $item->quantity, 2) }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="3" class="total-amount">Subtotal:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->subtotal, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->subtotal, 2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="total-amount">Taxes (VAT/GST):</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->tax, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->tax, 2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="total-amount">Shipping:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->shipping_cost, 2) }}
-                        </td>
+                        <td class="total-amount">BDT {{ number_format($order->shipping_cost, 2) }}</td>
                     </tr>
-                    @if ($order->discount)
+                    @if ($order->total_discount)
                         <tr>
                             <td colspan="3" class="total-amount">Discount:</td>
-                            <td class="total-amount">- {{ $order->currency }}
-                                ${{ number_format($order->discount, 2) }}</td>
+                            <td class="total-amount">- BDT {{ number_format($order->total_discount, 2) }}</td>
                         </tr>
                     @endif
                     <tr>
                         <td colspan="3" class="total-amount">Total Amount:</td>
-                        <td class="total-amount">{{ $order->currency }} ${{ number_format($order->total, 2) }}</td>
+                        <td class="total-amount">BDT {{ number_format($order->total, 2) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="footer">
-            <p><strong>{{ $additionalNotes }}</strong></p>
-            <p>Our team is here 24/7, just share your project details, and we'll reach out to you right away.</p>
+            <p><strong>Thank you for your order! If you have any questions, please contact our support team at
+                    {{ $settings->get('hotline', 'Undefined') }} or email us at
+                    {{ $settings->get('email', 'Undefined') }}.</strong></p>
+            <p>{{ $settings->get('get_in_touch', "Our team is here 24/7, just share your project details, and we'll reach out to you right away.") }}
+            </p>
         </div>
     </div>
 </body>

@@ -3,15 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Address;
+use App\Models\Coupon;
 use App\Services\SettingsService;
+use App\Services\StockService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Attributes\Validate;
 
 class Checkout extends Component
 {
+    public $couponCode = '';
+    public $discountAmount = 0;
 
     public $stockErrors;
     public $stockAvailable;
@@ -44,13 +47,7 @@ class Checkout extends Component
     #[Validate('required|string|max:15')]
     public $phone = '';
 
-    // #[Validate('nullable|string|max:15')]
-    // public $couponCode = '';
-
-
-
-    // Payment Method
-    #[Validate('required|in:cash,bkash,online')]
+    #[Validate('required|in:cash,bkash,card')]
     public $paymentMethod = '';
 
     public $cart = [];
@@ -59,7 +56,7 @@ class Checkout extends Component
     public $subtotal = 0;
     public $total = 0;
 
-    public $order_id; // database order id to store in the order for tracking order
+    public $order_id;
 
     protected $settings;
 
@@ -67,26 +64,12 @@ class Checkout extends Component
     {
         $this->settings = $settings;
         $this->cart = session()->get('cart', []);
+
         if (empty($this->cart)) {
-            // Redirect to the home page
             return Redirect::route('home');
         }
-        // Store cart data in the cartData session
-        session(['cartData' => $this->cart]);
 
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            // Retrieve the authenticated user
-            $user = Auth::user();
-
-            // Retrieve the address data for the authenticated user
-            $address = Address::where('user_id', $user->id)->first();
-        } else {
-            // Handle guest checkout: address data might be stored in session or other storage
-            $address = null; // Or fetch guest address from session or other storage if applicable
-        }
-
-        // Check if the address is available, otherwise set to an empty array
+        $address = Auth::check() ? Address::where('user_id', Auth::id())->first() : null;
         $addressData = $address ? $address->toArray() : [];
 
         $this->firstName = $addressData['first_name'] ?? '';
@@ -99,65 +82,19 @@ class Checkout extends Component
         $this->country = $addressData['country'] ?? '';
         $this->phone = $addressData['phone'] ?? '';
 
-
-        // Set Shipping and Tax
-        $this->tax = $this->settings->get('default_tax_rate') / 100;
-        $this->shipping = $this->settings->get('flat_rate_shipping_active')
-            ? $this->settings->get('flat_rate_amount')
-            : 0;
-
         $this->calculateSubtotal();
+        $this->calculateTax();
+        $this->calculateShipping();
         $this->calculateTotal();
-        $this->checkAvailability();
-    }
 
-
-    public function checkAvailability()
-    {
-        // Retrieve cart items from state
-        $cartItems = $this->cart;
-
-        // Get all product IDs from the cart
-        $productIds = array_column($cartItems, 'product_id');
-
-        // Query the product table to fetch product information including stock
-        $products = DB::table('products')
-            ->whereIn('id', $productIds)
-            ->select('id', 'name', 'stock')
-            ->get();
-
-        // Map product IDs to product data for easier access
-        $productData = [];
-        foreach ($products as $product) {
-            $productData[$product->id] = $product;
-        }
-
-        $this->stockErrors = [];
-
-        // Check availability for each product in the cart
-        $this->stockAvailable = true;
-
-        foreach ($cartItems as $cartItem) {
-            $productId = $cartItem['product_id'];
-            $requestedQuantity = $cartItem['quantity'];
-
-            // Retrieve product information
-            $product = $productData[$productId] ?? null;
-
-            // Check if the product exists and if it has sufficient stock
-            if (!$product) {
-                $this->stockAvailable = false;
-                $this->stockErrors[$productId] = 'Product not found.';
-            } elseif ($product->stock < $requestedQuantity) {
-                $this->stockAvailable = false;
-                $this->stockErrors[$productId] = 'Insufficient stock.';
-            }
-        }
+        $stockService = new StockService();
+        list($this->stockAvailable, $this->stockErrors) = $stockService->checkAvailability($this->cart);
     }
 
     public function save()
     {
         $this->validate();
+
         $address = [
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
@@ -169,20 +106,24 @@ class Checkout extends Component
             'country' => $this->country,
             'phone' => $this->phone,
         ];
+
         session(['addressData' => $address]);
+
         $orderData = [
-            'tax' => $this->tax,
-            'shipping' => $this->shipping,
             'subtotal' => $this->subtotal,
+            'total_discount' => $this->discountAmount,
+            'tax' => $this->tax,
+            'shipping_cost' => $this->shipping,
             'total' => $this->total,
         ];
+
         session(['orderData' => $orderData]);
         session()->forget('cart');
-
+        session(['cartData' => $this->cart]);
 
         if ($this->paymentMethod === 'cash') {
             return redirect()->route('cash-payment');
-        } else if ($this->paymentMethod === 'bkash') {
+        } elseif ($this->paymentMethod === 'bkash') {
             return redirect()->route('bkash-payment');
         } else {
             return redirect()->route('online-payment');
@@ -193,13 +134,69 @@ class Checkout extends Component
     {
         $this->subtotal = collect($this->cart)->reduce(function ($carry, $item) {
             return $carry + ($item['price'] * $item['quantity']);
-        });
+        }, 0);
+    }
+
+    public function calculateTax()
+    {
+        $taxRate = $this->settings->get('default_tax_rate') / 100;
+        $discountedSubtotal = $this->subtotal - $this->discountAmount;
+        $this->tax = $discountedSubtotal * $taxRate;
+    }
+
+    public function calculateShipping()
+    {
+        $this->shipping = $this->settings->get('flat_rate_shipping_active')
+            ? $this->settings->get('flat_rate_amount')
+            : 0;
     }
 
     public function calculateTotal()
     {
-        $this->tax = $this->subtotal * $this->tax;
-        $this->total = $this->subtotal + $this->tax + $this->shipping;
+        $this->total = $this->subtotal - $this->discountAmount + $this->tax + $this->shipping;
+    }
+
+    public function applyCoupon()
+    {
+        $coupon = Coupon::where('code', $this->couponCode)->active()->first();
+
+        if (!$coupon) {
+            session()->flash('coupon_error', 'Invalid or expired coupon code.');
+            $this->discountAmount = 0;
+            $this->calculateTotal();
+            return;
+        }
+
+        if (!$coupon->isValid()) {
+            session()->flash('coupon_error', 'Coupon is not valid for use.');
+            $this->discountAmount = 0;
+            $this->calculateTotal();
+            return;
+        }
+
+        if (!is_array($this->cart) || empty($this->cart)) {
+            session()->flash('coupon_error', 'Cart is not properly initialized or is empty.');
+            return;
+        }
+
+        $this->discountAmount = 0;
+
+        foreach ($this->cart as &$item) {
+            if ($coupon->isApplicableToProduct($item['product_id'])) {
+                $discount = $coupon->calculateDiscountForProduct($item['price'], $item['product_id']);
+                $this->discountAmount += $discount * $item['quantity'];
+                $item['discount'] = $discount;
+                $item['final_price'] = $item['price'] - $discount;
+            } else {
+                $item['discount'] = 0;
+                $item['final_price'] = $item['price'];
+            }
+        }
+
+        $this->calculateSubtotal();
+        $this->calculateTotal();
+
+        session()->flash('coupon_success', 'Coupon applied successfully!');
     }
 
     public function render()

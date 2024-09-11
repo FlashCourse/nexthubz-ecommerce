@@ -6,12 +6,17 @@
     <h3 class="text-lg font-semibold line-clamp-2">{{ $product->name }}</h3>
     <div class="flex justify-between items-center mt-2">
         <p class="text-xl font-semibold text-gray-800">
-            @if (isset($discount) && $discount < $product->price)
-                <span class="text-lg font-extrabold">&#2547;</span><span class="line-through text-gray-500 mr-2">
-                    {{ number_format($product->price, 2) }}</span>
-                <span class="text-lg font-extrabold">&#2547; </span><span>{{ number_format($discount, 2) }}</span>
+            @if ($product->sale_price < $product->regular_price)
+                <!-- Show sale price first and regular price with strikethrough -->
+                <span class="text-lg font-extrabold text-red-500">&#2547;
+                </span><span>{{ number_format($product->sale_price, 2) }}</span>
+                <span class="font-extrabold text-gray-500 ml-2">
+                    <span class="line-through">{{ number_format($product->regular_price, 2) }}</span>
+                </span>
             @else
-                {{ number_format($product->price, 2) }}
+                <!-- Show only the regular price if no sale is active -->
+                <span class="text-lg font-extrabold">&#2547;
+                </span><span>{{ number_format($product->regular_price, 2) }}</span>
             @endif
         </p>
     </div>
