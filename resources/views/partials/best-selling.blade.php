@@ -1,6 +1,7 @@
 <section class="bg-gray-100 py-20">
     <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-10">Best Selling</h2>
+        <!-- Use the Header component with a catchy title and subtitle -->
+        <x-header title="Best Selling Products" subtitle="Browse through our top-selling items that everyone loves!" />
 
         <div class="swiper-container best-selling-swiper overflow-x-hidden">
             <div class="swiper-wrapper">
@@ -20,6 +21,7 @@
 </section>
 
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var bestSellingSwiper = new Swiper('.best-selling-swiper', {
@@ -27,7 +29,7 @@
             slidesPerView: 2,
             spaceBetween: 10,
             autoplay: {
-                delay: 2500,
+                delay: 10000,
                 disableOnInteraction: false
             },
             pagination: {
