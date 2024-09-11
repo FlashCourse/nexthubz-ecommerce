@@ -3,22 +3,21 @@
 @tailwind utilities;
 
 :root {
-    /* Default Theme */
-    --color-primary: #0d6efd;
-    --color-secondary: #6c757d;
-    --color-background: #f8f9fa;
-    --color-foreground: #343a40;
-    --color-success: #198754;
-    --color-warning: #ffc107;
-    --color-danger: #dc3545;
-    --color-info: #0dcaf0;
-    --color-price: #ff6f61;
-    --color-discount: #ffd700;
-    --color-dark: #212529;
-    --color-light: #f1f3f5;
-    --color-muted: #6c757d;
-    --color-highlight: #ffd700;
-    --color-overlay: rgba(0, 0, 0, 0.6);
+    --color-primary: #093b70; /* Primary (Dark Blue) */
+    --color-secondary: #00a2e8; /* Secondary (Dark Sky Blue) */
+    --color-background: #f8f9fa; /* Background (Light Gray) */
+    --color-foreground: #ffffff; /* Foreground (White) */
+    --color-success: #28a745; /* Success (Green) */
+    --color-warning: #ffc107; /* Warning (Yellow) */
+    --color-danger: #dc3545; /* Danger (Red) */
+    --color-info: #17a2b8; /* Info (Teal Blue) */
+    --color-price: #1359a3; /* Price (Dark Blue, same as Primary) */
+    --color-discount: #e83e8c; /* Discount (Pink) */
+    --color-dark: #343a40; /* Dark (Dark Gray) */
+    --color-light: #f8f9fa; /* Light (Very Light Gray) */
+    --color-muted: #6c757d; /* Muted (Medium Gray) */
+    --color-highlight: #d1ecf1; /* Highlight (Pale Sky Blue) */
+    --color-overlay: rgba(0, 0, 0, 0.5); /* Overlay (Semi-transparent Black) */
 }
 
 [data-theme="ocean"] {
