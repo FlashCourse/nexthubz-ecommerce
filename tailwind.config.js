@@ -10,19 +10,28 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "var(--color-primary)",
-                secondary: "var(--color-secondary)",
+                primary: {
+                    DEFAULT: "var(--color-primary)",
+                    light: "var(--color-primary-light)",
+                    lighter: "var(--color-primary-lighter)",
+                    dark: "var(--color-primary-dark)",
+                    darker: "var(--color-primary-darker)",
+                },
+                secondary: {
+                    DEFAULT: "var(--color-secondary)",
+                    light: "var(--color-secondary-light)",
+                    lighter: "var(--color-secondary-lighter)",
+                    dark: "var(--color-secondary-dark)",
+                    darker: "var(--color-secondary-darker)",
+                },
                 background: "var(--color-background)",
                 foreground: "var(--color-foreground)",
-
                 success: "var(--color-success)",
                 warning: "var(--color-warning)",
                 danger: "var(--color-danger)",
                 info: "var(--color-info)",
-
                 price: "var(--color-price)",
                 discount: "var(--color-discount)",
-
                 dark: "var(--color-dark)",
                 light: "var(--color-light)",
                 muted: "var(--color-muted)",
@@ -31,4 +40,5 @@ export default {
             },
         },
     },
+    plugins: [],
 };
